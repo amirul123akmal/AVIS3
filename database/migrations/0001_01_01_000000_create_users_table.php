@@ -71,10 +71,11 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('login');
-        Schema::dropIfExists('state');
-        Schema::dropIfExists('address');
         Schema::dropIfExists('actor');
+        Schema::dropIfExists('accountType');
+        Schema::dropIfExists('login');
+        Schema::dropIfExists('address');
+        Schema::dropIfExists('state');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }

@@ -36,8 +36,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('activity');
-        Schema::dropIfExists('actorActivity');
         Schema::dropIfExists('benActivity');
+        Schema::dropIfExists('actorActivity');
+        Schema::dropIfExists('activity');
     }
 };

@@ -41,8 +41,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('incomeGroup');
-        Schema::dropIfExists('beneficiary');
         Schema::dropIfExists('requestBeneficiary');
+        Schema::dropIfExists('beneficiary');
+        Schema::dropIfExists('incomeGroup');
     }
 };
