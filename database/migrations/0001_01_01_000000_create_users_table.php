@@ -20,6 +20,11 @@ return new class extends Migration {
             $table->timestamps();
         });
 
+        Schema::create('accountType', function (Blueprint $table) {
+            $table->bigIncrements('accountID')->primary();
+            $table->string('accountType');
+        });
+
         Schema::create('state', function (Blueprint $table) {
             $table->bigIncrements('stateID')->primaryKey();
             $table->string('statename');
@@ -34,13 +39,15 @@ return new class extends Migration {
         });
 
         Schema::create('actor', function (Blueprint $table) {
-            $table->bigIncrements('actorID')->primaryKey();
+            $table->unsignedBigInteger('actorID');
+            $table->foreign('actorID')->references('loginID')->on('login');
             $table->string('fullname');
             $table->string('ic');
             $table->string('phoneNumber');
             $table->unsignedBigInteger('addressID');
             $table->foreign('addressID')->references('addressID')->on('address');
-
+            $table->unsignedBigInteger('accountID');
+            $table->foreign('accountID')->references('accountID')->on('accountType');
         });
 
         Schema::create('password_reset_tokens', function (Blueprint $table) {
@@ -64,7 +71,10 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('users');
+        Schema::dropIfExists('login');
+        Schema::dropIfExists('state');
+        Schema::dropIfExists('address');
+        Schema::dropIfExists('actor');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');
     }
