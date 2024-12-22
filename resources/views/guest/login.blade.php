@@ -24,7 +24,7 @@
                         <div class="">
                             <p class="font-bold">Email</p>
                             <label class="input input-bordered flex items-center gap-2 ">
-                                <input type="email" name="email" class="focus:ring-0"
+                                <input type="email" name="email" class="focus:ring-0 grow"
                                     placeholder="Enter Your Email" />
                             </label>
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />

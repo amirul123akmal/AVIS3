@@ -8,15 +8,20 @@ use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
+use Illuminate\Http\Response;
+use App\Models\Actor;
+use Illuminate\Support\Facades\Log;
 
 class AuthenticatedSessionController extends Controller
 {
     /**
      * Display the login view.
      */
-    public function create(): View
+    public function create(): View|RedirectResponse
     {
-        return view('guest.login');
+        if (!auth()->check())
+            return view('guest.login');
+        return redirect('/admin');
     }
 
     /**
@@ -25,10 +30,18 @@ class AuthenticatedSessionController extends Controller
     public function store(LoginRequest $request): RedirectResponse
     {
         $request->authenticate();
-
         $request->session()->regenerate();
 
-        return redirect()->intended('/admin');
+        // Get the authenticated user's ID
+        $userId = auth()->user()->loginID;
+        // Log::info('Authenticated User ID: ' . $userId);
+        $data = Actor::where('actorID', $userId)->exists();
+        // dd($data);
+        if ($data) {
+            return redirect()->intended('/admin');
+        } else {
+            return redirect()->intended('/choose');
+        }
     }
 
     /**
@@ -40,7 +53,7 @@ class AuthenticatedSessionController extends Controller
 
         $request->session()->invalidate();
 
-        $request->session()->regenerateToken();
+        session()->flush();
 
         return redirect('/');
     }
