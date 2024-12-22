@@ -37,5 +37,7 @@ class UserSeeder extends Seeder
             ['accountType' => 'beneficiaries'],
             ['accountType' => 'volunteers'],
         ]);
+
+
     }
 }
