@@ -11,7 +11,7 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('login', function (Blueprint $table) {
-            $table->bigIncrements('loginID')->primaryKey()->unique();
+            $table->bigIncrements('loginID');
             $table->string('username');
             $table->string('email')->unique();
             $table->timestamp('email_verified_at')->nullable();
@@ -21,17 +21,17 @@ return new class extends Migration {
         });
 
         Schema::create('accountType', function (Blueprint $table) {
-            $table->bigIncrements('accountID')->primary()->unique();
+            $table->bigIncrements('accountID');
             $table->string('accountType');
         });
 
         Schema::create('state', function (Blueprint $table) {
-            $table->bigIncrements('stateID')->primaryKey()->unique();
+            $table->bigIncrements('stateID');
             $table->string('statename');
         });
 
         Schema::create('address', function (Blueprint $table) {
-            $table->bigIncrements('addressID')->primaryKey()->unique();
+            $table->bigIncrements('addressID');
             $table->string('road');
             $table->string('postcode');
             $table->unsignedBigInteger('stateID');
@@ -47,8 +47,10 @@ return new class extends Migration {
             $table->string('phoneNumber');
             $table->unsignedBigInteger('addressID')->unique();
             $table->foreign('addressID')->references('addressID')->on('address');
-            $table->unsignedBigInteger('accountID');
+            $table->unsignedBigInteger('accountID')->unique();
             $table->foreign('accountID')->references('accountID')->on('accountType');
+            $table->unsignedBigInteger('statusID')->unique();
+            $table->foreign('statusID')->references('statusID')->on('status');
             $table->timestamps();
         });
 

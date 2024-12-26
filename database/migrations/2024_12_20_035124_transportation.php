@@ -11,18 +11,18 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('driver', function (Blueprint $table) {
-            $table->bigIncrements('driverID')->primary();
+            $table->bigIncrements('driverID');
             $table->string('driverName');
             $table->string('driverPhoneNum')->nullable();
         });
 
         Schema::create('vehicleType', function (Blueprint $table) {
-            $table->bigIncrements('vehicleID')->primary();
+            $table->bigIncrements('vehicleID');
             $table->string('vehicleType');
         });
 
         Schema::create('transportation', function (Blueprint $table) {
-            $table->bigIncrements('transID')->primary();
+            $table->bigIncrements('transID');
             $table->unsignedBigInteger('vehicleID');
             $table->foreign('vehicleID')->references('vehicleID')->on('vehicleType');
             $table->unsignedBigInteger('driverID');
@@ -35,7 +35,7 @@ return new class extends Migration {
         });
 
         Schema::create('requestTransport', function (Blueprint $table) {
-            $table->bigIncrements('reqID')->primary();
+            $table->bigIncrements('reqID');
             $table->unsignedBigInteger('benID');
             $table->foreign('benID')->references('benID')->on('beneficiary');
             $table->string('addressFrom');
@@ -46,6 +46,7 @@ return new class extends Migration {
         });
 
         Schema::create('transportAssign', function (Blueprint $table) {
+            $table->bigIncrements('transAssignID');
             $table->unsignedBigInteger('reqID');
             $table->foreign('reqID')->references('reqID')->on('requestTransport');
             $table->unsignedBigInteger('transID');

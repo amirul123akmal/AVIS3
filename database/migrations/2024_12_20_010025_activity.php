@@ -11,21 +11,23 @@ return new class extends Migration {
     public function up(): void
     {
         Schema::create('activity', function (Blueprint $table) {
-            $table->bigIncrements('activityID')->primary();
+            $table->bigIncrements('activityID');
             $table->string('activityName');
             $table->string('activityPlace');
             $table->date('dateStart');
             $table->date('dateEnd');
-            $table->integer('volunterCount');
+            $table->integer('volunteerCount');
             $table->integer('beneficiaryCount');
         });
 
         Schema::create('actorActivity', function (Blueprint $table) {
+            $table->bigIncrements('actorActivityID');
             $table->integer('actorID');
             $table->integer('activityID');
         });
 
         Schema::create('benActivity', function (Blueprint $table) {
+            $table->bigIncrements('benActivityID');
             $table->integer('benID');
             $table->integer('activityID');
         });

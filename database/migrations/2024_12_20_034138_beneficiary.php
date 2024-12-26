@@ -16,7 +16,7 @@ return new class extends Migration {
         });
 
         Schema::create('beneficiary', function (Blueprint $table) {
-            $table->bigIncrements('benID')->primary();
+            $table->bigIncrements('benID');
             $table->unsignedBigInteger('actorID');
             $table->foreign('actorID')->references('actorID')->on('actor');
             $table->unsignedBigInteger('statusID');
@@ -30,9 +30,9 @@ return new class extends Migration {
             $table->unsignedBigInteger('benID');
             $table->foreign('benID')->references('benID')->on('beneficiary');
             $table->integer('numDependents');
-            $table->string('incomeDocument');
-            $table->string('supportDocument');
-            $table->string('asnafCardDocument');
+            $table->string('incomeDocument')->nullable()->comment("Store the path to the file accordingly");
+            $table->string('supportDocument')->nullable()->comment("Store the path to the file accordingly");
+            $table->string('asnafCardDocument')->nullable()->comment("Store the path to the file accordingly");
         });
     }
 
