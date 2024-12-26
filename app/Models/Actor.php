@@ -21,7 +21,16 @@ class Actor extends Model
         'phoneNumber',
         'addressID',
         'accountID',
+        'statusID'
     ];
+    protected $attributes = [
+        'statusID' => '1'
+    ];
+
+    public function accountType(): HasOne
+    {
+        return $this->hasOne(AccountType::class, 'accountID', 'accountID');
+    }
 
     public function login(): BelongsTo
     {
@@ -31,5 +40,15 @@ class Actor extends Model
     public function address(): BelongsTo
     {
         return $this->belongsTo(Address::class, 'addressID', 'addressID');
+    }
+
+    public function beneficiary(): HasOne
+    {
+        return $this->hasOne(Beneficiary::class, 'actorID', 'actorID');
+    }
+
+    public function status(): HasOne
+    {
+        return $this->hasOne(Status::class, 'statusID', 'statusID');
     }
 }

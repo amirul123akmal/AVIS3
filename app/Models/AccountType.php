@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AccountType extends Model
@@ -14,8 +15,8 @@ class AccountType extends Model
         'accountType'
     ];
 
-    public function actor(): HasMany
+    public function actor(): BelongsToMany
     {
-        return $this->hasMany(Actor::class, 'accountID', 'accountID');
+        return $this->belongsToMany(Actor::class, 'accountID', 'accountID');
     }
 }
