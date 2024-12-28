@@ -19,9 +19,9 @@ class AuthenticatedSessionController extends Controller
      */
     public function create(): View|RedirectResponse
     {
-        if (!auth()->check())
-            return view('guest.login');
-        return redirect('/admin');
+        // if (!auth()->check())
+        return view('guest.login');
+        // return redirect('/admin');
     }
 
     /**
@@ -37,8 +37,13 @@ class AuthenticatedSessionController extends Controller
         // Log::info('Authenticated User ID: ' . $userId);
         $data = Actor::where('actorID', $userId)->exists();
         // dd($data);
+        // Check if data exist in the actor
+        // if this is true, this means the registration progress of the user is not completed.
         if ($data) {
-            return redirect()->intended('/admin');
+            $user = auth()->user();
+            $accounttype = $user->actor->accountType->accountType;
+            // dd($accounttype);
+            return redirect()->intended($accounttype);
         } else {
             return redirect()->intended('/choose');
         }

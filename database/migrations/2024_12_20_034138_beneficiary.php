@@ -21,7 +21,7 @@ return new class extends Migration {
             $table->foreign('actorID')->references('actorID')->on('actor');
             $table->unsignedBigInteger('statusID');
             $table->foreign('statusID')->references('statusID')->on('status');
-            $table->unsignedBigInteger('incomeGroupID');
+            $table->unsignedBigInteger('incomeGroupID')->nullable();
             $table->foreign('incomeGroupID')->references('incomeGroupID')->on('incomeGroup');
         });
 

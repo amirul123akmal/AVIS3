@@ -7,6 +7,9 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class RequestBeneficiary extends Model
 {
+
+    public $timestamps = false;
+
     protected $table = 'requestBeneficiary';
     protected $primaryKey = 'reqID';
     protected $fillable = [
@@ -15,6 +18,13 @@ class RequestBeneficiary extends Model
         'incomeDocument',
         'supportDocument',
         'asnafCardDocument',
+    ];
+
+    protected $attributes = [
+        'numDependents' => 0,
+        'incomeDocument' => null,
+        'supportDocument' => null,
+        'asnafCardDocument' => null,
     ];
 
     public function beneficiary(): BelongsTo

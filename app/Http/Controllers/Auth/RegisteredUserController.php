@@ -4,7 +4,9 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ActorRequest;
+use App\Models\AccountType;
 use App\Models\Actor;
+use App\Models\Beneficiary;
 use App\Models\User;
 use App\Models\State;
 use App\Models\Address;
@@ -37,7 +39,7 @@ class RegisteredUserController extends Controller
     public function manageChoose(Request $request, $type): RedirectResponse
     {
         $id = DB::table('accountType')->where('accountType', $type)->get('accountID');
-        // dd($id->toArray()[0]->accountID);
+        // dd($id->toArray());
         session(['accountID' => $id->toArray()[0]->accountID]);
         return redirect('/complete-profile');
     }
@@ -65,6 +67,11 @@ class RegisteredUserController extends Controller
             'accountID' => session('accountID'),
             'addressID' => $address->addressID
         ]);
+        if (AccountType::where('accountID', session('accountID'))->value('accountType') == 'beneficiaries') {
+            Beneficiary::create([
+                'actorID' => $actor->actorID
+            ]);
+        }
 
         return redirect('/login');
     }

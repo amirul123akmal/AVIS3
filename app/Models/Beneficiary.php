@@ -11,13 +11,18 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 class Beneficiary extends Model
 {
     use HasFactory;
-
+    public $timestamps = false;
     protected $table = 'beneficiary';
     protected $primaryKey = 'benID';
     protected $fillable = [
         'actorID',
         'statusID',
         'incomeGroupID'
+    ];
+
+    protected $attributes = [
+        'statusID' => 4,
+        'incomeGroupID' => null
     ];
 
     public function actor(): BelongsTo
