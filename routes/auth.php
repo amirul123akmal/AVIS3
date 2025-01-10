@@ -4,7 +4,6 @@ use App\Http\Controllers\volunteers\volunteerController;
 use App\Http\Controllers\Admin\adminController;
 use App\Http\Controllers\Admin\EvalBenInfo;
 use App\Http\Controllers\Admin\ManageActivity;
-use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
 use App\Http\Controllers\Auth\EmailVerificationPromptController;
