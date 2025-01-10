@@ -27,6 +27,7 @@ class MainSeeder extends Seeder
     {
         $this->call(UserSeeder::class);
         $this->call(StatusSeeder::class);
+        $this->call(AdminSeeder::class);
         if (in_array('DummyUser', $this->parameter)) {
             $this->call(FullUser::class);
         }

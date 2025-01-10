@@ -47,9 +47,9 @@ return new class extends Migration {
             $table->string('phoneNumber');
             $table->unsignedBigInteger('addressID')->unique();
             $table->foreign('addressID')->references('addressID')->on('address');
-            $table->unsignedBigInteger('accountID')->unique();
+            $table->unsignedBigInteger('accountID');
             $table->foreign('accountID')->references('accountID')->on('accountType');
-            $table->unsignedBigInteger('statusID')->unique();
+            $table->unsignedBigInteger('statusID');
             $table->foreign('statusID')->references('statusID')->on('status');
             $table->timestamps();
         });

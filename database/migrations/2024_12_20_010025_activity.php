@@ -18,6 +18,9 @@ return new class extends Migration {
             $table->date('dateEnd');
             $table->integer('volunteerCount');
             $table->integer('beneficiaryCount');
+            $table->string('activityImage');
+            $table->string('activityDescription');
+            $table->timestamps();
         });
 
         Schema::create('actorActivity', function (Blueprint $table) {
