@@ -1,5 +1,9 @@
 <?php
 
+use App\Http\Controllers\volunteers\volunteerController;
+use App\Http\Controllers\Admin\adminController;
+use App\Http\Controllers\Admin\EvalBenInfo;
+use App\Http\Controllers\Admin\ManageActivity;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -27,15 +31,36 @@ Route::middleware('guest')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('volunteers');
-    Route::get('beneficiaries', [benController::class, 'homepage'])->defaults('reapply', 'false');
-    Route::get('beneficiaries/{reapply}', [benController::class, 'homepage']);
-    Route::get('admin');
+    
+    // Common
+    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 
-    Route::get('complete-documents', [benController::class, 'getDocuments']);
+    // Volunteers
+    Route::middleware('role:volunteers')->group(function () {
+        Route::get('volunteers', [volunteerController::class, 'homepage']);
+    });
 
+    // Beneficiaries
+    Route::middleware('role:beneficiaries')->group(function () {
+        Route::get('beneficiaries', [benController::class, 'homepage'])->defaults('reapply', 'false');
+        Route::get('beneficiaries/{reapply}', [benController::class, 'homepage']);
+        Route::get('complete-documents', [benController::class, 'getDocuments']);
+        Route::post('storeDocument', [benController::class, 'storingDocument']);
+    });
+
+    // Admin
+    Route::middleware('role:admin')->group(function () {
+        Route::get('admin', [adminController::class, 'homepage']);
+        Route::get('Evaluating-Beneficiaries', [EvalBenInfo::class, 'page']);
+        Route::get('Manage-Transport', [adminController::class, 'transport']);
+        // Manage Activity Controller
+        Route::get('Activity', [ManageActivity::class, 'page']);
+        Route::get('addActivity', [ManageActivity::class, 'addActivity'])->name('addActivity');
+        Route::post('addActivity', [ManageActivity::class, 'addActivityPost'])->name('addActivityPost');
+    });
 });
-Route::post('storeDocument', [benController::class, 'storingDocument']);
 
 Route::middleware('auth')->group(function () {
     Route::get('choose', [RegisteredUserController::class, 'getChoose']);
@@ -65,10 +90,3 @@ Route::middleware('auth')->group(function () {
     Route::post('logout', [AuthenticatedSessionController::class, 'destroy'])
         ->name('logout');
 });
-
-Route::get('register', [RegisteredUserController::class, 'create'])
-    ->name('register');
-Route::post('register', [RegisteredUserController::class, 'store']);
-Route::get('login', [AuthenticatedSessionController::class, 'create'])
-    ->name('login');
-Route::post('login', [AuthenticatedSessionController::class, 'store']);
