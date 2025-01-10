@@ -10,7 +10,7 @@
 </head>
 
 <body>
-    <div class="bg-[#d6d9de] h-screen">
+    <div class="h-screen">
         <x-home-navbar />
         <div class="h-[85vh] flex justify-between align-middle">
             <div class="left w-1/2 ">

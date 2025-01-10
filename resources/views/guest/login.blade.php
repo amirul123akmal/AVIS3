@@ -45,7 +45,7 @@
                             <input type="checkbox" class="checkbox checkbox-sm" name="rememberMe" />
                             <span class="label-text ms-3">Remember Me</span>
                         </label>
-                        <a href="#" type="button"
+                        <a href="forgot-password" type="button"
                             class="rounded-3xl bg-[#5671a7] h-7 pb-2 px-3 mt-2 text-white">Forgot Password</a>
                     </div>
                     <button class="btn bg-[#e9d6f1] w-full rounded-xl text-2xl mt-3">Log In</button>

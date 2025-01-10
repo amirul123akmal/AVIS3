@@ -33,28 +33,29 @@
                             <p>First Name</p>
                             <label class="input input-bordered flex items-center gap-2 ">
                                 <input type="text" name="firstname" class="grow focus:ring-0 "
-                                    placeholder="Enter Your First Name" value="{{ old('firstname') }}" />
+                                    placeholder="Enter Your First Name" value="{{ old('firstname') }}" required />
                             </label>
                         </div>
                         <div>
                             <p>Last Name</p>
                             <label class="input input-bordered flex items-center gap-2">
                                 <input type="text" name="lastname" value="{{ old('lastname') }}"
-                                    class="grow focus:ring-0" placeholder="Enter Your Last Name" />
+                                    class="grow focus:ring-0" placeholder="Enter Your Last Name" required />
                             </label>
                         </div>
                         <div class="col-span-2">
                             <p>Email</p>
                             <label class="input input-bordered flex items-center gap-2">
                                 <input type="email" name="email" value="{{ old('email') }}"
-                                    class="grow focus:ring-0" placeholder="Enter Your Email" />
+                                    class="grow focus:ring-0" placeholder="Enter Your Email" required />
                             </label>
+                            <x-input-error :messages="$errors->get('email')" class="mt-2" />
                         </div>
                         <div class="col-span-2">
                             <p>Password</p>
                             <label class="input input-bordered flex items-center gap-2">
                                 <input type="password" name="password" class="grow focus:ring-0"
-                                    placeholder="Create Password" />
+                                    placeholder="Create Password" required />
                             </label>
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
 
@@ -63,7 +64,7 @@
                             <p>Password</p>
                             <label class="input input-bordered flex items-center gap-2">
                                 <input type="password" name="password_confirmation" class="grow focus:ring-0"
-                                    placeholder="Re-type Password" />
+                                    placeholder="Re-type Password" required />
                             </label>
                             <x-input-error :messages="$errors->get('password_confirmation')" class="mt-2" />
 
