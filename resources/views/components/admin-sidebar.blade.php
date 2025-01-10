@@ -1,4 +1,4 @@
-<div class="drawer">
+<div class="drawer ">
     <input id="my-drawer" type="checkbox" class="drawer-toggle" />
     <div class="drawer-content">
         {{-- The pages here --}}
@@ -6,7 +6,31 @@
     </div>
     <div class="drawer-side">
         <label for="my-drawer" aria-label="close sidebar" class="drawer-overlay"></label>
-        <ul class="menu bg-base-200 text-base-content min-h-full w-80 p-4 [&_.main]:ps-4 [&_.sub]:ps-6">
+        <ul class="menu text-base-content min-h-full w-80 p-4 [&_.main]:ps-4 [&_.sub]:ps-6 bg-[#8cd5ef]">
+            @php
+                $linking = [
+                    [
+                        'name' => 'Dashboard',
+                        'link' => 'admin',
+                        'icon' => 'bi-house-fill',
+                    ],
+                    [
+                        'name' => 'Manage Activity',
+                        'link' => 'Activity',
+                        'icon' => 'bi-activity',
+                    ],
+                    [
+                        'name' => 'Manage Transport',
+                        'link' => 'Manage-Transport',
+                        'icon' => 'bi-truck',
+                    ],
+                    [
+                        'name' => 'Report',
+                        'link' => 'profile.edit',
+                        'icon' => 'bi-file-earmark-pdf-fill',
+                    ],
+                ];
+            @endphp
             <section class="flex p-4">
                 <svg fill="none" height="42" viewBox="0 0 32 32" width="42"
                     xmlns="http://www.w3.org/2000/svg">
@@ -20,20 +44,13 @@
                     <span class="text-xs font-normal">Amal Valley Information System</span>
                 </div>
             </section>
-            <p class="font-bold text-3xl main">Activity</p>
-            <p class="font-bold text-xl mt-2 sub">Filter By:</p>
-            <li><a class="sub">New Activity</a></li>
-            <li><a class="sub">Current Activity</a></li>
-            <li><a class="sub">Past Activity</a></li>
-            <p class="font-bold text-xl mt-2 sub">Manage Activity:</p>
-            <li><a class="sub">Create Activity<span class="bi bi-plus flex justify-end text-xl"></span></a>
-
-            </li>
-            <li><a class="sub">Edit Activity<span class="bi bi-plus flex justify-end text-xl"></span></a>
-            </li>
-            <li><a class="sub">Delete Activity<span class="bi bi-plus flex justify-end text-xl"></span></a>
-
-            </li>
+            @foreach ($linking as $item)
+                <a class="h-20 hover:bg-cyan-600 rounded-xl flex items-center p-8" href="{{ route($item['link']) }}">
+                    <span class="bi {{ $item['icon'] }} text-4xl">
+                    </span>
+                    <p class="ps-4 pt-2 text-2xl font-serif">{{ $item['name'] }}</p>
+                </a>
+            @endforeach
         </ul>
     </div>
 </div>

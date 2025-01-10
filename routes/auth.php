@@ -1,6 +1,7 @@
 <?php
 
 use App\Http\Controllers\volunteers\volunteerController;
+use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Admin\adminController;
 use App\Http\Controllers\Admin\EvalBenInfo;
 use App\Http\Controllers\Admin\ManageActivity;
@@ -13,6 +14,7 @@ use App\Http\Controllers\Auth\PasswordResetLinkController;
 use App\Http\Controllers\Auth\RegisteredUserController;
 use App\Http\Controllers\Auth\VerifyEmailController;
 use App\Http\Controllers\beneficiaries\benController;
+use App\Http\Controllers\ManageAccountController;
 use Illuminate\Support\Facades\Route;
 
 Route::middleware('guest')->group(function () {
@@ -32,9 +34,9 @@ Route::middleware('guest')->group(function () {
 Route::middleware('auth')->group(function () {
     
     // Common
-    Route::get('/profile', [ProfileController::class, 'edit'])->name('profile.edit');
-    Route::patch('/profile', [ProfileController::class, 'update'])->name('profile.update');
-    Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
+    Route::get('/profile', [ManageAccountController::class, 'edit'])->name('profile.edit');
+    Route::patch('/profile', [ManageAccountController::class, 'update'])->name('profile.update');
+    Route::delete('/profile', [ManageAccountController::class, 'destroy'])->name('profile.destroy');
 
     // Volunteers
     Route::middleware('role:volunteers')->group(function () {
@@ -51,11 +53,11 @@ Route::middleware('auth')->group(function () {
 
     // Admin
     Route::middleware('role:admin')->group(function () {
-        Route::get('admin', [adminController::class, 'homepage']);
+        Route::get('admin', [adminController::class, 'homepage'])->name('admin');
         Route::get('Evaluating-Beneficiaries', [EvalBenInfo::class, 'page']);
-        Route::get('Manage-Transport', [adminController::class, 'transport']);
+        Route::get('Manage-Transport', [adminController::class, 'transport'])->name('Manage-Transport');
         // Manage Activity Controller
-        Route::get('Activity', [ManageActivity::class, 'page']);
+        Route::get('Activity', [ManageActivity::class, 'page'])->name('Activity');
         Route::get('addActivity', [ManageActivity::class, 'addActivity'])->name('addActivity');
         Route::post('addActivity', [ManageActivity::class, 'addActivityPost'])->name('addActivityPost');
     });

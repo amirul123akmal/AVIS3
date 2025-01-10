@@ -16,15 +16,29 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => ['required', 'string', 'max:255'],
+            'ic_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'
+        , Rule::unique('actor', 'ic')->ignore($this->user()->actor)],
+            'username' => ['required', 'string', 'max:255'],
+            'phone_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'],
+            'address' => ['required', 'string', 'max:255'],
+            'postcode' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'],
+            'state' => ['required', 'integer', 'exists:state,stateID'],
             'email' => [
                 'required',
                 'string',
                 'lowercase',
                 'email',
                 'max:255',
-                Rule::unique(User::class)->ignore($this->user()->id),
+                Rule::unique(User::class)->ignore($this->user()),
             ],
+        ];
+    }
+
+    public function messages(): array
+    {
+        return [
+            'ic_number.regex' => 'The IC number must be numeric.',
+            'phone_number.regex' => 'The phone number must be numeric.',
         ];
     }
 }
