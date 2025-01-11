@@ -25,13 +25,14 @@ return new class extends Migration {
             $table->bigIncrements('transID');
             $table->unsignedBigInteger('vehicleID');
             $table->foreign('vehicleID')->references('vehicleID')->on('vehicleType');
-            $table->unsignedBigInteger('driverID');
+            $table->unsignedBigInteger('driverID')->nullable();
             $table->foreign('driverID')->references('driverID')->on('driver');
             $table->string('vehiclePlateNumber');
             $table->integer('vehicleCapacity');
             $table->string('vehicleDesc');
             $table->unsignedBigInteger('vehicleStatus');
             $table->foreign('vehicleStatus')->references('statusID')->on('status');
+            $table->timestamps();
         });
 
         Schema::create('requestTransport', function (Blueprint $table) {

@@ -19,8 +19,9 @@ class StatusSeeder extends Seeder
             ['entityType' => 'benStatus', 'statusType' => 'Approved'],
             ['entityType' => 'benStatus', 'statusType' => 'Not Approved'],
             ['entityType' => 'benStatus', 'statusType' => 'Pending'],
-            ['entityType' => 'vehicleStatus', 'statusType' => 'Occupied'],
-            ['entityType' => 'vehicleStatus', 'statusType' => 'Not Occupied'],
+            ['entityType' => 'vehicleStatus', 'statusType' => 'Available'],
+            ['entityType' => 'vehicleStatus', 'statusType' => 'Not Available'],
+            ['entityType' => 'vehicleStatus', 'statusType' => 'Maintenance'],
         ]);
     }
 }
