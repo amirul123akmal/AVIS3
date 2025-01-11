@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\HasOne;
-
+use Illuminate\Support\Facades\Cache;
 class Activity extends Model
 {
     protected $table = 'activity';
@@ -15,6 +15,8 @@ class Activity extends Model
         'activityPlace',
         'dateStart',
         'dateEnd',
+        'timeStart',
+        'timeEnd',
         'volunteerCount',
         'beneficiaryCount',
     ];
@@ -26,5 +28,12 @@ class Activity extends Model
     public function beneficiaryActivity(): HasMany
     {
         return $this->hasMany(BeneficiaryActivity::class, 'activityID', 'activityID');
+    }
+
+    public static function allCached()
+    {
+        return Cache::remember('activity.all', 3600, function () {
+            return static::all();
+        });
     }
 }

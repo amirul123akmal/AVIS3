@@ -15,7 +15,9 @@ return new class extends Migration {
             $table->string('activityName');
             $table->string('activityPlace');
             $table->date('dateStart');
-            $table->date('dateEnd');
+            $table->date('dateEnd');    
+            $table->time('timeStart');
+            $table->time('timeEnd');
             $table->integer('volunteerCount');
             $table->integer('beneficiaryCount');
             $table->string('activityImage');

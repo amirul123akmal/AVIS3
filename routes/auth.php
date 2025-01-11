@@ -40,26 +40,33 @@ Route::middleware('auth')->group(function () {
 
     // Volunteers
     Route::middleware('role:volunteers')->group(function () {
-        Route::get('volunteers', [volunteerController::class, 'homepage']);
+        Route::get('volunteers', [volunteerController::class, 'homepage'])->name('volunteers');
     });
 
     // Beneficiaries
     Route::middleware('role:beneficiaries')->group(function () {
-        Route::get('beneficiaries', [benController::class, 'homepage'])->defaults('reapply', 'false');
-        Route::get('beneficiaries/{reapply}', [benController::class, 'homepage']);
+        Route::get('beneficiaries', [benController::class, 'homepage'])->defaults('reapply', 'false')->name('beneficiaries');
+        Route::get('beneficiaries/{reapply}', [benController::class, 'homepage'])->name('beneficiaries.reapply');
         Route::get('complete-documents', [benController::class, 'getDocuments']);
         Route::post('storeDocument', [benController::class, 'storingDocument']);
     });
 
     // Admin
     Route::middleware('role:admin')->group(function () {
-        Route::get('admin', [adminController::class, 'homepage'])->name('admin');
-        Route::get('Evaluating-Beneficiaries', [EvalBenInfo::class, 'page']);
-        Route::get('Manage-Transport', [adminController::class, 'transport'])->name('Manage-Transport');
-        // Manage Activity Controller
-        Route::get('Activity', [ManageActivity::class, 'page'])->name('Activity');
-        Route::get('addActivity', [ManageActivity::class, 'addActivity'])->name('addActivity');
-        Route::post('addActivity', [ManageActivity::class, 'addActivityPost'])->name('addActivityPost');
+        Route::prefix('Admin')->group(function () {
+            Route::get('/', [adminController::class, 'homepage'])->name('admin');
+            Route::get('Evaluating-Beneficiaries', [EvalBenInfo::class, 'page']);
+            Route::get('Manage-Transport', [adminController::class, 'transport'])->name('Manage-Transport');
+            // Manage Activity Controller
+            Route::get('Activity', [ManageActivity::class, 'page'])->name('Activity');
+            Route::get('DeleteActivity', [ManageActivity::class, 'deleteActivity'])->name('activity.delete');
+            Route::delete('Activity/{id}', [ManageActivity::class, 'destroyActivity'])->name('activity.destroy');
+            Route::get('editActivity', [ManageActivity::class, 'editActivity'])->name('activity.edit')->defaults('id', 0);
+            Route::get('editActivity/{id}', [ManageActivity::class, 'editActivity'])->name('activity.getedit');
+            Route::put('editActivity/{id}', [ManageActivity::class, 'editActivityPost'])->name('activity.editPost');
+            Route::get('addActivity', [ManageActivity::class, 'addActivity'])->name('addActivity');
+            Route::post('addActivity', [ManageActivity::class, 'addActivityPost'])->name('addActivityPost');
+        });
     });
 });
 
