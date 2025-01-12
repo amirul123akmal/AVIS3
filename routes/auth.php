@@ -4,7 +4,7 @@ use App\Http\Controllers\Admin\adminController;
 use App\Http\Controllers\Admin\EvalBenInfo;
 use App\Http\Controllers\Admin\ManageActivity;
 use App\Http\Controllers\Admin\ManageTransportController;
-
+use App\Http\Controllers\Admin\ManageUserInformationController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\Auth\ConfirmablePasswordController;
 use App\Http\Controllers\Auth\EmailVerificationNotificationController;
@@ -58,6 +58,12 @@ Route::middleware('auth')->group(function () {
             Route::get('/', [adminController::class, 'homepage'])->name('admin');
             Route::get('Evaluating-Beneficiaries', [EvalBenInfo::class, 'page']);
 
+            // Manage User Information Controller
+            Route::get('Manage-User-Information', [ManageUserInformationController::class, 'page'])->name('Manage-User-Information');
+            Route::get('View-User-Information/{id}', [ManageUserInformationController::class, 'viewUserInformation'])->name('View-User-Information');
+            Route::get('Update-User-Information/{id}', [ManageUserInformationController::class, 'updateUserInformation'])->name('Update-User-Information');
+            Route::put('Update-User-Information/{id}', [ManageUserInformationController::class, 'updateUserInformationPost'])->name('Update-User-InformationPost');
+
             // Manage Transport Controller
             Route::get('Manage-Transport', [ManageTransportController::class, 'transport'])->name('Manage-Transport');
             Route::get('Create-Transport', [ManageTransportController::class, 'createTransport'])->name('Create-Transport');
@@ -67,6 +73,7 @@ Route::middleware('auth')->group(function () {
             Route::put('Update-Transport/{id}', [ManageTransportController::class, 'updateTransportPost'])->name('Update-TransportPost');
             Route::get('Delete-Transport', [ManageTransportController::class, 'deleteTransport'])->name('Delete-Transport');
             Route::delete('Delete-Transport', [ManageTransportController::class, 'deleteTransportPost'])->name('Delete-TransportPost');
+
             // Manage Activity Controller
             Route::get('Activity', [ManageActivity::class, 'page'])->name('Activity');
             Route::get('DeleteActivity', [ManageActivity::class, 'deleteActivity'])->name('activity.delete');
