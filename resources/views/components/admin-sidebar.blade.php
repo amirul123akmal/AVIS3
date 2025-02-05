@@ -25,8 +25,18 @@
                         'icon' => 'bi-truck',
                     ],
                     [
+                        'name' => 'Evaluate Transport',
+                        'link' => 'admin.evaluatePage',
+                        'icon' => 'bi-truck',
+                    ],
+                    [
+                        'name' => 'Manage User Information',
+                        'link' => 'Manage-User-Information',
+                        'icon' => 'bi-person-fill',
+                    ],
+                    [
                         'name' => 'Report',
-                        'link' => 'profile.edit',
+                        'link' => 'admin.report',
                         'icon' => 'bi-file-earmark-pdf-fill',
                     ],
                 ];

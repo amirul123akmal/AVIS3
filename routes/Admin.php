@@ -5,6 +5,8 @@ use App\Http\Controllers\Admin\EvalBenInfo;
 use App\Http\Controllers\Admin\ManageActivity;
 use App\Http\Controllers\Admin\ManageTransportController;
 use App\Http\Controllers\Admin\ManageUserInformationController;
+use App\Http\Controllers\Admin\ReportController;
+use App\Http\Controllers\Admin\EvaluateTransportController;
 
 Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
@@ -38,6 +40,13 @@ Route::middleware('auth')->group(function () {
             Route::put('editActivity/{id}', [ManageActivity::class, 'editActivityPost'])->name('activity.editPost');
             Route::get('addActivity', [ManageActivity::class, 'addActivity'])->name('addActivity');
             Route::post('addActivity', [ManageActivity::class, 'addActivityPost'])->name('addActivityPost');
+
+            // Report Controller
+            Route::get('/Report', [ReportController::class, 'showReportController'])->name('admin.report');
+
+            // Evaluate Transport Controller
+            Route::get('/Evaluate-Transport', [EvaluateTransportController::class, 'showEvaluateTransportController'])->name('admin.evaluatePage');
+            Route::get('/Evaluate-Transport/{id}', [EvaluateTransportController::class, 'showEvaluateTransportdetail'])->name('admin.evaluateDetails');
         });
     });
 });
