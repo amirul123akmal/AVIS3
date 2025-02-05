@@ -59,7 +59,7 @@ class RegisteredUserController extends Controller
             'postcode' => $validatedData['postcode'],
             'stateID' => $validatedData['stateID'],
         ]);
-        $actor = Actor::create([
+        Actor::create([
             'actorID' => Auth::user()->loginID,
             'fullname' => $validatedData['fullname'],
             'ic' => $validatedData['icnum'],
@@ -69,7 +69,7 @@ class RegisteredUserController extends Controller
         ]);
         if (AccountType::where('accountID', session('accountID'))->value('accountType') == 'beneficiaries') {
             Beneficiary::create([
-                'actorID' => $actor->actorID
+                'actorID' => Auth::user()->loginID
             ]);
         }
 

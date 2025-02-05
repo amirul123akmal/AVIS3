@@ -40,6 +40,7 @@ class ActorRequest extends FormRequest
             'phoneNumber.required' => 'Please enter your phone number.',
             'phoneNumber.min' => 'The phone number must be at least 8 characters.',
             'postcode.required' => 'Please enter your postcode.',
+            'postcode.min' => 'Postcode need to have 5 digit',
             'stateID.required' => 'Please choose a state on the page.',
             'stateID.min' => 'You need to choose a valid state.',
         ];

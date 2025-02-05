@@ -42,8 +42,7 @@ class AuthenticatedSessionController extends Controller
         if ($data) {
             $user = auth()->user();
             $accounttype = $user->actor->accountType->accountType;
-            // dd($accounttype);
-            return redirect()->intended($accounttype);
+            return redirect()->route($accounttype);
         } else {
             return redirect()->intended('/choose');
         }
