@@ -44,7 +44,7 @@
         
             <div>
                 <div class="flex justify-between items-center mb-4">
-                    <h2 class="text-lg">Beneficiary</h2>
+                    <h2 class="text-lg">Beneficiaries</h2>
                     <div>
                         <select class="select select-bordered w-full max-w-xs bg-black text-white focus:outline-none focus:ring-0 focus:border-none" aria-label="Sort by" id="sort-options">
                             <option value="a_to_z">Sort by A to Z</option>

@@ -77,8 +77,8 @@
                     </div>
 
                     <div class="flex justify-between mt-6">
-                        <button class="btn btn-primary updating">Update</button>
-                        <button class="btn btn-secondary">Delete</button>
+                        {{-- <button class="btn btn-primary updating">Update</button> --}}
+                        <a href="{{route('Manage-User-Information')}}" class="btn btn-secondary">Back</a>
                     </div>
                 </form>
             </div>

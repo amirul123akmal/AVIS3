@@ -12,7 +12,7 @@
         </div>
         @endforeach
     </ul>
-    <div wire:pagination.no-scroll>
-        {{ $volunteers->onEachSide(1)->links() }}
+    <div>
+        {{ $volunteers->onEachSide(1)->links(data: ['scrollTo' => false]) }}
     </div>
 </div>

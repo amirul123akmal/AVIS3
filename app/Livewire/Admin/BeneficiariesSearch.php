@@ -5,16 +5,14 @@ namespace App\Livewire\Admin;
 use Livewire\Component;
 use App\Models\Actor;
 use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 
 class BeneficiariesSearch extends Component
 {
-    use WithPagination;
+    use WithPagination, WithoutUrlPagination;
 
     public $search = '';
-    protected $queryString = [
-        'search' => ['except' => ''],
-        'page' => ['as' => 'page_beneficiaries'],
-    ];
+    protected $queryString = ['search'];
 
         
     public function render()

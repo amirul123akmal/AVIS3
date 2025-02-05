@@ -5,10 +5,11 @@ namespace App\Livewire\Admin;
 use Livewire\Component;
 use App\Models\Actor;
 use Livewire\WithPagination;
+use Livewire\WithoutUrlPagination;
 
 class VolunteerSearch extends Component
 {
-    use WithPagination;
+    use WithPagination, WithoutUrlPagination;
 
     public $search = '';
     // public $sort = 'a_to_z';

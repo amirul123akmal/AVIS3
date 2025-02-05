@@ -24,9 +24,11 @@ class ManageUserInformationController extends Controller
         return view('admin.ManageUserInformation.ViewUserInformation', compact('user', 'states'));
     }
 
-    public function updateUserInformation()
+    public function updateUserInformation($id)
     {
-        return view('admin.ManageUserInformation.UpdateUserInformation');
+        $user = Actor::with('login')->find($id);
+        $states = State::allCached();
+        return view('admin.ManageUserInformation.UpdateUserInformation', compact('user', 'states'));
     }
 
     public function updateUserInformationPost(Request $request, $id)
