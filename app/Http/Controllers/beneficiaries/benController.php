@@ -29,7 +29,7 @@ class benController extends Controller
             return view('beneficiaries.waitingForApprove');
         }
 
-        return view('beneficiaries.homepage');
+        return redirect()->route('beneficiaries');
     }
 
     public function getDocuments(Request $request): View

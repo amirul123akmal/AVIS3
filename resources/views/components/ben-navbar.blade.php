@@ -1,4 +1,4 @@
-<div class="navbar bg-base-100">
+<div class="navbar bg-white">
     <div class="flex-none">
         <label for="my-drawer" class="btn btn-primary btn-ghost drawer-button">
             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24"
