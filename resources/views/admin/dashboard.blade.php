@@ -11,12 +11,13 @@
 <body>
     <x-admin-sidebar>
         <x-admin-navbar />
-        <div class="container mx-auto">
+        <div class="container mx-auto mt-3">
             <section class="flex justify-between">
                 <div class="w-3/12">
-                    <label class="input h-10 rounded-xl flex items-center gap-2 bg-gray-200">
+                    <label class="input h-10 rounded-xl flex items-center gap-2 bg-gray-300">
                         <span class="bi bi-search font-bolder text-2xl"></span>
-                        <input type="text" class="ms-2" placeholder="Search Activity" />
+                        <input type="text" class="ms-2 border-none focus:ring-0 grow"
+                            placeholder="Search Activity" />
                     </label>
                 </div>
                 <div class="">
