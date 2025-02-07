@@ -24,14 +24,7 @@
             </ul>
         </details>
         <div class="dropdown dropdown-bottom dropdown-end">
-            <div tabindex="0" role="button" class="btn m-1">
-                <div class="avatar">
-                    <div class="w-10 rounded-full">
-                        <img src="https://img.daisyui.com/images/stock/photo-1534528741775-53994a69daeb.webp" />
-                    </div>
-                </div>
-                <p class="font-semibold text-lg">Profile</p>
-            </div>
+            <div tabindex="0" role="button" class="btn m-1 bg-base-100">...</div>
             <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
                 <li>
                     <form action="/logout" method="POST" class="flex">
@@ -39,7 +32,6 @@
                         <button type="submit" class="grow text-start">Log Out</button>
                     </form>
                 </li>
-                <li><a>Item 2</a></li>
             </ul>
         </div>
     </div>

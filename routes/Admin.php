@@ -43,6 +43,7 @@ Route::middleware('auth')->group(function () {
 
             // Report Controller
             Route::get('/Report', [ReportController::class, 'showReportController'])->name('admin.report');
+            Route::post('/Report/Generate', [ReportController::class, 'activityReport'])->name('admin.report.generate');
 
             // Evaluate Transport Controller
             Route::get('/Evaluate-Transport', [EvaluateTransportController::class, 'showEvaluateTransportController'])->name('admin.evaluatePage');
