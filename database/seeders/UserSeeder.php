@@ -5,6 +5,10 @@ namespace Database\Seeders;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
+use App\Models\IncomeGroup;
+use App\Models\State;
+use App\Models\AccountType;
+
 
 class UserSeeder extends Seeder
 {
@@ -13,7 +17,7 @@ class UserSeeder extends Seeder
      */
     public function run(): void
     {
-        DB::table('state')->insert([
+        State::insert([
             ['stateName' => 'Johor'],
             ['stateName' => 'Kedah'],
             ['stateName' => 'Kelantan'],
@@ -32,12 +36,16 @@ class UserSeeder extends Seeder
             ['stateName' => 'Wilayah Persekutuan Putrajaya'],
         ]);
 
-        DB::table('accountType')->insert([
+        AccountType::insert([
             ['accountType' => 'admin'],
             ['accountType' => 'beneficiaries'],
             ['accountType' => 'volunteers'],
         ]);
 
-
+        IncomeGroup::insert([
+            ['groupType' => 'B40'],
+            ['groupType' => 'M40'],
+            ['groupType' => 'T20'],
+        ]);
     }
 }

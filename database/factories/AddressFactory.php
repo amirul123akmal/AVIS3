@@ -19,7 +19,7 @@ class AddressFactory extends Factory
     {
         $faker = fake('ms_MY');
 
-        $stateID = State::pluck('stateID')->toArray();
+        $stateID = State::allCached()->pluck('stateID')->toArray();
 
         return [
             'road' => $faker->address,

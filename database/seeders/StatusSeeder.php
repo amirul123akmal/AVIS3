@@ -14,14 +14,14 @@ class StatusSeeder extends Seeder
     public function run(): void
     {
         DB::table('status')->insert([
-            ['entityType' => 'actorStatus', 'statusType' => 'Enable'],
-            ['entityType' => 'actorStatus', 'statusType' => 'Disable'],
-            ['entityType' => 'benStatus', 'statusType' => 'Approved'],
-            ['entityType' => 'benStatus', 'statusType' => 'Not Approved'],
-            ['entityType' => 'benStatus', 'statusType' => 'Pending'],
-            ['entityType' => 'vehicleStatus', 'statusType' => 'Available'],
-            ['entityType' => 'vehicleStatus', 'statusType' => 'Not Available'],
-            ['entityType' => 'vehicleStatus', 'statusType' => 'Maintenance'],
+            ['entityType' => 'actorStatus', 'statusType' => 'Enable'],  // 1
+            ['entityType' => 'actorStatus', 'statusType' => 'Disable'], // 2
+            ['entityType' => 'benStatus', 'statusType' => 'Approved'],  // 3
+            ['entityType' => 'benStatus', 'statusType' => 'Not Approved'],  // 4 
+            ['entityType' => 'benStatus', 'statusType' => 'Pending'],   // 5
+            ['entityType' => 'vehicleStatus', 'statusType' => 'Available'], // 6
+            ['entityType' => 'vehicleStatus', 'statusType' => 'Not Available'], // 7
+            ['entityType' => 'vehicleStatus', 'statusType' => 'Maintenance'],   // 8
         ]);
     }
 }
