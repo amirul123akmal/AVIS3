@@ -42,8 +42,11 @@ return new class extends Migration {
             $table->string('addressFrom');
             $table->string('addressTo');
             $table->date('dateReq');
+            $table->string('status')->nullable();
+            $table->text('notes')->nullable();
             $table->unsignedBigInteger('vehicleID');
             $table->foreign('vehicleID')->references('vehicleID')->on('vehicleType');
+            $table->timestamps();
         });
 
         Schema::create('transportAssign', function (Blueprint $table) {

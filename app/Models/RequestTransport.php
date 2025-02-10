@@ -16,7 +16,9 @@ class RequestTransport extends Model
         'addressFrom',
         'addressTo',
         'dateReq',
-        'vehicleID'
+        'vehicleID',
+        'status',
+        'notes'
     ];
 
     public function beneficiary(): BelongsTo

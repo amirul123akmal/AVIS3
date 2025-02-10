@@ -7,12 +7,17 @@ use App\Http\Controllers\Admin\ManageTransportController;
 use App\Http\Controllers\Admin\ManageUserInformationController;
 use App\Http\Controllers\Admin\ReportController;
 use App\Http\Controllers\Admin\EvaluateTransportController;
+use App\Http\Controllers\Admin\EvaBenController;
 
 Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::prefix('Admin')->group(function () {
             Route::get('/', [adminController::class, 'homepage'])->name('admin');
             Route::get('Evaluating-Beneficiaries', [EvalBenInfo::class, 'page']);
+
+            // Evaluate Beneficiary Information
+            Route::get('Evaluating-Beneficiaries', [EvaBenController::class, 'showEvaBenlist'])->name('admin.evaluateBeneficiariesList');
+            Route::get('Evaluating-Beneficiaries-Information', [EvaBenController::class, 'showevabeninfo'])->name('admin.evaluateBeneficiaryInfo');
 
             // Manage User Information Controller
             Route::get('Manage-User-Information', [ManageUserInformationController::class, 'page'])->name('Manage-User-Information');
@@ -46,8 +51,9 @@ Route::middleware('auth')->group(function () {
             Route::post('/Report/Generate', [ReportController::class, 'activityReport'])->name('admin.report.generate');
 
             // Evaluate Transport Controller
-            Route::get('/Evaluate-Transport', [EvaluateTransportController::class, 'showEvaluateTransportController'])->name('admin.evaluatePage');
-            Route::get('/Evaluate-Transport/{id}', [EvaluateTransportController::class, 'showEvaluateTransportdetail'])->name('admin.evaluateDetails');
+            Route::get('/Evaluate-Transport', [EvaluateTransportController::class, 'showEvaluateTransport'])->name('admin.evaluatePage');
+            Route::get('/Evaluate-Transport/{id}', [EvaluateTransportController::class, 'showEvaluateTransportdetail'])->where('id', '[0-9]+')->name('admin.evaluateDetails');
+            Route::post('/Evaluate-Transport/{id}/Update', [EvaluateTransportController::class, 'updateEvaluation'])->name('evaluateTransportUpdate');
         });
     });
 });
