@@ -125,7 +125,6 @@
 <body>
     <x-ben-sidebar>
         <x-ben-navbar />
-        
         <!-- Main Content -->
         <div class="main-container">
             <h1 class="text-center text-[#1f6d84] text-2xl font-bold">Request Transport Application</h1>
@@ -246,7 +245,6 @@
                 </form>
             </div>
         </div>
-        </x-ben-sidebar>
-    </body>
-    </html>
-    
+    </x-ben-sidebar>
+</body>
+</html>

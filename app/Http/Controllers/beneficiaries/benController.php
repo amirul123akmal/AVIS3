@@ -10,12 +10,15 @@ use Illuminate\Http\Request;
 use Illuminate\Contracts\View\View;
 use illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Support\Facades\Auth;
+use App\Models\BeneficiaryActivity;
+use App\Models\Activity;
 
 class benController extends Controller
 {
     public function homepage(Request $request, $reapply = 'false'): View|RedirectResponse
     {
-        $user = auth()->user()->actor->beneficiary;
+        $user = Auth::user()->actor->beneficiary;
         $ben = RequestBeneficiary::where('benID', $user->benID)->exists();
         if (!$ben) {
             RequestBeneficiary::create([
@@ -23,13 +26,14 @@ class benController extends Controller
             ]);
         }
         if ($user->status->statusType == "Not Approved" || $reapply == 'true') {
-            return redirect('complete-documents');
+            return redirect()->route('ben.complete-doc');
         }
         if ($user->status->statusType == 'Pending') {
             return view('beneficiaries.waitingForApprove');
         }
+        $activities = Activity::whereNotIn('activityID', BeneficiaryActivity::where('benID', $user->benID)->pluck('activityID'))->get();
 
-        return redirect()->route('beneficiaries');
+        return view('beneficiaries.homepage', compact('activities'));
     }
 
     public function getDocuments(Request $request): View
@@ -60,14 +64,14 @@ class benController extends Controller
             ], 422); // 422 Unprocessable Entity for validation errors
         }
 
-        $user = auth()->user()->actor->beneficiary;
+        $user = Auth::user()->actor->beneficiary;
         $user->requestBeneficiary->update([
             'numDependents' => $request->numOfDependents,
         ]);
 
 
         // Check for required documents
-        $req = auth()->user()->actor->beneficiary->requestBeneficiary;
+        $req = Auth::user()->actor->beneficiary->requestBeneficiary;
 
         if ($req->incomeDocument == null) {
             return response()->json([
@@ -88,7 +92,7 @@ class benController extends Controller
 
         return response()->json([
             'status' => 'redirect',
-            'url' => 'beneficiaries',
+            'url' => 'Homepage',
         ]);
     }
 }

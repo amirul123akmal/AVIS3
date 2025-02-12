@@ -64,7 +64,7 @@
             formData.append('numOfDependents', document.getElementById('Number of Dependents').value);
             formData.append('_token', document.querySelector('meta[name="csrf-token"]').getAttribute('content'));
 
-            const actionURL = '/storeDocument'; // Update this to the actual route if different
+            const actionURL = "{{ route('ben.storeDoc') }}"; // Update this to the actual route if different
 
             fetch(actionURL, {
                     method: 'POST',
