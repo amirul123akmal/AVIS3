@@ -9,6 +9,7 @@ class BeneficiaryActivity extends Model
 {
     protected $table = 'benActivity';
     protected $primaryKey = 'benActivityID';
+    public $timestamps = false;
     protected $fillable = [
         'benID',
         'activityID'
