@@ -13,17 +13,17 @@ Route::middleware('auth')->group(function () {
     Route::middleware('role:admin')->group(function () {
         Route::prefix('Admin')->group(function () {
             Route::get('/', [adminController::class, 'homepage'])->name('admin');
-            Route::get('Evaluating-Beneficiaries', [EvalBenInfo::class, 'page']);
 
             // Evaluate Beneficiary Information
             Route::get('Evaluating-Beneficiaries', [EvaBenController::class, 'showEvaBenlist'])->name('admin.evaluateBeneficiariesList');
-            Route::get('Evaluating-Beneficiaries-Information', [EvaBenController::class, 'showevabeninfo'])->name('admin.evaluateBeneficiaryInfo');
+            Route::get('Evaluating-Beneficiaries/{benID}', [EvaBenController::class, 'showevabeninfo'])->name('admin.evaluateBeneficiaryInfo');
+            Route::get('Evaluating-Beneficiaries/{benID}/Download/{filename}', [EvaBenController::class, 'download'])->name('admin.downloadBenInfo');
+            Route::post('Evaluating-Beneficiaries/Acceptance/{benID}', [EvaBenController::class, 'acceptance'])->name('admin.evaluateBeneficiaryAction');
 
             // Manage User Information Controller
             Route::get('Manage-User-Information', [ManageUserInformationController::class, 'page'])->name('Manage-User-Information');
             Route::get('View-User-Information/{id}', [ManageUserInformationController::class, 'viewUserInformation'])->name('View-User-Information');
             Route::get('Update-User-Information/{id}', [ManageUserInformationController::class, 'updateUserInformation'])->name('Update-User-Information');
-            // Route::get('Update-User-Information/{id}', [ManageUserInformationController::class, 'viewUserInformation'])->name('Update-User-Information');
             Route::put('Update-User-Information/{id}', [ManageUserInformationController::class, 'updateUserInformationPost'])->name('Update-User-InformationPost');
 
             // Manage Transport Controller

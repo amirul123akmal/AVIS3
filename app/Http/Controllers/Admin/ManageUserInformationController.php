@@ -8,6 +8,7 @@ use App\Models\Actor;
 use App\Models\User;
 use App\Models\State;
 use Livewire\Livewire;
+use App\Models\IncomeGroup;
 use Illuminate\Validation\Rule;
 use App\Models\Address;
 class ManageUserInformationController extends Controller
@@ -19,7 +20,7 @@ class ManageUserInformationController extends Controller
 
     public function viewUserInformation($id)
     {
-        $user = Actor::with('login')->find($id);
+        $user = Actor::with(['login'])->find($id);
         $states = State::allCached();
         return view('admin.ManageUserInformation.ViewUserInformation', compact('user', 'states'));
     }
@@ -28,17 +29,17 @@ class ManageUserInformationController extends Controller
     {
         $user = Actor::with('login')->find($id);
         $states = State::allCached();
-        return view('admin.ManageUserInformation.UpdateUserInformation', compact('user', 'states'));
+        $incomeGroup = IncomeGroup::allCached();
+        return view('admin.ManageUserInformation.UpdateUserInformation', compact('user', 'states', 'incomeGroup'));
     }
 
     public function updateUserInformationPost(Request $request, $id)
     {
-        // dd(Rule::unique(User::class)->ignore(User::find($id)->loginID, 'loginID'));
-
         $validatedData = $request->validate([
             'ic_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/', 
                             Rule::unique(Actor::class, 'ic')->ignore(Actor::find($id)->ic, 'ic')],
             'username' => ['required', 'string', 'max:255'],
+            'full_name' => ['required', 'string', 'max:255'], // Added validation for full_name
             'phone_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'],
             'address' => ['required', 'string', 'max:255'],
             'postcode' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'],
@@ -51,8 +52,13 @@ class ManageUserInformationController extends Controller
                 'max:255',
                 Rule::unique(User::class)->ignore(User::find($id)->loginID, 'loginID'),
             ],
+            'income_group' => [
+                'nullable', // Make income_group optional
+                'integer', 
+                'exists:incomeGroup,incomeGroupID'
+            ], // Added validation for income_group
         ]);
-        // dd($validatedData);
+        
         $user = User::find($id);
         $user->username = $validatedData['username'];
         $user->email = $validatedData['email'];
@@ -61,13 +67,21 @@ class ManageUserInformationController extends Controller
         $actor = Actor::find($id);
         $actor->ic = $validatedData['ic_number'];
         $actor->phoneNumber = $validatedData['phone_number'];
+        $actor->fullname = $validatedData['full_name']; // Save full name
         $actor->save();
 
-        $address = Address::find($id);
+        $address = Address::find($actor->addressID);
         $address->postcode = $validatedData['postcode'];
         $address->stateID = $validatedData['state'];
         $address->road = $validatedData['address'];
         $address->save();
+
+        // Update the income group only if it is provided
+        if (isset($validatedData['income_group'])) {
+            $beneficiary = $actor->beneficiary; // Assuming there's a relationship defined
+            $beneficiary->incomeGroupID = $validatedData['income_group'];
+            $beneficiary->save();
+        }
 
         return redirect()->route('View-User-Information', ['id' => $id])->with('success', 'profile-updated');
     }

@@ -30,6 +30,11 @@
                         'icon' => 'bi-truck',
                     ],
                     [
+                        'name' => 'Evaluate Beneficiary',
+                        'link' => 'admin.evaluateBeneficiariesList',
+                        'icon' => 'bi-truck',
+                    ],
+                    [
                         'name' => 'Manage User Information',
                         'link' => 'Manage-User-Information',
                         'icon' => 'bi-person-fill',

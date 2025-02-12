@@ -33,14 +33,14 @@ class AuthenticatedSessionController extends Controller
         $request->session()->regenerate();
 
         // Get the authenticated user's ID
-        $userId = auth()->user()->loginID;
+        $userId = Auth::user()->loginID;
         // Log::info('Authenticated User ID: ' . $userId);
         $data = Actor::where('actorID', $userId)->exists();
         // dd($data);
         // Check if data exist in the actor
         // if this is true, this means the registration progress of the user is not completed.
         if ($data) {
-            $user = auth()->user();
+            $user = Auth::user();
             $accounttype = $user->actor->accountType->accountType;
             return redirect()->route($accounttype);
         } else {

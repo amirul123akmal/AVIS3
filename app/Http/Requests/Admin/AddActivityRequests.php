@@ -20,7 +20,7 @@ class AddActivityRequests extends FormRequest
         return [
             'activityName' => ['required', 'string', 'max:255'],
             'activityPlace' => ['required', 'string', 'max:255'],
-            'dateStart' => ['required', 'date', 'before_or_equal:dateEnd'],
+            'dateStart' => ['required', 'date', 'after_or_equal:today', 'before_or_equal:dateEnd'],
             'dateEnd' => ['required', 'date', 'after_or_equal:dateStart'],
             'timeStart' => ['required', 'date_format:H:i'],
             'timeEnd' => ['required', 'date_format:H:i'],

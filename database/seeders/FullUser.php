@@ -9,6 +9,7 @@ use App\Models\Actor;
 use App\Models\Address;
 use App\Models\Beneficiary;
 use App\Models\RequestTransport;
+use App\Models\RequestBeneficiary;
 
 class FullUser extends Seeder
 {
@@ -17,7 +18,7 @@ class FullUser extends Seeder
      */
     public function run(): void
     {
-        User::factory(60)
+        User::factory(100)
             ->has(
                 Actor::factory()->state(function (array $attributes, User $user) {
                     $address = Address::factory()->create();
@@ -50,6 +51,20 @@ class FullUser extends Seeder
                     'status' => 'Pending',
                     'created_at' => now(),
                     'updated_at' => now(),
+                ]);
+            }
+            else
+            {
+                $benid = Beneficiary::create([
+                    'actorID' => $actor->actorID,
+                    'statusID' => '5',
+                ]);
+                RequestBeneficiary::create([
+                    'benID' => $benid->benID,
+                    'numDependents' => rand(4, 9),
+                    'incomeDocument' => 'default1.pdf',
+                    'supportDocument' => 'default3.pdf',
+                    'asnafCardDocument' => 'default2.pdf',
                 ]);
             }
         }

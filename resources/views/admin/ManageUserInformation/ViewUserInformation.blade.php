@@ -34,6 +34,10 @@
                             <p class="text-gray-700">{{ $user->login->username }}</p>
                         </div>
                     </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium">Full Name</label>
+                        <input type="text" name="full_name" value="{{ $user->fullname }}" class="input input-bordered w-full" readonly />
+                    </div>
                     <div class="flex gap-x-5 mx-auto">
                         <div class="mb-4 w-full">
                             <label class="block text-sm font-medium">IC Number</label>
@@ -75,6 +79,14 @@
                             </select>
                         </div>
                     </div>
+                    @if($user->beneficiary)
+                    <div class="flex gap-x-5">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium">Income Group</label>
+                            <input type="text" name="postcode" value="{{ $user->beneficiary->incomeGroup->groupType }}" class="input input-bordered w-48" readonly />
+                        </div>
+                    </div>
+                    @endif
 
                     <div class="flex justify-between mt-6">
                         {{-- <button class="btn btn-primary updating">Update</button> --}}

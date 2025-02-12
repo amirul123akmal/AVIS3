@@ -34,6 +34,10 @@
                             <p class="text-gray-700">{{ $user->login->username }}</p>
                         </div>
                     </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium">Full Name</label>
+                        <input type="text" name="full_name" value="{{ $user->fullname }}" class="input input-bordered w-full" readonly />
+                    </div>
                     <div class="flex gap-x-5 mx-auto">
                         <div class="mb-4 w-full">
                             <label class="block text-sm font-medium">IC Number</label>
@@ -75,11 +79,26 @@
                             </select>
                         </div>
                     </div>
+                    @if($user->beneficiary)
+                    <div class="flex gap-x-5">
+                        <div class="mb-4">
+                            <label class="block text-sm font-medium">Income Group</label>
+                            <select name="income_group" class="select select-bordered w-48" required>
+                                <option value="">Select Income Group</option>
+                                @foreach ($incomeGroup as $group)
+                                    <option value="{{ $group->incomeGroupID }}" {{ $user->beneficiary->incomeGroupID == $group->incomeGroupID ? 'selected' : '' }}>{{ $group->groupType }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                    </div>
+                    @endif
 
                     <div class="flex justify-between mt-6">
-                        <button class="btn btn-primary updating">Update</button>
-                        {{-- <a href="{{route('Manage-User-Information')}}" class="btn btn-secondary">Back</a> --}}
-                        <button class="btn bg-red-500">Delete</button>
+                        <button class="btn btn-primary updating">Click to Start Update</button>
+                        <div class="flex space-x-2">
+                            <a href="{{route('Manage-User-Information')}}" class="btn btn-secondary">Back to User List</a>
+                            <button class="btn bg-red-500">Delete User</button>
+                        </div>
                     </div>
                 </form>
             </div>
@@ -100,7 +119,7 @@
         updateButton.addEventListener('click', function() {
             event.preventDefault();
             console.log(updateButton.innerHTML);
-            if(updateButton.innerHTML == 'Update'){
+            if(updateButton.innerHTML === 'Click to Start Update'){
                 updateButton.innerHTML = 'Save';
                 updateButton.classList.add('btn-success');
                 readonlyElements.forEach(function(element) {
