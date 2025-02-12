@@ -16,8 +16,8 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'ic_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'
-        , Rule::unique('actor', 'ic')->ignore($this->user()->actor)],
+            'ic_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/',
+                Rule::unique('actor', 'ic')->ignore($this->user()->actor)],
             'username' => ['required', 'string', 'max:255'],
             'phone_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'],
             'address' => ['required', 'string', 'max:255'],
@@ -31,6 +31,7 @@ class ProfileUpdateRequest extends FormRequest
                 'max:255',
                 Rule::unique(User::class)->ignore($this->user()),
             ],
+            'full_name' => ['required', 'string', 'max:255'], // Added validation for fullname
         ];
     }
 

@@ -8,7 +8,7 @@
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
 
-<body class="flex items-center justify-center min-h-screen bg-base-100">
+<body class="flex items-center justify-center min-h-screen bg-radial-erin">
 
     <div class="bg-white shadow-md rounded-lg p-12 max-w-md w-full ">
         <h1 class="text-2xl font-semibold text-center mb-4">Waiting for Approval</h1>
@@ -16,13 +16,12 @@
             Thank you for your submission. Your request is currently under review.
             Please check back later for updates.
         </p>
-
-        <div class="flex justify-center mb-4">
+        {{-- <div class="flex justify-center mb-4">
             <div class="w-16 h-16 border-4 border-blue-500 border-t-transparent rounded-full animate-spin"></div>
-        </div>
+        </div> --}}
 
         <div class="text-center">
-            <a class="btn btn-primary" href="/beneficiaries">Refresh Status</a>
+            <a class="btn bg-purple-300 text-white" href="{{ url()->current() }}">Refresh Status</a>
         </div>
     </div>
 

@@ -112,6 +112,10 @@
                             <p class="text-gray-700">{{ $user->username }}</p>
                         </div>
                     </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium">Full Name</label>
+                        <input type="text" name="full_name" value="{{ $user->actor->fullname }}" class="input input-bordered w-full" readonly />
+                    </div>
                     <div class="flex gap-x-5 mx-auto">
                         <div class="mb-4 w-full">
                             <label class="block text-sm font-medium">IC Number</label>
@@ -153,9 +157,12 @@
                             </select>
                         </div>
                     </div>
-
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium">Income Group</label>
+                        <p class="input input-bordered w-full">{{ $user->actor->beneficiary->incomeGroup->groupType }}</p>
+                    </div>
                     <div class="flex justify-between mt-6">
-                        <button class="btn btn-primary updating">Update</button>
+                        <button class="btn btn-primary updating">Click to Start Update</button>
                         <button class="btn btn-secondary">Delete</button>
                     </div>
                 </form>
@@ -190,6 +197,10 @@
                             <p class="text-gray-700">{{ $user->username }}</p>
                         </div>
                     </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium">Full Name</label>
+                        <input type="text" name="full_name" value="{{ $user->actor->fullname }}" class="input input-bordered w-full" readonly />
+                    </div>
                     <div class="flex gap-x-5 mx-auto">
                         <div class="mb-4 w-full">
                             <label class="block text-sm font-medium">IC Number</label>
@@ -231,9 +242,8 @@
                             </select>
                         </div>
                     </div>
-
                     <div class="flex justify-between mt-6">
-                        <button class="btn btn-primary updating">Update</button>
+                        <button class="btn btn-primary updating">Click to Start Update</button>
                         <button class="btn btn-secondary">Delete</button>
                     </div>
                 </form>
@@ -254,7 +264,7 @@
         updateButton.addEventListener('click', function() {
             event.preventDefault();
             console.log(updateButton.innerHTML);
-            if(updateButton.innerHTML == 'Update'){
+            if(updateButton.innerHTML === 'Click to Start Update'){
                 updateButton.innerHTML = 'Save';
                 updateButton.classList.add('btn-success');
                 readonlyElements.forEach(function(element) {
