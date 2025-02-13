@@ -31,7 +31,7 @@
         /* Tabs Section */
         .tabs {
             display: flex;
-            justify-content: space-between;
+            justify-content: space-evenly;
             align-items: center;
             background-color: rgba(31, 109, 132, 0.33); /* #1f6d84 with 33% transparency */
             border-radius: 12px;
@@ -131,15 +131,12 @@
             <h1 class="text-center text-[#1f6d84] text-2xl font-bold">Request Transport Application</h1>
             <!-- Tabs -->
             <div class="tabs mt-4">
-                <div class="tab active flex items-center gap-2 h-10">
+                <div class="tab active flex items-center gap-4 h-10">
                     <i class="bi bi-person-circle text-lg"></i>
                     <span>Personal Details</span>
                 </div>
-                <div class="tab flex items-center gap-2 h-10">
-                    <i class="bi bi-car-front-fill text-lg"></i>
-                    <span>Transport Details</span>
-                </div>
-                <div class="tab flex items-center gap-2 h-10">
+                
+                <div class="tab flex items-center gap-4 h-10">
                     <i class="bi bi-clipboard-check-fill text-lg"></i>
                     <span>Status Application</span>
                 </div>
@@ -147,10 +144,10 @@
             <!-- Progress Info -->
             <section class="flex flex-col md:flex-row justify-between items-center gap-6 p-6 bg-[#f9fafb] rounded-lg shadow-md mt-6">
                 <!-- Progress Card -->
-                <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-md w-60">
+                {{-- <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-md w-60">
                     <p class="font-bold text-5xl text-green-500 mb-2">90%</p>
                     <span class="text-base font-medium text-gray-600">Completed Details</span>
-                </div>
+                </div> --}}
                 
                 
                 <!-- Reminder Card -->
@@ -231,6 +228,15 @@
                             </div>
                         </div>
                         <div class="mt-4">
+                            <label class="block text-black font-medium mb-1">Vehicle Type</label>
+                            <select name="vehicle_type" required>
+                                <option value="" selected disabled>Select Vehicle Type</option>
+                                @foreach($vehicletype as $type)
+                                    <option value="{{ $type->vehicleID }}">{{ $type->vehicleType }}</option>
+                                @endforeach
+                            </select>
+                        </div>
+                        <div class="mt-4">
                             <label class="block text-black font-medium mb-1">Notes</label>
                             <textarea rows="3" placeholder="Leave a Message Here" name="notes"></textarea>
                         </div>
@@ -248,5 +254,12 @@
         </div>
         </x-ben-sidebar>
     </body>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            @if(session('success'))
+                alert("{{ session('success') }}");
+            @endif
+        });
+    </script>
     </html>
     

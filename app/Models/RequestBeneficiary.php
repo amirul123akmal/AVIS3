@@ -10,7 +10,7 @@ class RequestBeneficiary extends Model
 
     public $timestamps = false;
 
-    protected $table = 'requestBeneficiary';
+    protected $table = 'requestbeneficiary';
     protected $primaryKey = 'reqID';
     protected $fillable = [
         'benID',

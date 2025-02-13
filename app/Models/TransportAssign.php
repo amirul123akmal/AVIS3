@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class TransportAssign extends Model
 {
-    protected $table = 'transportAssign';
+    protected $table = 'transportassign';
     protected $primaryKey = 'transAssignID';
     protected $fillable = [
         'reqID',

@@ -8,6 +8,7 @@ use Illuminate\Support\Facades\Auth;
 use App\Models\State;
 use App\Models\RequestTransport;
 use Illuminate\Support\Facades\Validator;
+use App\Models\VehicleType;
 
 class reqTransportController extends Controller
 {
@@ -15,7 +16,16 @@ class reqTransportController extends Controller
    {
       $actor = Auth::user()->actor;
       $states = State::allCached();
-      return view('beneficiaries.reqTransport', compact('actor', 'states'));
+      $vehicletype = VehicleType::all();
+      $benID = $actor->beneficiary->benID;
+      $pendingRequest = RequestTransport::where('benID', $benID)
+          ->whereDate('dateReq', '>=', now()->toDateString())
+          ->first();
+
+      if ($pendingRequest) {
+          return view('beneficiaries.reqTransportStatWait', compact('actor', 'pendingRequest'));
+      }
+      return view('beneficiaries.reqTransport', compact('actor', 'states', 'vehicletype'));
    }
    public function showreqTransportStatus()
    {
@@ -24,6 +34,7 @@ class reqTransportController extends Controller
 
    public function applyReqTransport(Request $request)
    {
+      // dd($request->all());
       // Validate the request
       $validator = Validator::make($request->all(), [
          'address_from' => 'required|string|max:255',
@@ -34,6 +45,7 @@ class reqTransportController extends Controller
          'city_to' => 'required|string|max:100',
          'state_from' => 'required|exists:state,stateID', // Fixed to state_from
          'state_to' => 'required|exists:state,stateID',   // Fixed to state_to
+         'vehicle_type' => 'required|exists:vehicletype,vehicleID', // Include vehicleID validation
          'notes' => 'nullable|string|max:500',
       ]);
 
@@ -47,27 +59,24 @@ class reqTransportController extends Controller
       // Process the transport request (e.g., save to database)
       $transportRequest = new RequestTransport();
       $transportRequest->benID = Auth::user()->actor->beneficiary->benID; 
-      $transportRequest->address_from = implode('] ', [
+      $transportRequest->addressFrom = implode('] ', [
          $request->address_from,
          $request->postcode_from,
          $request->city_from,
          $request->state_from, // Include state_from
       ]);
-      $transportRequest->address_to = implode('] ', [
+      $transportRequest->addressTo = implode('] ', [
          $request->address_to,
          $request->postcode_to,
          $request->city_to,
          $request->state_to, // Include state_to
       ]);
+      $transportRequest->vehicleID = $request->vehicle_type; // Include vehicleID
       $transportRequest->dateReq = now(); // Set the current date and time
       $transportRequest->notes = $request->notes;
       $transportRequest->status = 'Pending'; // Set the status to 'Pending'
-      dd($transportRequest);
       $transportRequest->save();
 
-      return response()->json([
-         'status' => 'success',
-         'message' => 'Transport request submitted successfully.',
-      ]);
+      return redirect()->route('ben.reqTransport')->with('success', 'Transport request submitted successfully.');
    }
 }

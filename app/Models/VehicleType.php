@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class VehicleType extends Model
 {
-    protected $table = 'vehicleType';
+    protected $table = 'vehicletype';
     protected $primaryKey = 'vehicleID';
     protected $fillable = [
         'vehicleType'

@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Relations\HasOne;
 
 class RequestTransport extends Model
 {
-    protected $table = 'requestTransport';
+    protected $table = 'requesttransport';
     protected $primaryKey = 'reqID';
     protected $fillable = [
         'benID',
