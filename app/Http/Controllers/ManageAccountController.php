@@ -27,7 +27,7 @@ class ManageAccountController extends Controller
     {
         $loginData = Arr::only($request->validated(), ['username', 'email']);
         $addressData = Arr::only($request->validated(), ['address', 'postcode', 'state']); 
-        $actorData = Arr::only($request->validated(), ['ic_number', 'phone_number']);
+        $actorData = Arr::only($request->validated(), ['ic_number', 'phone_number', 'full_name']); // Added fullname to actorData
         // dd($loginData, $addressData, $actorData);
         $request->user()->fill($loginData);
         if ($request->user()->isDirty('email')) {
@@ -37,6 +37,7 @@ class ManageAccountController extends Controller
         $actor = $request->user()->actor;
         $actor->ic = $actorData['ic_number'];
         $actor->phoneNumber = $actorData['phone_number'];
+        $actor->fullname = $actorData['full_name']; // Update the full name
 
         $address = $actor->address;
         $address->postcode = $addressData['postcode'];

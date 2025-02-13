@@ -8,7 +8,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
 
 class AccountType extends Model
 {
-    protected $table = 'accountType';
+    protected $table = 'accounttype';
     protected $primaryKey = 'accountID';
 
     protected $fillable = [

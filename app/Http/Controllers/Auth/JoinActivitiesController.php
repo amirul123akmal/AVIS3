@@ -9,7 +9,6 @@ use App\Models\BeneficiaryActivity;
 use App\Models\Activity;
 use Illuminate\Support\Facades\Auth;
 
-
 class JoinActivitiesController extends Controller
 {
     public function showJoinActivities()
@@ -19,25 +18,23 @@ class JoinActivitiesController extends Controller
         return view('beneficiaries.joinActivities', compact('activities'));
     }
 
-    // public function volJoinActivities(Request $request, $activityID){
+    public function volJoinActivities(Request $request, $activityID)
+    {
+        $exists = actorActivity::where('actorID', Auth::id())
+            ->where('activityID', $activityID)
+            ->exists();
 
-    //     // Check if the user already joined
-    //     $exists = JoinedActivity::where('user_id', Auth::id())
-    //         ->where('activity_id', $activityID)
-    //         ->exists();
+        if ($exists) {
+            return redirect()->route('vol.joinedActivities')->with('error', 'You have already joined this activity.');
+        }
 
-    //     if ($exists) {
-    //         return redirect()->route('beneficiaries.joinActivitiesList')->with('error', 'You have already joined this activity.');
-    //     }
+        actorActivity::create([
+            'actorID' => Auth::id(),
+            'activityID' => $activityID,
+        ]);
 
-    //     // Insert into database
-    //     JoinedActivity::create([
-    //         'user_id' => Auth::id(),
-    //         'activity_id' => $request->activity_id,
-    //     ]);
-
-    //     return redirect()->route('beneficiaries.joinActivitiesList')->with('success', 'Activity joined successfully!');
-    // }
+        return redirect()->route('vol.joinedActivities')->with('success', 'Activity joined successfully!');
+    }
 
     public function benJoinActivities(Request $request, $activityID)
     {
@@ -101,5 +98,47 @@ class JoinActivitiesController extends Controller
         $joinedActivity->delete();
 
         return redirect()->route('ben.joinActivitiesList')->with('success', 'Activity cancelled successfully!');
+    }
+
+    public function showVolJoinActivitiesList()
+    {
+        $actorID = Auth::user()->actor->actorID;
+        $currentActivity = actorActivity::where('actorID', $actorID)
+            ->whereHas('activity', function($query) {
+                $query->where('dateEnd', '>=', now());
+            })
+            ->with('activity')
+            ->get();
+        $pastActivity = actorActivity::where('actorID', $actorID)
+            ->whereHas('activity', function($query) {
+                $query->where('dateEnd', '<', now());
+            })
+            ->with('activity')
+            ->get();
+        return view('volunteers.joinActivitiesList', compact('currentActivity', 'pastActivity'));
+    }
+
+    public function volCancelJoinActivity(Request $request, $activityID)
+    {
+        $user = Auth::user()->actor;
+        $actorID = $user->actorID; 
+
+        // Find the activity the volunteer wants to cancel
+        $joinedActivity = actorActivity::where('actorID', $actorID)
+            ->where('activityID', $activityID)
+            ->first();
+
+        if (!$joinedActivity) {
+            return redirect()->route('vol.joinedActivities')->with('error', 'You have not joined this activity.');
+        }
+
+        // Handle the cancellation logic
+        try {
+            // Delete the joined activity
+            $joinedActivity->delete();
+            return redirect()->route('vol.joinedActivities')->with('success', 'Activity cancelled successfully!');
+        } catch (\Exception $e) {
+            return redirect()->route('vol.joinedActivities')->with('error', 'An error occurred while cancelling the activity. Please try again.');
+        }
     }
 }

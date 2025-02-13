@@ -9,7 +9,8 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 
 class actorActivity extends Model
 {
-    protected $table = 'actorActivity';
+    public $timestamps = false;
+    protected $table = 'actoractivity';
     protected $primaryKey = 'actorActivityID';
     protected $fillable = [
         'actorID',

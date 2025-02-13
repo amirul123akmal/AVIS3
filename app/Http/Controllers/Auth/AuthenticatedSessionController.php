@@ -42,7 +42,7 @@ class AuthenticatedSessionController extends Controller
         if ($data) {
             $user = Auth::user();
             $accounttype = $user->actor->accountType->accountType;
-            return redirect()->route($accounttype);
+            return redirect()->route($accounttype === 'volunteers' ? 'vol.homepage' : $accounttype);
         } else {
             return redirect()->intended('/choose');
         }

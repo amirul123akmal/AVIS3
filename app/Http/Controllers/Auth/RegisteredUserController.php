@@ -38,7 +38,7 @@ class RegisteredUserController extends Controller
 
     public function manageChoose(Request $request, $type): RedirectResponse
     {
-        $id = DB::table('accountType')->where('accountType', $type)->get('accountID');
+        $id = DB::table('accounttype')->where('accountType', $type)->get('accountID');
         // dd($id->toArray());
         session(['accountID' => $id->toArray()[0]->accountID]);
         return redirect('/complete-profile');

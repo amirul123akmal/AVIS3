@@ -8,7 +8,7 @@ use Illuminate\Support\Facades\Cache;
 
 class IncomeGroup extends Model
 {
-    protected $table = 'incomeGroup';
+    protected $table = 'incomegroup';
     protected $primaryKey = 'incomeGroupID';
     protected $fillable = [
         'groupType'
