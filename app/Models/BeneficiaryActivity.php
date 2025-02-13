@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class BeneficiaryActivity extends Model
 {
-    protected $table = 'benActivity';
+    protected $table = 'benactivity';
     protected $primaryKey = 'benActivityID';
     public $timestamps = false;
     protected $fillable = [

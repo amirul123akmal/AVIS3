@@ -22,7 +22,8 @@ Route::middleware('auth')->group(function () {
             // Request Transport Controller
             Route::get('/reqTransport', [reqTransportController::class, 'showreqTransportController'])->name('ben.reqTransport');
             Route::post('/reqTransport', [reqTransportController::class, 'applyReqTransport'])->name('ben.applyReqTransport');
-            Route::get('/reqTransportStat', [reqTransportController::class, 'showreqTransportStatus'])->name('ben.reqTransportStat');
+            Route::get('/reqTransportStat', [reqTransportController::class, 'showreqTransportStatus'])->name('ben.reqTransportStatWait');
+            // Route::get('/reqTransportStat', [reqTransportController::class, 'showreqTransportStatus'])->name('ben.reqTransportStat');
         });
     });
 });

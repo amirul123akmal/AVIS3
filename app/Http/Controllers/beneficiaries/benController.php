@@ -32,7 +32,9 @@ class benController extends Controller
             return view('beneficiaries.waitingForApprove');
         }
         $activities = Activity::whereNotIn('activityID', BeneficiaryActivity::where('benID', $user->benID)->pluck('activityID'))->get();
-
+        $activities = $activities->filter(function($activity) {
+            return strtotime($activity->dateStart) > time();
+        });
         return view('beneficiaries.homepage', compact('activities'));
     }
 
