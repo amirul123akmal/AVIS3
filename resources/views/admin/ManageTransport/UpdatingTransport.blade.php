@@ -18,8 +18,9 @@
                     <h1 class="text-2xl font-bold mb-4">Manage Transport</h1>
                     
                     <div class="flex justify-between mb-4 rounded-lg bg-white">
-                        <a href="{{ route('Manage-Transport') }}" class="btn btn-ghost">Request Transport</a>
+                        <a href="" class="btn btn-ghost">Request Transport</a>
                         <a href="{{ route('Create-Transport') }}" class="btn btn-ghost">Create Transport</a>
+                        <a href="{{ route ('admin.view-transport')}}" class="btn btn-ghost">View Transport</a>
                         <a href="{{ route('Update-Transport') }}" class="btn btn-primary">Update Transport Information</a>
                     </div>
                     <h2 class="font-semibold mb-2">Type of Transportation</h2>
@@ -60,7 +61,7 @@
                                 <option value="{{ $status->statusID }}" {{ $status->statusID == $transportation->vehicleStatus ? 'selected' : '' }}>{{ $status->statusType }}</option>
                                 @endforeach
                             </select>
-                        <button class="btn btn-primary" type="submit">Create</button>
+                        <button class="btn btn-primary" type="submit">Update</button>
                     </form>
                 </div>
             </div>

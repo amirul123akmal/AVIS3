@@ -71,7 +71,7 @@
                         </div>
                     </div>
                     <label class="cursor-pointer label justify-start">
-                        <input type="checkbox" class="checkbox checkbox-sm" name="agreeTerm" />
+                        <input type="checkbox" class="checkbox checkbox-sm" name="agreeTerm" required/>
                         <span class="label-text ms-3">I agree with the Term and Privacy Usage</span>
                     </label>
                     <button class="btn bg-[#e9d6f1] w-full rounded-xl text-2xl mt-3">Create Account</button>

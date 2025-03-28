@@ -21,7 +21,7 @@
                     ],
                     [
                         'name' => 'Manage Transport',
-                        'link' => 'Manage-Transport',
+                        'link' => 'admin.view-transport',
                         'icon' => 'bi-truck',
                     ],
                     [

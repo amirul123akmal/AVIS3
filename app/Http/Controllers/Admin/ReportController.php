@@ -22,7 +22,7 @@ class ReportController extends Controller
             $name = 'Activity_Report';
         } elseif ($request->reportType === 'transport') {
             $query = Transportation::query();
-            $name = '_Report';
+            $name = 'Transport_Report';
         } elseif ($request->reportType === 'volunteer') {
             $name = 'Volunteer_Report';
             $query = Actor::query();

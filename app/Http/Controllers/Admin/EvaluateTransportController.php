@@ -39,8 +39,11 @@ class EvaluateTransportController extends Controller
         if (!$transportRequest) {
             return abort(404, 'Transport request not found.');
         }
+        $addressFrom = str_replace(']', ',', $transportRequest->addressFrom);
+        $addressTo = str_replace(']', ',', $transportRequest->addressTo);
+        // dd($transportRequest, $addressFrom, $addressTo);
 
-        return view('admin.EvaluateTransport.evaluateTransportView', compact('transportRequest'));
+        return view('admin.EvaluateTransport.evaluateTransportView', compact('transportRequest','addressFrom','addressTo'));
     }
 
     public function updateEvaluation(Request $request, $id)

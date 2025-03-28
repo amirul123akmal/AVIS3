@@ -53,15 +53,22 @@ class ManageAccountController extends Controller
 
     public function destroy(Request $request): RedirectResponse
     {
-        $request->validateWithBag('userDeletion', [
-            'password' => ['required', 'current_password'],
-        ]);
+        // dd($request->all());
 
-        $user = $request->user();
+        $user = Auth::user();
+
+        $actor = $user->actor;
+        $address = $actor->address;
+
+        $actor->delete();
+        $address->delete();
+
+        // Then delete the actor
+
+        // Finally, delete the user
+        $user->delete();
 
         Auth::logout();
-
-        $user->delete();
 
         $request->session()->invalidate();
         $request->session()->regenerateToken();

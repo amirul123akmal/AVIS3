@@ -16,20 +16,21 @@ export default {
             },
             backgroundImage: {
                 'radial-erin': 'radial-gradient(circle 220px at center, #eea8e2, #FFFFFF)',
-              },
+                'bgCanva': 'bg-[#d6d9de]',
+            },
         },
     },
     daisyui: {
         themes: [
             {
                 light: {
-                    ...require("daisyui/src/theming/themes")["[data-theme=light]"], // Ensure the theme key is correct
-                    "base-100": "#E3E9F1", // Custom primary color
+                    ...require("daisyui/src/theming/themes")["[data-theme=light]"],
+                    "base-100": "#E3E9F1",
                 },
             },
-            "dark", // Ensure this is consistent with the default theme structure
+            "dark",
         ],
-        darkTheme: "dark", // Use "dark" as the included theme for dark mode
+        darkTheme: "dark",
         base: true,
         styled: true,
         utils: true,

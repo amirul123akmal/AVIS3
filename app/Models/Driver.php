@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Relations\BelongsTo;
 
 class Driver extends Model
 {
+    public $timestamps = false;
     protected $table = 'driver';
     protected $primaryKey = 'driverID';
     protected $fillable = [

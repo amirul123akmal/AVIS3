@@ -252,11 +252,6 @@
                 <p class="see-more">See More</p>
             </div>
         </div>
-        
-        <!-- Footer -->
-        <div class="footer">
-            <p>If you have any inquiries, call us at <span>018-4040483</span>.</p>
-        </div>
     </x-ben-sidebar>
 </body>
 <script>

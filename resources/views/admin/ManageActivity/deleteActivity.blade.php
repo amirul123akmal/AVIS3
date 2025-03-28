@@ -51,11 +51,11 @@
 <!-- Open the modal using ID.showModal() method -->
 <dialog id="my_modal_1" class="modal">
   <div class="modal-box">
-    <h3 class="text-lg font-bold">Hello!</h3>
-    <p class="py-4">Press ESC key or click the button below to close</p>
+    <h3 class="text-lg font-bold">Confirm Deletion</h3>
+    <p class="py-4">Are you sure you want to delete this activity?</p>
     <div class="modal-action">
         <button class="btn" onclick="my_modal_1.close()">Cancel</button>
-        <form method="POST" id="deleteForm">
+        <form method="POST" id="deleteForm" action="">
         @csrf
         @method('DELETE')
         <button class="btn" type="submit">Delete</button>
@@ -67,8 +67,7 @@
     function toggleModal(id) {
         document.getElementById('my_modal_1').showModal();
         const form = document.getElementById('deleteForm');
-        form.action = `/Activity/` + id;
-
+        form.action = `{{ route('activity.destroy', '') }}` + '/' + id; // Updated to use named route
     }
 </script>   
 </body>

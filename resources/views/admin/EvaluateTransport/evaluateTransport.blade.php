@@ -103,6 +103,11 @@
                     @foreach($evaluatedRequests as $request)
                         <div class="item">
                             <span class="request-name">{{ $request->fullname ?? 'Unknown' }}</span>
+                            @if($request->status === 'Rejected')
+                                <span class="text-red-500">Rejected</span>
+                            @else
+                                <a href="{{ route('Manage-Transport', ['id' => $request->reqID]) }}">Assign</a>
+                            @endif
                             <a href="{{ route('admin.evaluateDetails', ['id' => $request->reqID]) }}">Details</a>
                         </div>
                     @endforeach

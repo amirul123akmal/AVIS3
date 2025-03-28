@@ -244,7 +244,34 @@
                     </div>
                     <div class="flex justify-between mt-6">
                         <button class="btn btn-primary updating">Click to Start Update</button>
-                        <button class="btn btn-secondary">Delete</button>
+                        <div id="deleteConfirmation" class="inline profileform">
+                            <button type="button" class="btn btn-secondary" id="deleteButton">Delete</button>
+                        </div>
+                        <script>
+                            window.addEventListener('load', function() {
+                                function confirmDelete(event) {
+                                    event.preventDefault(); // Prevent the default button action
+                                    alertify.confirm('Confirm Deletion', 'Are you sure you want to delete your profile?',
+                                        function() {
+                                            console.log('dah tekan');
+                                            const form = document.createElement('form'); // Create a new form element
+                                            form.action = "{{ route('profile.destroy') }}"; // Set the action
+                                            form.method = "POST"; // Set the method
+                                            form.innerHTML = '@csrf @method("DELETE")'; // Add CSRF and method fields
+                                            document.body.appendChild(form); // Append the form to the body
+                                            form.submit(); // Submit the form if confirmed
+                                        },
+                                        function() {
+                                            alertify.error('Deletion cancelled'); // Handle cancellation
+                                        }
+                                    );
+                                }
+
+                                // Attach the confirmDelete function to the delete button
+                                const deleteButton = document.getElementById('deleteButton');
+                                deleteButton.addEventListener('click', confirmDelete);
+                            });
+                        </script>
                     </div>
                 </form>
             </div>

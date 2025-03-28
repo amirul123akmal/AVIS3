@@ -27,7 +27,8 @@ Route::middleware('auth')->group(function () {
             Route::put('Update-User-Information/{id}', [ManageUserInformationController::class, 'updateUserInformationPost'])->name('Update-User-InformationPost');
 
             // Manage Transport Controller
-            Route::get('Manage-Transport', [ManageTransportController::class, 'transport'])->name('Manage-Transport');
+            Route::get('Assign-Transport', [ManageTransportController::class, 'assignTransport'])->name('admin.assignTransport');
+            Route::get('Manage-Transport/{id}', [ManageTransportController::class, 'transport'])->name('Manage-Transport');
             Route::get('Create-Transport', [ManageTransportController::class, 'createTransport'])->name('Create-Transport');
             Route::put('Create-Transport', [ManageTransportController::class, 'createTransportPost'])->name('Create-TransportPost');
             Route::get('Update-Transport', [ManageTransportController::class, 'updateTransport'])->defaults('id', 0)->name('Update-Transport');
@@ -35,6 +36,8 @@ Route::middleware('auth')->group(function () {
             Route::put('Update-Transport/{id}', [ManageTransportController::class, 'updateTransportPost'])->name('Update-TransportPost');
             Route::get('Delete-Transport', [ManageTransportController::class, 'deleteTransport'])->name('Delete-Transport');
             Route::delete('Delete-Transport', [ManageTransportController::class, 'deleteTransportPost'])->name('Delete-TransportPost');
+            Route::post('Assign-Transportation', [ManageTransportController::class, 'assignDrivers'])->name('assign.drivers');
+            Route::get('View-Transport', [ManageTransportController::class, 'viewTransport'])->name('admin.view-transport');
 
             // Manage Activity Controller
             Route::get('Activity', [ManageActivity::class, 'page'])->name('Activity');

@@ -12,37 +12,66 @@
     <x-admin-sidebar>
         <x-admin-navbar />
         <div class="container mx-auto mt-3">
-            <section class="flex justify-between">
-                <div class="w-3/12">
-                    <label class="input h-10 rounded-xl flex items-center gap-2 bg-gray-300">
-                        <span class="bi bi-search font-bolder text-2xl"></span>
-                        <input type="text" class="ms-2 border-none focus:ring-0 grow"
-                            placeholder="Search Activity" />
-                    </label>
-                </div>
-                <div class="">
-                    <button class="btn bg-black text-white hover:bg-white hover:text-black">Sort by <p
-                            class="font-bold">Newest</p><span class="bi bi-arrow-down-circle-fill text-2xl" /></button>
-                </div>
-            </section>
-            <section class="grid grid-cols-5 gap-4 mt-3 [&_.card]:h-28">
-                <div class="card hover:bg-cyan-500 bg-cyan-200">
-                    <div class="card-body">
-                        <h1 class="card-title">asd</h1>
-                        <p>asdhgavsd</p>
+            <section class="grid grid-cols-1 md:grid-cols-3 gap-6 mt-3">
+                <div class="card transition-transform transform hover:scale-105 bg-gradient-to-r from-purple-400 to-purple-200 shadow-lg rounded-lg p-4">
+                    <div class="card-body text-center">
+                        <h1 class="text-3xl font-bold text-gray-800"> <span class="text-4xl text-red-600">{{ $volunteersCount }}</span></h1>
+                        <p class="text-gray-600">Total Volunteers</p>
                     </div>
                 </div>
-                <div class="card hover:bg-cyan-500 bg-cyan-200">
-                    <div class="card-body">
-
+                <div class="card transition-transform transform hover:scale-105 bg-gradient-to-r from-purple-400 to-purple-200 shadow-lg rounded-lg p-4">
+                    <div class="card-body text-center">
+                        <h1 class="text-3xl font-bold text-gray-800"> <span class="text-4xl text-red-600">{{ $beneficiariesCount }}</span></h1>
+                        <p class="text-gray-600">Total Beneficiaries</p>
                     </div>
                 </div>
-                <div class="card hover:bg-cyan-500 bg-cyan-200">
-                    <div class="card-body">
-
+                <div class="card transition-transform transform hover:scale-105 bg-gradient-to-r from-purple-400 to-purple-200 shadow-lg rounded-lg p-4">
+                    <div class="card-body text-center">
+                        <h1 class="text-3xl font-bold text-gray-800"> <span class="text-4xl text-red-600">{{ $awaitingResponse }}</span></h1>
+                        <p class="text-gray-600">Beneficiaries to evaluate</p>
                     </div>
                 </div>
             </section>
+        <section class="grid grid-cols-1 md:grid-cols-2 gap-6 mt-6">
+            <div class="card bg-white shadow-lg rounded-lg p-4">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Top 5 Highest Volunteer in Activity </h2>
+                <table class="min-w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border-b-2 border-gray-300 px-4 py-2 text-left">Activity Name</th>
+                            <th class="border-b-2 border-gray-300 px-4 py-2 text-left">Volunteer Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($topVolunteers as $volunteer)
+                        <tr>
+                            <td class="border-b border-gray-200 px-4 py-2">{{ $volunteer->activityName }}</td>
+                            <td class="border-b border-gray-200 px-4 py-2">{{ $volunteer->volunteerCount }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            <div class="card bg-white shadow-lg rounded-lg p-4">
+                <h2 class="text-xl font-bold text-gray-800 mb-4">Top 5 Highest Beneficiaries in Activity</h2>
+                <table class="min-w-full border-collapse">
+                    <thead>
+                        <tr>
+                            <th class="border-b-2 border-gray-300 px-4 py-2 text-left">Activity Name</th>
+                            <th class="border-b-2 border-gray-300 px-4 py-2 text-left">Beneficiary Count</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach ($topBeneficiaries as $beneficiary)
+                        <tr>
+                            <td class="border-b border-gray-200 px-4 py-2">{{ $beneficiary->activityName }}</td>
+                            <td class="border-b border-gray-200 px-4 py-2">{{ $beneficiary->beneficiaryCount }}</td>
+                        </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+        </section>
         </div>
     </x-admin-sidebar>
 </body>

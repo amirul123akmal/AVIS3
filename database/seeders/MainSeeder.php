@@ -28,9 +28,12 @@ class MainSeeder extends Seeder
         $this->call(UserSeeder::class);
         $this->call(StatusSeeder::class);
         $this->call(AdminSeeder::class);
-        $this->call(Transportation::class);
+        $this->call(Transportations::class);
         if (in_array('DummyUser', $this->parameter)) {
             $this->call(FullUser::class);
+        }
+        if (in_array('Activity', $this->parameter)) {
+            $this->call(Activities::class);
         }
     }
 }

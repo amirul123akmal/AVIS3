@@ -102,8 +102,8 @@
                 <div class="grid grid-cols-2 gap-4">
                     <div class="text-field">Transport Type: {{ $transportRequest->vehicleType->vehicleType ?? 'N/A' }}</div>
                     <div class="text-field">Date: {{ $transportRequest->dateReq }}</div>
-                    <div class="text-field">Address From: {{ $transportRequest->addressFrom }}</div>
-                    <div class="text-field">Address To: {{ $transportRequest->addressTo }}</div>
+                    <div class="text-field">Address From: {{ $addressFrom }}</div>
+                    <div class="text-field">Address To: {{ $addressTo }}</div>
                 </div>
             </div>
 

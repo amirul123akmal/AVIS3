@@ -18,8 +18,9 @@
                     <h1 class="text-2xl font-bold mb-4">Manage Transport</h1>
                     
                     <div class="flex justify-between mb-4 rounded-lg bg-white">
-                        <a href="{{ route('Manage-Transport') }}" class="btn btn-ghost">Request Transport</a>
+                        <a href="" class="btn btn-ghost">Assign Request Transport</a>
                         <a href="{{ route('Create-Transport') }}" class="btn btn-ghost">Create Transport</a>
+                        <a href="{{ route ('admin.view-transport')}}" class="btn btn-ghost">View Transport</a>
                         <a href="{{ route('Update-Transport') }}" class="btn btn-primary">Update Transport Information</a>
                     </div>
                     @foreach ($transportation as $transport)

@@ -6,7 +6,7 @@ use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use App\Models\VehicleType;
 
-class Transportation extends Seeder
+class vehicletypes extends Seeder
 {
     /**
      * Run the database seeds.
@@ -21,4 +21,3 @@ class Transportation extends Seeder
         ]);
     }
 }
-

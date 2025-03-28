@@ -57,7 +57,6 @@
                                     <option value="transport">Transport Report</option>
                                     <option value="volunteer">Volunteer Report</option>
                                     <option value="beneficiary">Beneficiary Report</option>
-                                    <option value="all">Combined Report</option>
                                 </select>
                                 <i class="fas fa-chevron-down absolute right-3 top-1/2 transform -translate-y-1/2 text-gray-500"></i>
                             </div>

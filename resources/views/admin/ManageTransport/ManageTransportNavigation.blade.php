@@ -13,6 +13,7 @@
     </div>
     <h2 class="font-bold mt-4">Manage Transport</h2>
     <div class="flex flex-col gap-y-3 justify-start">
+        <a href="{{ route('admin.view-transport') }}" class="btn btn-sm">View Transport <span class="bi bi-plus font-bold text-xl"></span></a>
         <a href="{{ route('Create-Transport') }}" class="btn btn-sm">Create Transport <span class="bi bi-plus font-bold text-xl"></span></a>
         <a href="{{ route('Update-Transport') }}" class="btn btn-sm">Edit Transport <span class="bi bi-plus font-bold text-xl"></span></a>
         <a href="{{ route('Delete-Transport') }}" class="btn btn-sm">Delete Transport <span class="bi bi-plus font-bold text-xl"></span></a>
