@@ -278,6 +278,21 @@
         </div>
     </x-vol-sidebar>
 @endvolunteer
+
+@if (session('status'))
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            swal.fire({
+                icon: 'success',
+                title: '{{ session('status') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+    </script>
+@endif
+
 <script>
     // Ensure the DOM is fully loaded
     window.addEventListener('load', function() {
