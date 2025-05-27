@@ -45,7 +45,7 @@ return new class extends Migration {
             $table->string('status')->nullable();
             $table->text('notes')->nullable();
             $table->unsignedBigInteger('vehicleID');
-            $table->foreign('vehicleID')->references('vehicleID')->on('vehicleType');
+            $table->foreign('vehicleID')->references('vehicleID')->on('vehicletype');
             $table->timestamps();
         });
 
