@@ -40,15 +40,15 @@
 
                         </div>
                     </div>
-                    <div class="flex justify-between">
+                    {{-- <div class="flex justify-between">
                         <label class="cursor-pointer label ">
                             <input type="checkbox" class="checkbox checkbox-sm" name="rememberMe" />
                             <span class="label-text ms-3">Remember Me</span>
                         </label>
                         <a href="forgot-password" type="button"
                             class="rounded-3xl bg-[#5671a7] h-7 pb-2 px-3 mt-2 text-white">Forgot Password</a>
-                    </div>
-                    <button class="btn bg-[#e9d6f1] w-full rounded-xl text-2xl mt-3">Log In</button>
+                    </div> --}}
+                    <button class="btn bg-[#e9d6f1] w-full rounded-xl text-2xl mt-8">Log In</button>
                 </form>
             </div>
             <div class="right w-1/2 flex items-center flex-col bg-[#4d6d99] glass justify-center [&_p]:text-white ">
