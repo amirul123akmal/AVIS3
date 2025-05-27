@@ -52,7 +52,7 @@ return new class extends Migration {
         Schema::create('transportassign', function (Blueprint $table) {
             $table->bigIncrements('transAssignID');
             $table->unsignedBigInteger('reqID');
-            $table->foreign('reqID')->references('reqID')->on('requestTransport');
+            $table->foreign('reqID')->references('reqID')->on('requesttransport');
             $table->unsignedBigInteger('transID');
             $table->foreign('transID')->references('transID')->on('transportation');
         });
