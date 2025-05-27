@@ -20,7 +20,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('accountType', function (Blueprint $table) {
+        Schema::create('accounttype', function (Blueprint $table) {
             $table->bigIncrements('accountID');
             $table->string('accountType');
         });
@@ -76,7 +76,7 @@ return new class extends Migration {
     public function down(): void
     {
         Schema::dropIfExists('actor');
-        Schema::dropIfExists('accountType');
+        Schema::dropIfExists('accounttype');
         Schema::dropIfExists('login');
         Schema::dropIfExists('address');
         Schema::dropIfExists('state');

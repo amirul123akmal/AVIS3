@@ -10,7 +10,7 @@ return new class extends Migration {
      */
     public function up(): void
     {
-        Schema::create('incomeGroup', function (Blueprint $table) {
+        Schema::create('incomegroup', function (Blueprint $table) {
             $table->bigIncrements('incomeGroupID');
             $table->string('groupType');
         });
@@ -22,10 +22,10 @@ return new class extends Migration {
             $table->unsignedBigInteger('statusID');
             $table->foreign('statusID')->references('statusID')->on('status');
             $table->unsignedBigInteger('incomeGroupID')->nullable();
-            $table->foreign('incomeGroupID')->references('incomeGroupID')->on('incomeGroup');
+            $table->foreign('incomeGroupID')->references('incomeGroupID')->on('incomegroup');
         });
 
-        Schema::create('requestBeneficiary', function (Blueprint $table) {
+        Schema::create('requestbeneficiary', function (Blueprint $table) {
             $table->bigIncrements('reqID');
             $table->unsignedBigInteger('benID');
             $table->foreign('benID')->references('benID')->on('beneficiary');
@@ -41,8 +41,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('requestBeneficiary');
+        Schema::dropIfExists('requestbeneficiary');
         Schema::dropIfExists('beneficiary');
-        Schema::dropIfExists('incomeGroup');
+        Schema::dropIfExists('incomegroup');
     }
 };

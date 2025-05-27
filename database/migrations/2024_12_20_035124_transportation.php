@@ -16,7 +16,7 @@ return new class extends Migration {
             $table->string('driverPhoneNum')->nullable();
         });
 
-        Schema::create('vehicleType', function (Blueprint $table) {
+        Schema::create('vehicletype', function (Blueprint $table) {
             $table->bigIncrements('vehicleID');
             $table->string('vehicleType');
         });
@@ -24,7 +24,7 @@ return new class extends Migration {
         Schema::create('transportation', function (Blueprint $table) {
             $table->bigIncrements('transID');
             $table->unsignedBigInteger('vehicleID');
-            $table->foreign('vehicleID')->references('vehicleID')->on('vehicleType');
+            $table->foreign('vehicleID')->references('vehicleID')->on('vehicletype');
             $table->unsignedBigInteger('driverID')->nullable();
             $table->foreign('driverID')->references('driverID')->on('driver');
             $table->string('vehiclePlateNumber');
@@ -35,7 +35,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('requestTransport', function (Blueprint $table) {
+        Schema::create('requesttransport', function (Blueprint $table) {
             $table->bigIncrements('reqID');
             $table->unsignedBigInteger('benID');
             $table->foreign('benID')->references('benID')->on('beneficiary');
@@ -49,7 +49,7 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('transportAssign', function (Blueprint $table) {
+        Schema::create('transportassign', function (Blueprint $table) {
             $table->bigIncrements('transAssignID');
             $table->unsignedBigInteger('reqID');
             $table->foreign('reqID')->references('reqID')->on('requestTransport');
@@ -63,10 +63,10 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('transportAssign');
-        Schema::dropIfExists('requestTransport');
+        Schema::dropIfExists('transportassign');
+        Schema::dropIfExists('requesttransport');
         Schema::dropIfExists('transportation');
-        Schema::dropIfExists('vehicleType');
+        Schema::dropIfExists('vehicletype');
         Schema::dropIfExists('driver');
     }
 };

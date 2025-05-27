@@ -25,13 +25,13 @@ return new class extends Migration {
             $table->timestamps();
         });
 
-        Schema::create('actorActivity', function (Blueprint $table) {
+        Schema::create('actoractivity', function (Blueprint $table) {
             $table->bigIncrements('actorActivityID');
             $table->integer('actorID');
             $table->integer('activityID');
         });
 
-        Schema::create('benActivity', function (Blueprint $table) {
+        Schema::create('benactivity', function (Blueprint $table) {
             $table->bigIncrements('benActivityID');
             $table->integer('benID');
             $table->integer('activityID');
@@ -43,8 +43,8 @@ return new class extends Migration {
      */
     public function down(): void
     {
-        Schema::dropIfExists('benActivity');
-        Schema::dropIfExists('actorActivity');
+        Schema::dropIfExists('benactivity');
+        Schema::dropIfExists('actoractivity');
         Schema::dropIfExists('activity');
     }
 };
