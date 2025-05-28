@@ -14,6 +14,7 @@ class TransportAssign extends Model
         'reqID',
         'transID',
     ];
+    public $timestamps = false;
 
     public function requestTransport(): BelongsTo
     {
