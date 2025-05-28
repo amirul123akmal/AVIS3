@@ -35,7 +35,10 @@ class SendDocuments extends Component
         if ($this->multiple) {
             $rules['file'] = 'required|array';
             $rules['file.*'] = 'file|max:10240';
+        } else {
+            $rules['file'] = 'required|file|max:10240'; // max 10MB single file
         }
+
         $this->validate($rules);
         $timestamp = time();
         if ($this->multiple) {
