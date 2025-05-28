@@ -42,9 +42,10 @@
                 <input type="text" id="Number of Dependents" class="input border-none focus:ring-0 focus:border-none"
                     value="-1">
             </div>
-
+            <span class="text-red-400 text-2xl">*</span>
+            <span class="text-red-400 text-xs font-bold">all files required under 10mb</span>
             <section>
-                <div class="flex flex-wrap items-center gap-y-6 gap-x-6 mt-10 px-4 sm:px-6 lg:px-8">
+                <div class="flex flex-wrap items-center gap-y-6 gap-x-6 mt-2 px-4 sm:px-6 lg:px-8">
 
                     @php($count = count($names))
                     @for ($i = 0; $i < $count; $i++)
