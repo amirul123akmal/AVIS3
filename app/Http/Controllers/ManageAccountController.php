@@ -25,6 +25,19 @@ class ManageAccountController extends Controller
 
     public function update(ProfileUpdateRequest $request): RedirectResponse
     {
+        // dd($request->has('action'));
+        if($request->has('action')){
+            $user = Auth::user();
+            $user->actor->statusID = 2;
+            $user->actor->save();
+
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return Redirect::to('/');
+        }
         $loginData = Arr::only($request->validated(), ['username', 'email']);
         $addressData = Arr::only($request->validated(), ['address', 'postcode', 'state']); 
         $actorData = Arr::only($request->validated(), ['ic_number', 'phone_number', 'full_name']); // Added fullname to actorData
@@ -48,7 +61,7 @@ class ManageAccountController extends Controller
         $address->save();
         $request->user()->save();
 
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
+        return Redirect::route('profile.edit')->with('status', 'Profile Updated Successfully');
     }
 
     public function destroy(Request $request): RedirectResponse
@@ -56,7 +69,7 @@ class ManageAccountController extends Controller
         // dd($request->all());
 
         $user = Auth::user();
-
+        dd($user);
         $actor = $user->actor;
         $address = $actor->address;
 

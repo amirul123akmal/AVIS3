@@ -7,6 +7,7 @@ use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use Illuminate\Http\Response;
 use App\Models\Actor;
@@ -35,8 +36,18 @@ class AuthenticatedSessionController extends Controller
         // Get the authenticated user's ID
         $userId = Auth::user()->loginID;
         // Log::info('Authenticated User ID: ' . $userId);
-        $data = Actor::where('actorID', $userId)->exists();
-        // dd($data);
+        // $data = Actor::where('actorID', $userId)->exists();
+        $data = Actor::where('actorID', $userId)->with('status')->first();
+        // dd($data->status->statusType);
+        if($data->status->statusType === 'Disable')
+        {
+            Auth::logout();
+
+            $request->session()->invalidate();
+            $request->session()->regenerateToken();
+
+            return Redirect::to('/login')->with('error', 'Account is disabled');
+        }
         // Check if data exist in the actor
         // if this is true, this means the registration progress of the user is not completed.
         if ($data) {

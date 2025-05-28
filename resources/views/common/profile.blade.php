@@ -163,7 +163,8 @@
                     </div>
                     <div class="flex justify-between mt-6">
                         <button class="btn btn-primary updating">Click to Start Update</button>
-                        <button class="btn btn-secondary">Delete</button>
+                        
+                        <button class="btn btn-secondary" type="submit" name="action" value="delete">Delete</button>
                     </div>
                 </form>
             </div>

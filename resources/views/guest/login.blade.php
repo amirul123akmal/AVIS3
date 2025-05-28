@@ -8,7 +8,19 @@
     <title>Avis</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-
+@if (session('error'))
+    <script>
+        // Wait for the DOM to be fully loaded
+        document.addEventListener('DOMContentLoaded', function () {
+            swal.fire({
+                icon: 'warning',
+                title: '{{ session('error') }}',
+                showConfirmButton: false,
+                timer: 2000
+            });
+        });
+    </script>
+@endif
 <body>
     <x-home-navbar custom="fixed top-0 z-10 opacity-0 hover:opacity-100 transition ease-in-out duration-500" />
     <div class="bg-[#d6d9de] h-screen">
