@@ -12,24 +12,17 @@
     <div class="flex-1 flex-col">
     </div>
     <div class="flex-end">
-        <details class="dropdown dropdown-end">
-            <summary class="btn btn-ghost m-1" onclick="event.preventDefault()">
-
-            </summary>
-            <ul class="menu dropdown-content bg-base-200 rounded-box z-[1] w-52 p-2 shadow">
+        <div class="dropdown dropdown-end">
+            <!-- User Dropdown Trigger -->
+            <label tabindex="0" class="btn btn-ghost ">
+                {{ auth()->user()->username }}
+            </label>
+            <!-- Dropdown Menu -->
+            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 pb-0 shadow">
                 <li>
-
-                </li>
-                <li><a href="#">Item 2</a></li>
-            </ul>
-        </details>
-        <div class="dropdown dropdown-bottom dropdown-end">
-            <div tabindex="0" role="button" class="btn m-1 bg-base-100">...</div>
-            <ul tabindex="0" class="dropdown-content menu bg-base-100 rounded-box z-[1] w-52 p-2 shadow">
-                <li>
-                    <form action="/logout" method="POST" class="flex">
-                        {{ csrf_field() }}
-                        <button type="submit" class="grow text-start">Log Out</button>
+                    <form method="POST" action="{{ route('logout') }}" class="w-full">
+                        @csrf
+                        <button type="submit" class="w-full text-left">Log Out</button>
                     </form>
                 </li>
             </ul>
