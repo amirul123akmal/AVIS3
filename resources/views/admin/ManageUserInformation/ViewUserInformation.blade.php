@@ -83,7 +83,7 @@
                     <div class="flex gap-x-5">
                         <div class="mb-4">
                             <label class="block text-sm font-medium">Income Group</label>
-                            <input type="text" name="postcode" value="{{ $user->beneficiary->incomeGroup->groupType }}" class="input input-bordered w-48" readonly />
+                            <input type="text" name="postcode" value="{{ $user->beneficiary->incomeGroup->groupType ?? "Invalid" }}" class="input input-bordered w-48" readonly />
                         </div>
                     </div>
                     @endif
