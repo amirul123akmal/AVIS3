@@ -55,7 +55,7 @@ class ManageUserInformationController extends Controller
             'income_group' => [
                 'nullable', // Make income_group optional
                 'integer', 
-                'exists:incomeGroup,incomeGroupID'
+                'exists:incomegroup,incomeGroupID'
             ], // Added validation for income_group
         ]);
         
