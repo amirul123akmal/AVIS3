@@ -17,7 +17,7 @@ class EvaBenController extends Controller
     public function showEvaBenlist()
     {
 
-        $beneficiaries = Beneficiary::where('statusID', 5)
+        $beneficiaries = Beneficiary::where('statusID', 5)->orWhereNull("incomeGroupID")
             // ->with('requestBeneficiary') // Assuming a relationship is defined in the Beneficiary model
             ->get();
         // dd($beneficiaries[0]->actor->fullname);

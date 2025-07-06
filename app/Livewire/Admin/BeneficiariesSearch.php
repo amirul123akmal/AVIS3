@@ -21,6 +21,9 @@ class BeneficiariesSearch extends Component
             $query->where('accountType', 'beneficiaries');
         })
         ->where('fullname', 'like', '%' . $this->search . '%')
+        ->whereHas('beneficiary', function ($query) {
+            $query->whereNotNull('incomeGroupID');
+        })
         ->orderBy('fullname', 'asc')
         ->paginate(5);
 
