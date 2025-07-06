@@ -51,7 +51,20 @@ class AddActivityRequests extends FormRequest
             ],
             'dateEnd' => ['required', 'date', 'after_or_equal:dateStart'],
             'timeStart' => ['required', 'date_format:H:i'],
-            'timeEnd' => ['required', 'date_format:H:i'],
+            'timeEnd' => [
+                'required', 
+                'date_format:H:i',
+                function ($attribute, $value, $fail) {
+                    $dateStart = $this->dateStart;
+                    if ($dateStart && $this->timeStart && $this->timeEnd) {
+                        $startDateTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $dateStart . ' ' . $this->timeStart);
+                        $endDateTime = \Carbon\Carbon::createFromFormat('Y-m-d H:i', $this->dateEnd . ' ' . $this->timeEnd);
+                        if ($startDateTime->isSameDay($endDateTime) && $startDateTime->greaterThanOrEqualTo($endDateTime)) {
+                            $fail('The time start must be earlier than time end on the same date.');
+                        }
+                    }
+                }
+            ],
             'volunteerCount' => ['required', 'integer', 'min:0'],
             'beneficiaryCount' => ['required', 'integer', 'min:0'],
             'activityImage' => [$isUpdating ? 'sometimes' : 'required', 'image', 'mimes:jpeg,png,jpg', 'max:2048'],
