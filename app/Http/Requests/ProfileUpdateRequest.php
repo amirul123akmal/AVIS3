@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-
+use App\Http\Requests\Auth\ValidTlds;
 class ProfileUpdateRequest extends FormRequest
 {
     /**
@@ -24,6 +24,7 @@ class ProfileUpdateRequest extends FormRequest
             'postcode' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'],
             'state' => ['required', 'integer', 'exists:state,stateID'],
             'email' => [
+                new ValidTlds,
                 'required',
                 'string',
                 'lowercase',
