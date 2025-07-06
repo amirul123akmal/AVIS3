@@ -88,15 +88,27 @@
             <h3>Document</h3>
             <div class="document-item">
                 <span>Income Document</span>
-                <a href="{{ route('admin.downloadBenInfo', ['benID' => $beneficiary->benID, 'filename' => $beneficiary->requestBeneficiary->incomeDocument]) }}" class="download">Download</a>
+                @if(isset($beneficiary->requestBeneficiary->incomeDocument))
+                    <a href="{{ route('admin.downloadBenInfo', ['benID' => $beneficiary->benID, 'filename' => $beneficiary->requestBeneficiary->incomeDocument]) }}" class="download">Download</a>
+                @else
+                    <span style="color: #ff6b6b;">Beneficiary still hasn't insert Income Document</span>
+                @endif
             </div>
             <div class="document-item">
                 <span>Asnaf Document</span>
+                @if(isset($beneficiary->requestBeneficiary->asnafCardDocument))
                 <a href="{{ route('admin.downloadBenInfo', ['benID' => $beneficiary->benID, 'filename' => $beneficiary->requestBeneficiary->asnafCardDocument]) }}" class="download">Download</a>
+                @else
+                    <span style="color: #ff6b6b;">Beneficiary still hasn't insert Income Document</span>
+                @endif
             </div>
             <div class="document-item">
                 <span>Support Document</span>
+                @if(isset($beneficiary->requestBeneficiary->supportDocument))
                 <a href="{{ route('admin.downloadBenInfo', ['benID' => $beneficiary->benID, 'filename' => $beneficiary->requestBeneficiary->supportDocument]) }}" class="download">Download</a>
+                @else
+                    <span style="color: #ff6b6b;">Beneficiary still hasn't insert Income Document</span>
+                @endif
             </div>
         </div>
         <form action="{{ route('admin.evaluateBeneficiaryAction', ['benID' => $beneficiary->benID]) }}" method="POST">
@@ -124,3 +136,16 @@
         document.getElementById('income-group').classList.remove('hidden');
     }
 </script>
+
+@if ($errors->any())
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        swal.fire({
+            icon: 'warning',
+            title: 'Validation Errors',
+            text: '{{ $errors->first() ?? 'An unknown error occurred.' }}',
+            confirmButtonText: 'OK'
+        });
+    });
+</script>
+@endif

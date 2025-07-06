@@ -72,14 +72,24 @@ class EvaBenController extends Controller
     // Function to handle acceptance of a beneficiary
     public function acceptance(Request $request, $benID)
     {
-        // dd($request->all());
-        $beneficiary = Beneficiary::findOrFail($benID);
-        
-        // Update the status of the beneficiary based on the action
-        $beneficiary->statusID = $request->action === 'approve' ? 3 : 4;
-        $beneficiary->incomeGroupID = $request->incomeGroup;
-        $beneficiary->save();
 
+        $validatedData = $request->validate([
+            'action' => ['required', 'string', 'in:approve,reject'],
+            'incomeGroup' => ['required', 'integer', 'exists:incomegroup,incomeGroupID'],
+        ]);
+
+        if ($validatedData['action'] === 'approve') {
+            $beneficiary = Beneficiary::with('requestBeneficiary')->findOrFail($benID);
+
+            if (is_null($beneficiary->requestBeneficiary?->incomeDocument) || is_null($beneficiary->requestBeneficiary?->asnafCardDocument)) {
+                return redirect()->back()->withErrors(['error' => "The beneficiary has not completed the application."]);
+            }
+
+            // Update the status of the beneficiary based on the action
+            $beneficiary->statusID = $request->action === 'approve' ? 3 : 4;
+            $beneficiary->incomeGroupID = $request->incomeGroup;
+            $beneficiary->save();
+        }
         return redirect()->route('admin.evaluateBeneficiariesList')->with('success', 'Beneficiary updated successfully.');
     }
 }
