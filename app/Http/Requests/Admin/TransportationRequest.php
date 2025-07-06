@@ -4,6 +4,14 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property string plateNumber 
+ * @property string vehicleType 
+ * @property string capacity 
+ * @property string description 
+ * @property string status 
+ **/ 
+
 class TransportationRequest extends FormRequest
 {
     /**
@@ -22,7 +30,7 @@ class TransportationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'plateNumber' => 'required|string|max:8',
+            'plateNumber' => 'required|string|max:8|unique:transportation,vehiclePlateNumber',
             'capacity' => 'required|integer',
             'description' => 'nullable|string',
             'status' => 'required|exists:status,statusID',
