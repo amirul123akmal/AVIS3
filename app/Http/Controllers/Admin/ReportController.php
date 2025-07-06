@@ -60,6 +60,10 @@ class ReportController extends Controller
         }
 
         $data = $query->get();
+        if($data->isEmpty())
+        {
+            return redirect()->back()->withErrors(['error' => 'There are no data available.']);
+        }
         $pdf = Pdf::loadView('admin.Report.GenReport', ['data' => $data, 'type' => $request->reportType])->setOptions([
             'isHtml5ParserEnabled' => true,
             'isRemoteEnabled' => true
