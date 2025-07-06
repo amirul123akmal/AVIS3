@@ -24,7 +24,7 @@ class ActorRequest extends FormRequest
         return [
             'fullname' => ['required', 'string', 'max:200'],
             'icnum' => ['required', 'string', 'min:12', 'max:12', 'unique:actor,ic'],
-            'phoneNumber' => ['required', 'string', 'min:8', 'max:13'],
+            'phoneNumber' => ['required', 'string', 'min:11', 'max:12', 'regex:/^[0-9]+$/'],
             'address' => ['required', 'string'],
             'postcode' => ['required', 'string', 'min:5', 'max:5'],
             'stateID' => ['required', 'integer', 'min:0', 'max:15']
@@ -39,6 +39,7 @@ class ActorRequest extends FormRequest
             'icnum.min' => 'The IC number must be at least 12 characters.',
             'phoneNumber.required' => 'Please enter your phone number.',
             'phoneNumber.min' => 'The phone number must be at least 8 characters.',
+            'phoneNumber.regex' => 'The phone number must contain only numeric characters.',
             'postcode.required' => 'Please enter your postcode.',
             'postcode.min' => 'Postcode need to have 5 digit',
             'stateID.required' => 'Please choose a state on the page.',
