@@ -30,7 +30,7 @@ class TransportationRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'plateNumber' => 'required|string|max:8|unique:transportation,vehiclePlateNumber',
+            'plateNumber' => 'required|string|max:8|unique:transportation,vehiclePlateNumber|regex:/^[A-Za-z0-9]+$/',
             'capacity' => 'required|integer',
             'description' => 'nullable|string',
             'status' => 'required|exists:status,statusID',
