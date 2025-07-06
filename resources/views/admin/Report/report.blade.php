@@ -20,17 +20,6 @@
 <body class="bg-gray-50">
     <x-admin-sidebar>
         <x-admin-navbar/>
-        @if ($errors->any())
-            <div class="bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative" role="alert">
-                <strong class="font-bold">Whoops!</strong>
-                <span class="block sm:inline">There were some problems with your input.</span>
-                <ul class="list-disc pl-5">
-                    @foreach ($errors->all() as $error)
-                        <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-        @endif
 
         <!-- Main Content -->
         <main class="flex-1 p-8">
@@ -52,7 +41,7 @@
                             <label for="reportType" class="block text-gray-700 mb-2">Type of Report</label>
                             <div class="relative">
                                 <select name="reportType" id="reportType" class="w-full p-3 bg-gray-100 rounded-md appearance-none focus:ring-2 focus:ring-custom focus:outline-none">
-                                    <option>Select report type</option>
+                                    <option value='-'>Select report type</option>
                                     <option value="activity">Activity Report</option>
                                     <option value="transport">Transport Report</option>
                                     <option value="volunteer">Volunteer Report</option>
@@ -118,23 +107,6 @@
     </x-admin-sidebar>
 
     <script>
-        // // Multi-Step Form Logic
-        // let currentStep = 1;
-        // document.getElementById('nextStep').addEventListener('click', () => {
-        //     document.getElementById(`step${currentStep}`).classList.add('hidden');
-        //     currentStep++;
-        //     document.getElementById(`step${currentStep}`).classList.remove('hidden');
-        //     document.getElementById('prevStep').classList.remove('hidden');
-        //     if (currentStep === 2) document.getElementById('nextStep').textContent = 'Generate';
-        // });
-        // document.getElementById('prevStep').addEventListener('click', () => {
-        //     document.getElementById(`step${currentStep}`).classList.add('hidden');
-        //     currentStep--;
-        //     document.getElementById(`step${currentStep}`).classList.remove('hidden');
-        //     if (currentStep === 1) document.getElementById('prevStep').classList.add('hidden');
-        //     document.getElementById('nextStep').textContent = 'Next';
-        // });
-
         // Toggle for Date Range Fields
         const dateRangeToggle = document.getElementById('dateRangeToggle');
         const dateRangeFields = document.getElementById('dateRangeFields');
@@ -146,12 +118,24 @@
                 document.getElementById('endDate').value = '';
             }
         });
-
-        // Form Submission
-        document.getElementById('reportForm').addEventListener('submit', function (e) {
-            e.preventDefault();
-            alert('Report generated successfully!');
+    </script>
+@if ($errors->any())
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            let errorMessages = '';
+            @foreach ($errors->all() as $error)
+                errorMessages += '{{ $error }}\n';
+            @endforeach
+            if (errorMessages) {
+                swal.fire({
+                    title: 'Error!',
+                    text: errorMessages,
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
         });
     </script>
+@endif
 </body>
 </html>
