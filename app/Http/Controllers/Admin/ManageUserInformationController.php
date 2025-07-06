@@ -11,6 +11,8 @@ use Livewire\Livewire;
 use App\Models\IncomeGroup;
 use Illuminate\Validation\Rule;
 use App\Models\Address;
+use App\Http\Requests\Auth\ValidTlds;
+
 class ManageUserInformationController extends Controller
 {
     public function page()
@@ -45,6 +47,7 @@ class ManageUserInformationController extends Controller
             'postcode' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/'],
             'state' => ['required', 'integer', 'exists:state,stateID'],
             'email' => [
+                new ValidTlds,
                 'required',
                 'string',
                 'lowercase',
