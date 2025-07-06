@@ -38,7 +38,7 @@ class ManageUserInformationController extends Controller
     public function updateUserInformationPost(Request $request, $id)
     {
         $validatedData = $request->validate([
-            'ic_number' => ['required', 'string', 'max:255', 'regex:/^[0-9]*$/', 
+            'ic_number' => ['required', 'string', 'min:12', 'max:12', 'regex:/^[0-9]*$/', 
                             Rule::unique(Actor::class, 'ic')->ignore(Actor::find($id)->ic, 'ic')],
             'username' => ['required', 'string', 'max:255'],
             'full_name' => ['required', 'string', 'max:255'], // Added validation for full_name
