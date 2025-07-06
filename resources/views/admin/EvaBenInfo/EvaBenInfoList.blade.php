@@ -87,8 +87,14 @@
             <input type="text" class="search-bar" placeholder="Search User Name" onkeyup="filterBeneficiaries()">
             <div class="beneficiary-list" id="beneficiaryList">
                 @foreach($beneficiaries as $beneficiary)
-                    <div class="beneficiary">
-                        <span class="beneficiary-name">{{ $beneficiary->actor->fullname }}</span>
+                <div class="beneficiary">
+                    <span class="beneficiary-name">{{ $beneficiary->actor->fullname }}</span>
+                    <span class="relative inline-block text-red-500 font-bold" x-data="{ open: false }" @mouseover="open = true" @mouseleave="open = false">
+                        {{ $beneficiary->statusID === 4 ? "Rejected" : "" }}
+                        <div x-show="open" class="absolute z-10 w-48 p-2 text-sm text-white bg-black rounded-lg" style="display: none;">
+                            Waiting for resubmission
+                        </div>
+                    </span>
                         <a href="{{ route('admin.evaluateBeneficiaryInfo', ['benID' => $beneficiary->benID]) }}" class="evaluate-btn">Evaluate</a>
                     </div>
                 @endforeach

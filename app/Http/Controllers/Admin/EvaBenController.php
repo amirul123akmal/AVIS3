@@ -72,24 +72,31 @@ class EvaBenController extends Controller
     // Function to handle acceptance of a beneficiary
     public function acceptance(Request $request, $benID)
     {
-
+        // First validation wether the admin click approve or reject
         $validatedData = $request->validate([
             'action' => ['required', 'string', 'in:approve,reject'],
-            'incomeGroup' => ['required', 'integer', 'exists:incomegroup,incomeGroupID'],
         ]);
 
-        if ($validatedData['action'] === 'approve') {
-            $beneficiary = Beneficiary::with('requestBeneficiary')->findOrFail($benID);
-
-            if (is_null($beneficiary->requestBeneficiary?->incomeDocument) || is_null($beneficiary->requestBeneficiary?->asnafCardDocument)) {
-                return redirect()->back()->withErrors(['error' => "The beneficiary has not completed the application."]);
-            }
-
-            // Update the status of the beneficiary based on the action
-            $beneficiary->statusID = $request->action === 'approve' ? 3 : 4;
-            $beneficiary->incomeGroupID = $request->incomeGroup;
-            $beneficiary->save();
+        // second validation whether the information of the beneficiay is completed or not
+        $beneficiary = Beneficiary::with('requestBeneficiary')->findOrFail($benID);
+        if (is_null($beneficiary->requestBeneficiary?->incomeDocument) || is_null($beneficiary->requestBeneficiary?->asnafCardDocument)) {
+            return redirect()->back()->withErrors(['error' => "The beneficiary has not completed the application."]);
         }
+
+        if ($validatedData['action'] === 'reject') {
+            $beneficiary->statusID = 4;
+            $beneficiary->save();
+            return redirect()->route('admin.evaluateBeneficiariesList')->with('info', 'Beneficiary application rejected.');
+        }
+
+        // third validation to check if the incomegroup is choose when the admin click approve
+        $validatedData = $request->validate([
+            'incomeGroup' => ['required', 'integer', 'exists:incomegroup,incomeGroupID'],
+        ]);
+        // Update the status of the beneficiary based on the action
+        $beneficiary->statusID = 3;
+        $beneficiary->incomeGroupID = $request->incomeGroup;
+        $beneficiary->save();
         return redirect()->route('admin.evaluateBeneficiariesList')->with('success', 'Beneficiary updated successfully.');
     }
 }
