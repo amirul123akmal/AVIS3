@@ -4,6 +4,21 @@ namespace App\Http\Requests\Admin;
 
 use Illuminate\Foundation\Http\FormRequest;
 
+/**
+ * @property string $activityName
+ * @property string $activityPlace
+ * @property string $dateStart
+ * @property string $dateEnd
+ * @property string $timeStart
+ * @property string $timeEnd
+ * @property int $volunteerCount
+ * @property int $beneficiaryCount
+ * @property string $activityDescription
+ * @property \Illuminate\Http\UploadedFile|null $activityImage
+ * @method string method()
+ * @method boolean hasfile()
+ * @method \Illuminate\Http\UploadedFile|null file()
+ */
 class AddActivityRequests extends FormRequest
 {
     /**
@@ -14,13 +29,26 @@ class AddActivityRequests extends FormRequest
         return true;
     }
 
+    /**
+     * @return array<string, array>
+     */
     public function rules(): array
     {
+        /** @var string $isUpdating */
         $isUpdating = $this->method() == 'PUT';
         return [
             'activityName' => ['required', 'string', 'max:255'],
             'activityPlace' => ['required', 'string', 'max:255'],
-            'dateStart' => ['required', 'date', 'after_or_equal:today', 'before_or_equal:dateEnd'],
+            'dateStart' => [
+                'required', 
+                'date', 
+                'before_or_equal:dateEnd',
+                function ($attribute, $value, $fail) {
+                    if ($value == today()->toDateString() && now()->addHours(24)->isFuture()) {
+                        $fail('The ' . $attribute . ' must be a date after today if the time is less than 24 hours from now.');
+                    }
+                }
+            ],
             'dateEnd' => ['required', 'date', 'after_or_equal:dateStart'],
             'timeStart' => ['required', 'date_format:H:i'],
             'timeEnd' => ['required', 'date_format:H:i'],
