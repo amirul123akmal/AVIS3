@@ -30,7 +30,7 @@
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
                             @foreach ($vehicleType as $vehicle)
                             <div class="flex items-center">
-                                <input type="checkbox" name="vehicleType" value="{{ $vehicle->vehicleID }}" class="checkbox checkbox-primary mr-2" />
+                                <input type="radio" name="vehicleType" value="{{ $vehicle->vehicleID }}" class="radio radio-primary mr-2" {{ old('vehicleType') == $vehicle->vehicleID ? 'checked' : '' }} />
                                 <span>{{ $vehicle->vehicleType }}</span>
                             </div>
                             @endforeach
@@ -38,19 +38,19 @@
                         <!-- Plate Number Input -->
                         <div class="mb-4">
                             <label for="plateNumber" class="block text-sm font-medium text-gray-700">Plate Number</label>
-                            <input type="text" id="plateNumber" name="plateNumber" required class="w-full input input-bordered input-primary" />
+                            <input type="text" id="plateNumber" name="plateNumber" required class="w-full input input-bordered input-primary" value="{{ old('plateNumber') }}" />
                         </div>
                         
                         <!-- Capacity Input -->
                         <div class="mb-4">
                             <label for="capacity" class="block text-sm font-medium text-gray-700">Capacity</label>
-                            <input type="number" id="capacity" name="capacity" required class="w-full input input-bordered input-primary" />
+                            <input type="number" id="capacity" name="capacity" required class="w-full input input-bordered input-primary" value="{{ old('capacity') }}" />
                         </div>
                         
                         <!-- Description Input -->
                         <div class="mb-4">
                             <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
-                            <textarea id="description" name="description" rows="4" class="w-full textarea textarea-bordered textarea-primary"></textarea>
+                            <textarea id="description" name="description" rows="4" class="w-full textarea textarea-bordered textarea-primary">{{ old('description') }}</textarea>
                         </div>
                         
                         <!-- Status Dropdown -->
@@ -58,7 +58,7 @@
                             <label for="status" class="block text-sm font-medium text-gray-700">Status</label>
                             <select id="status" name="status" required class="w-full select select-bordered select-primary">
                                 @foreach ($status as $status)
-                                <option value="{{ $status->statusID }}">{{ $status->statusType }}</option>
+                                <option value="{{ $status->statusID }}" {{ old('status') == $status->statusID ? 'selected' : '' }}>{{ $status->statusType }}</option>
                                 @endforeach
                             </select>
                         <button class="btn btn-primary" type="submit">Create</button>

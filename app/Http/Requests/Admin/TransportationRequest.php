@@ -32,7 +32,7 @@ class TransportationRequest extends FormRequest
         return [
             'plateNumber' => 'required|string|max:8|min:4|unique:transportation,vehiclePlateNumber|regex:/^[A-Za-z0-9]+$/',
             'capacity' => 'required|integer',
-            'description' => 'nullable|string',
+            'description' => 'required|string',
             'status' => 'required|exists:status,statusID',
             'vehicleType' => 'required|exists:vehicletype,vehicleID',
         ];
