@@ -30,7 +30,7 @@
                 <div class="col-span-3">
                     <h1 class="text-2xl font-bold mb-4">Manage Transport</h1>
                     <div class="flex justify-between mb-4 rounded-lg bg-white">
-                        <a href="" class="btn btn-ghost">Request Transport</a>
+                        <a href="{{ route('admin.evaluatePage') }}" class="btn btn-ghost">Request Transport</a>
                         <a href="{{ route('Create-Transport') }}" class="btn btn-ghost">Create Transport</a>
                         <a href="{{ route ('admin.view-transport')}}" class="btn btn-primary">View Transport</a>
                         <a href="{{ route('Update-Transport') }}" class="btn btn-ghost">Update Transport Information</a>

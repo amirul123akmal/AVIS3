@@ -87,6 +87,7 @@
             <div class="mt-6">
                 <h2 class="section-header">To Evaluate</h2>
                 <div id="toEvaluateList">
+                    
                     @foreach($requestsToEvaluate as $request)
                         <div class="item">
                             <span class="request-name">{{ $request->fullname ?? 'Unknown' }}</span>
@@ -117,6 +118,16 @@
     </x-admin-sidebar>
 
     <script>
+        document.addEventListener("DOMContentLoaded", function() {
+        if ( {{ $requestsToEvaluate->count() }} === 0) {
+            swal.fire({
+                icon: 'info',
+                title: 'No Requests',
+                text: 'There are no transport requests at the moment',
+                confirmButtonText: 'OK'
+            });
+        }
+        });
         document.getElementById("searchInput").addEventListener("keyup", function() {
             let filter = this.value.toLowerCase();
             let items = document.querySelectorAll(".item");
