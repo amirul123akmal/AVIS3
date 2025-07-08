@@ -44,7 +44,18 @@ class ManageUserInformationController extends Controller
             'full_name' => ['required', 'string', 'max:255', "regex:/^[a-z A-Z`']*$/"], // Added validation for full_name
             'phone_number' => ['required', 'string', 'min:8', 'max:12', 'regex:/^[0-9]*$/', 
                                Rule::unique(Actor::class, 'phoneNumber')->ignore(Actor::find($id)->phoneNumber, 'phoneNumber')],
-            'address' => ['required', 'string', 'max:255', 'regex:/^[a-z A-Z0-9.,]*$/'],
+            'address' => [
+                'required', 
+                'string', 
+                'max:255', 
+                'regex:/^[a-z A-Z0-9.,]*$/',
+                function ($attribute, $value, $fail) use ($id) {
+                    $actor = Actor::find($id);
+                    if ($actor->beneficiary && Address::where('road', $value)->where('addressID', '!=', $actor->addressID)->exists()) {
+                        $fail('The address cannot exist in another row for beneficiaries.');
+                    }
+                },
+            ],
             'postcode' => ['required', 'string', 'min:5', 'max:5', 'regex:/^[0-9]*$/'],
             'state' => ['required', 'integer', 'exists:state,stateID'],
             'email' => [
