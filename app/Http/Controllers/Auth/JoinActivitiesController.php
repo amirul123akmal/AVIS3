@@ -25,7 +25,14 @@ class JoinActivitiesController extends Controller
             ->exists();
 
         if ($exists) {
-            return redirect()->route('vol.joinedActivities')->with('error', 'You have already joined this activity.');
+            return redirect()->route('vol.joinedActivities')->withErrors(['error' => 'You have already joined this activity.']);
+        }
+
+        $activity = Activity::findOrFail($activityID);
+        $currentVolunteerCount = actorActivity::where('activityID', $activityID)->count();
+
+        if ($currentVolunteerCount >= $activity->volunteerCount) {
+            return redirect()->route('vol.homepage')->withErrors(['error' => 'This activity has reached its maximum number of volunteers.']);
         }
 
         actorActivity::create([
