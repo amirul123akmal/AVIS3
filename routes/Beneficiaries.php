@@ -2,7 +2,7 @@
 use App\Http\Controllers\beneficiaries\benController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\beneficiaries\reqTransportController;
-use App\Http\Controllers\auth\JoinActivitiesController;
+use App\Http\Controllers\Auth\JoinActivitiesController;
 
 Route::middleware('auth')->group(function () {
     Route::middleware('role:beneficiaries')->group(function () {
