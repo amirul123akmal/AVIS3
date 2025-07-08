@@ -5,7 +5,7 @@ namespace App\Http\Requests;
 use App\Models\User;
 use Illuminate\Foundation\Http\FormRequest;
 use Illuminate\Validation\Rule;
-use App\Http\Requests\Auth\ValidTlds;
+use App\Http\Requests\Auth\validTlds;
 class ProfileUpdateRequest extends FormRequest
 {
     /**

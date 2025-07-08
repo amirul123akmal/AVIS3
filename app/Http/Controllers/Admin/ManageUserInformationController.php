@@ -11,7 +11,7 @@ use Livewire\Livewire;
 use App\Models\IncomeGroup;
 use Illuminate\Validation\Rule;
 use App\Models\Address;
-use App\Http\Requests\Auth\ValidTlds;
+use App\Http\Requests\Auth\validTlds;
 
 class ManageUserInformationController extends Controller
 {

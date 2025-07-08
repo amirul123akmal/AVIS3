@@ -20,7 +20,9 @@ class adminController extends Controller
         $beneficiariesCount = Actor::join('accounttype', 'actor.accountID', '=', 'accounttype.accountID')
             ->where('accounttype.accountType', 'beneficiaries')
             ->count();
-        $awaitingResponse = RequestBeneficiary::all()->count();
+        $awaitingResponse = RequestBeneficiary::join('beneficiary', 'requestbeneficiary.benID', '=', 'beneficiary.benID')
+            ->where('beneficiary.statusID', '!=', 3)
+            ->count();
         $topVolunteers = Activity::orderBy('volunteerCount', 'desc')
             ->take(5)
             ->get();
