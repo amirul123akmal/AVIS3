@@ -142,13 +142,7 @@
                 </div>
             </div>
             <!-- Progress Info -->
-            <section class="flex flex-col md:flex-row justify-between items-center gap-6 p-6 bg-[#f9fafb] rounded-lg shadow-md mt-6">
-                <!-- Progress Card -->
-                {{-- <div class="flex flex-col items-center bg-white p-4 rounded-lg shadow-md w-60">
-                    <p class="font-bold text-5xl text-green-500 mb-2">90%</p>
-                    <span class="text-base font-medium text-gray-600">Completed Details</span>
-                </div> --}}
-                
+            <section class="flex flex-col md:flex-row justify-between items-center gap-6 p-6 bg-[#f9fafb] rounded-lg shadow-md mt-6">         
                 
                 <!-- Reminder Card -->
                 <div class="flex items-center gap-4 bg-white p-4 rounded-lg shadow-md grow">
@@ -187,44 +181,44 @@
                         <div class="grid grid-cols-2 gap-4">
                             <div>
                                 <label class="block text-black font-medium mb-1">Address From</label>
-                                <input type="text" name="address_from" placeholder="Address" required>
+                                <input type="text" name="address_from" placeholder="Address" value="{{ old('address_from') }}" required>
                             </div>
                             <div>
                                 <label class="block text-black font-medium mb-1">State From</label>
                                 <select name="state_from" required>
                                     <option value="" selected disabled>Select State</option>
                                     @foreach($states as $state)
-                                    <option value="{{ $state->stateID }}">{{ $state->statename }}</option>
+                                    <option value="{{ $state->stateID }}" {{ old('state_from') == $state->stateID ? 'selected' : '' }}>{{ $state->statename }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div>
-                                <input type="text" name="postcode_from" placeholder="Postcode" required>
+                                <input type="text" name="postcode_from" placeholder="Postcode" value="{{ old('postcode_from') }}" required>
                             </div>
                             <div>
-                                <input type="text" name="city_from" placeholder="City" required>
+                                <input type="text" name="city_from" placeholder="City" value="{{ old('city_from') }}" required>
                             </div>
                         </div>
                         
                         <div class="grid grid-cols-2 gap-4 mt-4">
                             <div>
                                 <label class="block text-black font-medium mb-1">Address To</label>
-                                <input type="text" name="address_to" placeholder="Address" required>
+                                <input type="text" name="address_to" placeholder="Address" value="{{ old('address_to') }}" required>
                             </div>
                             <div>
                                 <label class="block text-black font-medium mb-1">State To</label>
                                 <select name="state_to" required>
                                     <option value="" selected disabled>Select State</option>
                                     @foreach($states as $state)
-                                    <option value="{{ $state->stateID }}">{{ $state->statename }}</option>
+                                    <option value="{{ $state->stateID }}" {{ old('state_to') == $state->stateID ? 'selected' : '' }}>{{ $state->statename }}</option>
                                     @endforeach
                                 </select>
                             </div>
                             <div>
-                                <input type="text" name="postcode_to" placeholder="Postcode" required>
+                                <input type="text" name="postcode_to" placeholder="Postcode" value="{{ old('postcode_to') }}" required>
                             </div>
                             <div>
-                                <input type="text" name="city_to" placeholder="City" required>
+                                <input type="text" name="city_to" placeholder="City" value="{{ old('city_to') }}" required>
                             </div>
                         </div>
                         <div class="mt-4">
@@ -232,13 +226,13 @@
                             <select name="vehicle_type" required>
                                 <option value="" selected disabled>Select Vehicle Type</option>
                                 @foreach($vehicletype as $type)
-                                    <option value="{{ $type->vehicleID }}">{{ $type->vehicleType }}</option>
+                                    <option value="{{ $type->vehicleID }}" {{ old('vehicle_type') == $type->vehicleID ? 'selected' : '' }}>{{ $type->vehicleType }}</option>
                                 @endforeach
                             </select>
                         </div>
                         <div class="mt-4">
                             <label class="block text-black font-medium mb-1">Notes</label>
-                            <textarea rows="3" placeholder="Leave a Message Here" name="notes"></textarea>
+                            <textarea rows="3" placeholder="Leave a Message Here" name="notes">{{ old('notes') }}</textarea>
                         </div>
                     </div>
                     
@@ -259,6 +253,14 @@
             @if(session('success'))
                 alert("{{ session('success') }}");
             @endif
+        @if ($errors->any())
+            swal.fire({
+                icon: 'error',
+                title: 'Validation Errors',
+                text: '{{ implode(', ', $errors->all()) }}',
+                confirmButtonText: 'OK'
+            });
+        @endif
         });
     </script>
     </html>

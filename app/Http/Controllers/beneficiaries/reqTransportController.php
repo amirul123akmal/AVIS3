@@ -36,25 +36,18 @@ class reqTransportController extends Controller
    {
       // dd($request->all());
       // Validate the request
-      $validator = Validator::make($request->all(), [
+      $request->validate([
          'address_from' => 'required|string|max:255',
-         'postcode_from' => 'required|string|max:10',
-         'city_from' => 'required|string|max:100',
          'address_to' => 'required|string|max:255',
-         'postcode_to' => 'required|string|max:10',
+         'postcode_from' => 'required|regex:/^\d{5}$/',
+         'postcode_to' => 'required|regex:/^\d{5}$/',
+         'city_from' => 'required|string|max:100',
          'city_to' => 'required|string|max:100',
-         'state_from' => 'required|exists:state,stateID', // Fixed to state_from
-         'state_to' => 'required|exists:state,stateID',   // Fixed to state_to
-         'vehicle_type' => 'required|exists:vehicletype,vehicleID', // Include vehicleID validation
+         'state_from' => 'required|exists:state,stateID',
+         'state_to' => 'required|exists:state,stateID',
+         'vehicle_type' => 'required|exists:vehicletype,vehicleID',
          'notes' => 'nullable|string|max:500',
       ]);
-
-      if ($validator->fails()) {
-         return response()->json([
-               'status' => 'error',
-               'errors' => $validator->errors(),
-         ], 422);
-      }
 
       // Process the transport request (e.g., save to database)
       $transportRequest = new RequestTransport();
