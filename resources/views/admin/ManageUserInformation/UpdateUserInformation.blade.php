@@ -7,21 +7,25 @@
     <title>Manage Transport</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
+<script>
+    document.addEventListener('DOMContentLoaded', function () {
+        @if ($errors->any())
+            swal.fire({
+                icon: 'error',
+                title: 'Errors',
+                html: '{{ implode("<br>", $errors->all()) }}',
+                showConfirmButton: true
+            });
+        @endif
+    });
+</script>
+
 <body>
     <x-admin-sidebar>
         <x-admin-navbar />
         <div class="container mx-auto bg-base-100 p-6">
             <div class="max-w-lg mx-auto bg-white shadow-lg rounded-lg p-6 ">
                 <h1 class="text-xl font-bold mb-4">Profile</h1>
-                @if ($errors->any())
-                    <div class="alert alert-danger">
-                        <ul>
-                            @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
-                            @endforeach
-                        </ul>
-                    </div>
-                @endif
                 <form action="{{ route('Update-User-InformationPost', ['id' => $user->actorID]) }}" method="POST" class="updatingForm">
                     @csrf
                     @method('PUT')
