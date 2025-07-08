@@ -35,6 +35,15 @@ class JoinActivitiesController extends Controller
             return redirect()->route('vol.homepage')->withErrors(['error' => 'This activity has reached its maximum number of volunteers.']);
         }
 
+        $activityStartTime = strtotime($activity->dateStart);
+        $currentTime = time();
+        $timeDifference = $activityStartTime - $currentTime;
+
+        // Check if the activity starts in less than 24 hours
+        if ($timeDifference < 86400) { // 86400 seconds in 24 hours
+            return redirect()->route('vol.homepage')->withErrors(['error' => 'You cannot join this activity as it starts in less than 24 hours.']);
+        }
+
         actorActivity::create([
             'actorID' => Auth::id(),
             'activityID' => $activityID,
@@ -63,6 +72,16 @@ class JoinActivitiesController extends Controller
         if ($currentBeneficiaryCount >= $activity->beneficiaryCount) {
             return redirect()->route('beneficiaries')->withErrors(['error' => 'This activity has reached its maximum number of beneficiaries.']);
         }
+
+        $activityStartTime = strtotime($activity->dateStart);
+        $currentTime = time();
+        $timeDifference = $activityStartTime - $currentTime;
+
+        // Check if the activity starts in less than 24 hours
+        if ($timeDifference < 86400) { // 86400 seconds in 24 hours
+            return redirect()->route('beneficiaries')->withErrors(['error' => 'You cannot join this activity as it starts in less than 24 hours.']);
+        }
+
 
         // Insert into database
         $user = BeneficiaryActivity::create([
