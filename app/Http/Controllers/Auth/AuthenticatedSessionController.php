@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\RateLimiter;
 use App\Http\Requests\Auth\LoginRequest;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
@@ -30,26 +32,30 @@ class AuthenticatedSessionController extends Controller
      */
     public function store(LoginRequest $request): RedirectResponse
     {
+        $throttle_key = Str::lower($request->input("email")) . "|" . $request->ip();
+
+        if (RateLimiter::tooManyAttempts($throttle_key, 5)) {
+            $seconds = RateLimiter::availableIn($throttle_key);
+            return back()->withErrors([
+                'email' => "Too many login attempts. Please try again in $seconds seconds."
+            ]);
+        }
+
         $request->authenticate();
         $request->session()->regenerate();
 
         // Get the authenticated user's ID
         $userId = Auth::user()->loginID;
-        // Log::info('Authenticated User ID: ' . $userId);
-        // $data = Actor::where('actorID', $userId)->exists();
         $data = Actor::where('actorID', $userId)->with('status')->first();
-        // dd($data->status->statusType);
+
         if($data->status->statusType === 'Disable')
         {
             Auth::logout();
-
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-
             return Redirect::to('/login')->with('error', 'Account is disabled');
         }
-        // Check if data exist in the actor
-        // if this is true, this means the registration progress of the user is not completed.
+
         if ($data) {
             $user = Auth::user();
             $accounttype = $user->actor->accountType->accountType;

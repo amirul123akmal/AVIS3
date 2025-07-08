@@ -8,19 +8,19 @@
     <title>Avis</title>
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-@if (session('error'))
-    <script>
-        // Wait for the DOM to be fully loaded
-        document.addEventListener('DOMContentLoaded', function () {
-            swal.fire({
-                icon: 'warning',
-                title: '{{ session('error') }}',
-                showConfirmButton: false,
-                timer: 2000
+<script>
+    // Wait for the DOM to be fully loaded
+        @if ($errors->any())
+            document.addEventListener('DOMContentLoaded', function () {
+                swal.fire({
+                    icon: 'error',
+                    title: 'Errors',
+                    html: '{{ implode("<br>", $errors->all()) }}',
+                    showConfirmButton: true
+                });
             });
-        });
+        @endif
     </script>
-@endif
 <body>
     <x-home-navbar custom="fixed top-0 z-10 opacity-0 hover:opacity-100 transition ease-in-out duration-500" />
     <div class="bg-[#d6d9de] h-screen">
@@ -37,7 +37,7 @@
                             <p class="font-bold">Email</p>
                             <label class="input input-bordered flex items-center gap-2 ">
                                 <input type="email" name="email" class="focus:ring-0 grow"
-                                    placeholder="Enter Your Email" />
+                                    placeholder="Enter Your Email" value="{{ old('email') }}" required autofocus />
                             </label>
                             <x-input-error :messages="$errors->get('email')" class="mt-2" />
 
@@ -52,14 +52,6 @@
 
                         </div>
                     </div>
-                    {{-- <div class="flex justify-between">
-                        <label class="cursor-pointer label ">
-                            <input type="checkbox" class="checkbox checkbox-sm" name="rememberMe" />
-                            <span class="label-text ms-3">Remember Me</span>
-                        </label>
-                        <a href="forgot-password" type="button"
-                            class="rounded-3xl bg-[#5671a7] h-7 pb-2 px-3 mt-2 text-white">Forgot Password</a>
-                    </div> --}}
                     <button class="btn bg-[#e9d6f1] w-full rounded-xl text-2xl mt-8">Log In</button>
                 </form>
             </div>
