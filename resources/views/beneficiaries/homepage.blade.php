@@ -162,7 +162,13 @@
         @if(session('error'))
             alertify.error("{{ session('error') }}");
         @endif
-        
+        @if ($errors->any())
+            swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: "{{ implode(', ', $errors->all()) }}",
+            });
+        @endif
         @if(session('success'))
             alertify.success("{{ session('success') }}");
         @endif

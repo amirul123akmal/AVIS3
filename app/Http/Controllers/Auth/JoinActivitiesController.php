@@ -53,9 +53,17 @@ class JoinActivitiesController extends Controller
         ->exists();
         
         if ($exists) {
-            return redirect()->route('beneficiaries')->with('error', 'You have already joined this activity.');
+            return redirect()->route('beneficiaries')->withErrors(['error' => 'You have already joined this activity.']);
         }
         
+        // Check the current beneficiary count for the activity
+        $activity = Activity::findOrFail($activityID);
+        $currentBeneficiaryCount = BeneficiaryActivity::where('activityID', $activityID)->count();
+
+        if ($currentBeneficiaryCount >= $activity->beneficiaryCount) {
+            return redirect()->route('beneficiaries')->withErrors(['error' => 'This activity has reached its maximum number of beneficiaries.']);
+        }
+
         // Insert into database
         $user = BeneficiaryActivity::create([
             'benID' => $benID,
