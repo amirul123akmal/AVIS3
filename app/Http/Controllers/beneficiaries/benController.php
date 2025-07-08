@@ -51,7 +51,7 @@ class benController extends Controller
         $validator = Validator::make(
             $request->all(),
             [
-                'numOfDependents' => ['required', 'integer', 'min:0'],
+                'numOfDependents' => ['required', 'integer', 'min:0', 'max:20'],
             ],
             [],
             [
