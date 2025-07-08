@@ -21,7 +21,7 @@ class reqTransportController extends Controller
       $pendingRequest = RequestTransport::where('benID', $benID)
           ->whereDate('dateReq', '>=', now()->toDateString())
           ->first();
-
+      
       if ($pendingRequest) {
           return view('beneficiaries.reqTransportStatWait', compact('actor', 'pendingRequest'));
       }
@@ -37,12 +37,12 @@ class reqTransportController extends Controller
       // dd($request->all());
       // Validate the request
       $request->validate([
-         'address_from' => 'required|string|max:255|regex:/^[a-zA-Z0-9\s]+$/',
-         'address_to' => 'required|string|max:255|different:address_from|regex:/^[a-zA-Z0-9\s]+$/',
+         'address_from' => 'required|string|max:255|regex:/^[a-z A-Z0-9\s]+$/',
+         'address_to' => 'required|string|max:255|different:address_from|regex:/^[a-z A-Z0-9\s]+$/',
          'postcode_from' => 'required|regex:/^\d{5}$/',
          'postcode_to' => 'required|regex:/^\d{5}$/',
-         'city_from' => 'required|string|max:100|regex:/^[a-zA-Z]+$/',
-         'city_to' => 'required|string|max:100|regex:/^[a-zA-Z]+$/',
+         'city_from' => 'required|string|max:100|regex:/^[a-z A-Z]+$/',
+         'city_to' => 'required|string|max:100|regex:/^[a-z A-Z]+$/',
          'state_from' => 'required|exists:state,stateID',
          'state_to' => 'required|exists:state,stateID',
          'vehicle_type' => 'required|exists:vehicletype,vehicleID',
@@ -71,5 +71,20 @@ class reqTransportController extends Controller
       $transportRequest->save();
 
       return redirect()->route('ben.reqTransport')->with('success', 'Transport request submitted successfully.');
+   }
+
+   public function cancelReqTransport(Request $request){
+      // Validate the request to ensure a request ID is provided
+      $request->validate([
+         'request_id' => 'required|exists:requesttransport,reqID', // Assuming the table is named 'request_transports'
+      ]);
+
+      // Find the transport request by ID
+      $transportRequest = RequestTransport::findOrFail($request->request_id);
+
+      // Delete the transport request
+      $transportRequest->delete();
+
+      return redirect()->route('ben.reqTransport')->with('success', 'Transport request cancelled successfully.');
    }
 }

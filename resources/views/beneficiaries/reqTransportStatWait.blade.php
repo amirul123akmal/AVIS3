@@ -148,6 +148,11 @@
                     <div class="status rejected">Rejected</div>
                 @else
                     <div class="status bg-black">Waiting for approval</div>
+                <form action="{{ route('ben.cancelReqTransport') }}" method="POST" class="mt-4">
+                    @csrf
+                    <input type="hidden" name="request_id" value="{{ $pendingRequest->reqID }}">
+                    <button type="submit" class="btn-cancel bg-red-500 text-white py-2 px-4 rounded">Cancel Request</button>
+                </form>
                 @endif
             </div>
         </main>

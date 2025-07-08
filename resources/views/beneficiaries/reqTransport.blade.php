@@ -251,7 +251,12 @@
     <script>
         document.addEventListener("DOMContentLoaded", function() {
             @if(session('success'))
-                alert("{{ session('success') }}");
+                swal.fire({
+                    icon: 'success',
+                    title: 'Success',
+                    text: "{{ session('success') }}",
+                    confirmButtonText: 'OK'
+                });
             @endif
         @if ($errors->any())
             swal.fire({
