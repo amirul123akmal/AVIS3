@@ -43,7 +43,7 @@ class ManageUserInformationController extends Controller
             'username' => ['required', 'string', 'max:255'],
             'full_name' => ['required', 'string', 'max:255', "regex:/^[a-z A-Z`']*$/"], // Added validation for full_name
             'phone_number' => ['required', 'string', 'min:8', 'max:12', 'regex:/^[0-9]*$/'],
-            'address' => ['required', 'string', 'max:255', 'regex:/^[a-zA-Z0-9.,]*$/'],
+            'address' => ['required', 'string', 'max:255', 'regex:/^[a-z A-Z0-9.,]*$/'],
             'postcode' => ['required', 'string', 'min:5', 'max:5', 'regex:/^[0-9]*$/'],
             'state' => ['required', 'integer', 'exists:state,stateID'],
             'email' => [

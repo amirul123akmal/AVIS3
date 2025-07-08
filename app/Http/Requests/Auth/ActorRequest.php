@@ -22,7 +22,7 @@ class ActorRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'fullname' => ['required', 'string', 'max:200'],
+            'fullname' => ['required', 'string', 'max:200', "regex:/^[a-z A-Z`']*$/"],
             'icnum' => ['required', 'string', 'min:12', 'max:12', 'unique:actor,ic'],
             'phoneNumber' => ['required', 'string', 'min:11', 'max:12', 'regex:/^[0-9]+$/'],
             'address' => ['required', 'string'],
