@@ -19,4 +19,13 @@ class volunteerController extends Controller
         });
         return view('volunteers.homepage', compact('activities'));
     }
+
+    public function outdated_activity(){
+        // $user = Auth::user()->actor;
+        $activities = Activity::get();
+        $activities = $activities->filter(function($activity) {
+            return strtotime($activity->dateEnd) < time();
+        });
+        return view('volunteers.outdated_activity', compact('activities'));
+    }
 }

@@ -12,6 +12,8 @@ Route::middleware('auth')->group(function () {
             Route::post('/joinActivity/{activityID}', [JoinActivitiesController::class, 'volJoinActivities'])->name('vol.joinActivity');
             Route::get('/JoinedActivities', [JoinActivitiesController::class, 'showVolJoinActivitiesList'])->name('vol.joinedActivities');
             Route::post('/cancelActivity/{activityID}', [JoinActivitiesController::class, 'volCancelJoinActivity'])->name('vol.joinActivity.cancel');
+            
+            Route::get('/OutdatedActivity', [volunteerController::class, 'outdated_activity'])->name('vol.outdateActivity');
         });
     });
 });

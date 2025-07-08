@@ -18,6 +18,11 @@
                         'link' => 'vol.joinedActivities',
                         'icon' => 'bi-activity',
                     ],
+                    [
+                        'name' => 'Outdated Activity',
+                        'link' => 'vol.outdateActivity',
+                        'icon' => 'bi-activity',
+                    ],
                 ];
             @endphp
             <section class="flex p-4">
