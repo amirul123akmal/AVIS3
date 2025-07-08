@@ -35,6 +35,16 @@ class JoinActivitiesController extends Controller
             return redirect()->route('vol.homepage')->withErrors(['error' => 'This activity has reached its maximum number of volunteers.']);
         }
 
+        $joinedActivities = actorActivity::where('actorID', Auth::id())->pluck('activityID')->toArray();
+        $clashingActivities = Activity::whereIn('activityID', $joinedActivities)
+            ->where('dateStart', '<=', $activity->dateEnd)
+            ->where('dateEnd', '>=', $activity->dateStart)
+            ->exists();
+
+        if ($clashingActivities) {
+            return redirect()->route('vol.homepage')->withErrors(['error' => 'You cannot join this activity as it clashes with an activity you have already joined.']);
+        }
+
         $activityStartTime = strtotime($activity->dateStart);
         $currentTime = time();
         $timeDifference = $activityStartTime - $currentTime;
@@ -64,13 +74,23 @@ class JoinActivitiesController extends Controller
         if ($exists) {
             return redirect()->route('beneficiaries')->withErrors(['error' => 'You have already joined this activity.']);
         }
-        
+
         // Check the current beneficiary count for the activity
         $activity = Activity::findOrFail($activityID);
         $currentBeneficiaryCount = BeneficiaryActivity::where('activityID', $activityID)->count();
 
         if ($currentBeneficiaryCount >= $activity->beneficiaryCount) {
             return redirect()->route('beneficiaries')->withErrors(['error' => 'This activity has reached its maximum number of beneficiaries.']);
+        }
+
+        $joinedActivities = BeneficiaryActivity::where('benID', $benID)->pluck('activityID')->toArray();
+        $clashingActivities = Activity::whereIn('activityID', $joinedActivities)
+            ->where('dateStart', '<=', $activity->dateEnd)
+            ->where('dateEnd', '>=', $activity->dateStart)
+            ->exists();
+
+        if ($clashingActivities) {
+            return redirect()->route('beneficiaries')->withErrors(['error' => 'You cannot join this activity as it clashes with an activity you have already joined.']);
         }
 
         $activityStartTime = strtotime($activity->dateStart);
