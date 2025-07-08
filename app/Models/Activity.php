@@ -19,6 +19,8 @@ class Activity extends Model
         'timeEnd',
         'volunteerCount',
         'beneficiaryCount',
+        'activityImage',
+        'activityDescription'
     ];
 
     public function actorActivity(): HasMany

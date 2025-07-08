@@ -23,7 +23,7 @@ class Activities extends Seeder
                 'volunteerCount' => $faker->numberBetween(1, 100),
                 'beneficiaryCount' => $faker->numberBetween(1, 100),
                 'activityImage' => 'activity_images/default.jpg',
-                'activityDescription' => $faker->paragraph,
+                'activityDescription' => $faker->sentence,
                 'created_at' => now()->setDate(2025, 2, rand(1, 6))->setTime(rand(0, 23), rand(0, 59)),
                 'updated_at' => now(),
             ]);
