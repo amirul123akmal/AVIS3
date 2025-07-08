@@ -38,7 +38,7 @@ class reqTransportController extends Controller
       // Validate the request
       $request->validate([
          'address_from' => 'required|string|max:255',
-         'address_to' => 'required|string|max:255',
+         'address_to' => 'required|string|max:255|different:address_from',
          'postcode_from' => 'required|regex:/^\d{5}$/',
          'postcode_to' => 'required|regex:/^\d{5}$/',
          'city_from' => 'required|string|max:100',
