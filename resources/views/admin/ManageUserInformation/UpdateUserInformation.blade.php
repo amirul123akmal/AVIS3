@@ -40,43 +40,43 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Full Name</label>
-                        <input type="text" name="full_name" value="{{ $user->fullname }}" class="input input-bordered w-full" readonly />
+                        <input type="text" name="full_name" value="{{ old('full_name', $user->fullname) }}" class="input input-bordered w-full" {{ old('full_name') ? '' : 'readonly' }} />
                     </div>
                     <div class="flex gap-x-5 mx-auto">
                         <div class="mb-4 w-full">
                             <label class="block text-sm font-medium">IC Number</label>
-                            <input type="text" name="ic_number" value="{{ $user->ic }}" class="input input-bordered w-full" readonly />
+                            <input type="text" name="ic_number" value="{{ old('ic_number', $user->ic) }}" class="input input-bordered w-full" {{ old('ic_number') ? '' : 'readonly' }} />
                         </div>
                         <div class="mb-4 w-full">
                             <label class="block text-sm font-medium">Username</label>
-                            <input type="text" name="username" value="{{$user->login->username}}" class="input input-bordered w-full" readonly />
+                            <input type="text" name="username" value="{{ old('username', $user->login->username) }}" class="input input-bordered w-full" {{ old('username') ? '' : 'readonly' }} />
                         </div>
                     </div>
                     
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Email</label>
-                        <input type="email" name="email" value="{{$user->login->email}}" class="input input-bordered w-full" readonly />
+                        <input type="email" name="email" value="{{ old('email', $user->login->email) }}" class="input input-bordered w-full" {{ old('email') ? '' : 'readonly' }} />
                     </div>                   
                     <div class="flex gap-x-5 mx-auto [&_.mb-4]:w-full">
                         <div class="mb-4">
                             <label class="block text-sm font-medium">Phone Number</label>
-                            <input type="text" name="phone_number" value="{{ $user->phoneNumber }}" class="input input-bordered w-full" readonly />
+                            <input type="text" name="phone_number" value="{{ old('phone_number', $user->phoneNumber) }}" class="input input-bordered w-full" {{ old('phone_number') ? '' : 'readonly' }} />
                         </div>
                     </div>
 
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Address</label>
-                        <textarea name="address" class="textarea textarea-bordered w-full" readonly>{{ $user->address->road }}</textarea>
+                        <textarea name="address" class="textarea textarea-bordered w-full" {{ old('address') ? '' : 'readonly' }}>{{ old('address', $user->address->road) }}</textarea>
                     </div>
                     <div class="flex gap-x-5">
                         <div class="mb-4">
                             <label class="block text-sm font-medium">Postcode</label>
-                            <input type="text" name="postcode" value="{{ $user->address->postcode }}" class="input input-bordered w-full" readonly />
+                            <input type="text" name="postcode" value="{{ old('postcode', $user->address->postcode) }}" class="input input-bordered w-full" {{ old('postcode') ? '' : 'readonly' }} />
                         </div>
         
                         <div class="mb-4">
                             <label class="block text-sm font-medium">State</label>
-                            <select name="state" class="select select-bordered w-full" readonly>
+                            <select name="state" class="select select-bordered w-full" {{ old('state') ? '' : 'readonly' }}>
                                 @foreach ($states as $state)
                                     <option value="{{ $state->stateID }}" {{ $user->address->stateID == $state->stateID ? 'selected' : '' }}>{{ $state->statename }}</option>
                                 @endforeach
@@ -90,7 +90,7 @@
                             <select name="income_group" class="select select-bordered w-48" required>
                                 <option value="">Select Income Group</option>
                                 @foreach ($incomeGroup as $group)
-                                    <option value="{{ $group->incomeGroupID }}" {{ $user->beneficiary->incomeGroupID == $group->incomeGroupID ? 'selected' : '' }}>{{ $group->groupType }}</option>
+                                    <option value="{{ $group->incomeGroupID }}" {{ old('income_group', $user->beneficiary->incomeGroupID) == $group->incomeGroupID ? 'selected' : '' }}>{{ $group->groupType }}</option>
                                 @endforeach
                             </select>
                         </div>
@@ -98,7 +98,7 @@
                     @endif
 
                     <div class="flex justify-between mt-6">
-                        <button class="btn btn-primary updating">Click to Start Update</button>
+                        <button class="btn btn-primary updating">{{ old('full_name') ? 'Save' : 'Click to Start Update' }}</button>
                         <div class="flex space-x-2">
                             <a href="{{route('Manage-User-Information')}}" class="btn btn-secondary">Back to User List</a>
                             <button class="btn bg-red-500">Delete User</button>
