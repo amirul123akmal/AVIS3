@@ -18,7 +18,7 @@ class FullUser extends Seeder
      */
     public function run(): void
     {
-        User::factory(100)
+        User::factory(170)
             ->has(
                 Actor::factory()->state(function (array $attributes, User $user) {
                     $address = Address::factory()->create();
@@ -35,25 +35,26 @@ class FullUser extends Seeder
         $actors = Actor::where('accountID', 2)->get();
 
         foreach ($actors as $actor) {
-            $randomValue = (bool) rand(0, 1);
-            if ($randomValue) {
+            $rand = rand(0, 2);
+            // 0 = beneficiary registered but hasnt send any document
+            if ($rand === 0) {
                 $benid = Beneficiary::create([
                     'actorID' => $actor->actorID,
-                    'statusID' => '3',
+                    'statusID' => '5', // pending
                 ]);
-                
-                RequestTransport::create([
+
+                RequestBeneficiary::create([
                     'benID' => $benid->benID,
-                    'addressFrom' => '123 Main St',
-                    'addressTo' => '456 Elm St',
-                    'dateReq' => now()->toDateString(),
-                    'vehicleID'=> '1',
-                    'status' => 'Pending',
-                    'created_at' => now(),
-                    'updated_at' => now(),
+                    'numDependents' => rand(4, 9),
+                    'incomeDocument' => 'default1.pdf',
+                    'supportDocument' => 'default3.pdf',
+                    'asnafCardDocument' => 'default2.pdf',
                 ]);
+                continue ;
+                
             }
-            else
+            // 1 = beneficiary registered but hasnt Approved by project manager
+            if ($rand === 1)
             {
                 $benid = Beneficiary::create([
                     'actorID' => $actor->actorID,
@@ -66,6 +67,40 @@ class FullUser extends Seeder
                     'supportDocument' => 'default3.pdf',
                     'asnafCardDocument' => 'default2.pdf',
                 ]);
+                continue ;
+            }
+            // 2 = beneficiary registered and Approved by project manager
+            if ($rand === 2)
+            {
+                $benid = Beneficiary::create([
+                    'actorID' => $actor->actorID,
+                    'incomeGroupID' => rand(1, 3),
+                    'statusID' => '3', 
+                ]);
+
+                RequestBeneficiary::create([
+                    'benID' => $benid->benID,
+                    'numDependents' => rand(4, 9),
+                    'incomeDocument' => 'default1.pdf',
+                    'supportDocument' => 'default3.pdf',
+                    'asnafCardDocument' => 'default2.pdf',
+                ]);
+                $rand2 = (bool) rand(0,1);
+                // if true, the beneficiary will request a transport
+                if ($rand2)
+                {
+                    RequestTransport::create([
+                        'benID' => $benid->benID,
+                        'addressFrom' => '123 Main St',
+                        'addressTo' => '456 Elm St',
+                        'dateReq' => now()->toDateString(),
+                        'vehicleID'=> '1',
+                        'status' => 'Pending',
+                        'created_at' => now(),
+                        'updated_at' => now(),
+                    ]);
+                }
+                continue ;
             }
         }
     }

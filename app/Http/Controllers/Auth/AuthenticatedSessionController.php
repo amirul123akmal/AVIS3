@@ -34,7 +34,7 @@ class AuthenticatedSessionController extends Controller
     {
         $throttle_key = Str::lower($request->input("email")) . "|" . $request->ip();
 
-        if (RateLimiter::tooManyAttempts($throttle_key, 5)) {
+        if (RateLimiter::tooManyAttempts($throttle_key, 3)) {
             $seconds = RateLimiter::availableIn($throttle_key);
             return back()->withErrors([
                 'email' => "Too many login attempts. Please try again in $seconds seconds."
