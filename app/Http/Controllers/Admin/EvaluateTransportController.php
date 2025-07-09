@@ -51,7 +51,7 @@ class EvaluateTransportController extends Controller
         // dd($request->request);
         $request->validate([
             'status' => 'required|string|in:Pending,Approved,Rejected',
-            "transport_price" => "nullable|numeric|min:0",
+            "transport_price" => "nullable|numeric|min:0|max:1000",
             'notes' => ['required', 'regex:/^[a-z A-Z0-9\s]*$/'],
         ]);
 
