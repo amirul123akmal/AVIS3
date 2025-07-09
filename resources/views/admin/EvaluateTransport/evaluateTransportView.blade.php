@@ -124,11 +124,11 @@
                     <!-- Show price input ONLY when approved -->
                     <div id="priceInput" style="display: none;" class="mb-5">
                         <label class="text-field">Set Transport Price:</label>
-                        <input type="text" name="transport_price" class="w-full p-2 border rounded-md" placeholder="Enter price" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
+                        <input type="text" name="transport_price" class="w-full p-2 border rounded-md" placeholder="Enter price" min="0" value="{{ $transportPrice }}" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                     </div>
 
                     <label class="text-field">Notes:</label>
-                    <textarea name="notes" class="w-full p-2 border rounded-md">{{ $transportRequest->notes }}</textarea>
+                    <textarea name="notes" class="w-full p-2 border rounded-md">{{ $notes }}</textarea>
 
                     <button type="submit" class="bg-[#1f6d84] text-white px-4 py-2 rounded-md mt-3">Update Status</button>
                 </form>
@@ -157,6 +157,13 @@
     </script>
     <script>
         document.addEventListener("DOMContentLoaded", function() {
+            let status = document.getElementById("statusSelect");
+            let priceInput = document.getElementById("priceInput");
+            if (status.value === "Approved") {
+                priceInput.style.display = "block";
+            } else {
+                priceInput.style.display = "none";
+            }
             @if(session('success'))
                 alertify.success("{{ session('success') }}");
             @endif

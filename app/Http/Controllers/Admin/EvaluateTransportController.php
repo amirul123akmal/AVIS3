@@ -42,8 +42,16 @@ class EvaluateTransportController extends Controller
         $addressFrom = str_replace(']', ',', $transportRequest->addressFrom);
         $addressTo = str_replace(']', ',', $transportRequest->addressTo);
         // dd($transportRequest, $addressFrom, $addressTo);
-
-        return view('admin.EvaluateTransport.evaluateTransportView', compact('transportRequest','addressFrom','addressTo'));
+        $transportPrice = 0;
+        $notes = "";
+        if (strpos($transportRequest->notes, ']') !== false) {
+            list($notes, $transportPrice) = explode(']', $transportRequest->notes, 2);
+            $transportPrice = trim($transportPrice); // Remove any extra whitespace
+        } else {
+            $notes = $transportRequest->notes;
+            $transportPrice = 0; // Default value if no price is set
+        }
+        return view('admin.EvaluateTransport.evaluateTransportView', compact('transportRequest','addressFrom','addressTo', 'transportPrice', "notes"));
     }
 
     public function updateEvaluation(Request $request, $id)
