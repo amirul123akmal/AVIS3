@@ -17,5 +17,7 @@
         <a href="{{ route('Create-Transport') }}" class="btn btn-sm">Create Transport <span class="bi bi-plus font-bold text-xl"></span></a>
         <a href="{{ route('Update-Transport') }}" class="btn btn-sm">Edit Transport <span class="bi bi-plus font-bold text-xl"></span></a>
         <a href="{{ route('Delete-Transport') }}" class="btn btn-sm">Delete Transport <span class="bi bi-plus font-bold text-xl"></span></a>
+        <a href="{{ route('Manage-Driver') }}" class="btn btn-sm">Manage Driver <span class="bi bi-plus font-bold text-xl"></span></a>
+        <a href="{{ route('current-busy-driver') }}" class="btn btn-sm">Current Busy Driver <span class="bi bi-plus font-bold text-xl"></span></a>
     </div>
 </div>

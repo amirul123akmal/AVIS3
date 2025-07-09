@@ -68,21 +68,22 @@
                     </div>
                     <form action="{{ route('assign.drivers') }}" method="POST">
                         @csrf
+                        @method("POST")
                         <h2 class="font-semibold mb-2">Assign Drivers</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-                            @foreach ($driver as $drv)
-                            <div class="card bg-[#025067] text-white p-4 rounded-lg justify-between items-center">
+                            @foreach ($busyDrivers as $drv)
+                            <div class="card {{ $drv['status'] === 'unavailable' ? 'bg-gray-400' : 'bg-[#025067]' }} text-white p-4 rounded-lg justify-between items-center">
                                 <div class="flex gap-x-4 mb-5">
                                     <div class="w-16 h-16 bg-gray-300 rounded-full flex items-center justify-center">
                                         <img src="{{ Vite::asset('resources/images/default/profile.jpg') }}" alt="Profile Image" class="rounded-full" />
                                     </div>
                                     <div>
-                                        <p class="font-semibold text-xl">{{ $drv->driverName }}</p>
-                                        <p>Status: Available</p>
+                                        <p class="font-semibold text-xl">{{ $drv["driverName"] }}</p>
+                                        <p>Status: {{ $drv["status"] }}</p>
                                     </div>
                                     <span class="bi bi-chevron-compact-right font-bold text-3xl pt-3"></span>
                                 </div>
-                                <input type="radio" name="drivers" value="{{ $drv->driverID }}" class="rounded-2xl bg-white text-black h-8 text-center text-xl w-40">
+                                <input type="radio" name="drivers" value="{{ $drv['driverID'] }}" class="rounded-2xl bg-white text-black h-8 text-center text-xl w-40" {{ $drv['status'] === 'unavailable' ? 'disabled' : '' }}>
                             </div>
                             @endforeach
                         </div>
@@ -90,10 +91,10 @@
                         <h2 class="font-semibold mb-2">Transportation Details</h2>
                         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
                             @foreach ($transportation as $transport)
-                            <div class="card bg-gray-100 p-4 rounded-lg flex justify-between items-center">
+                            <div class="card bg-gray-100 p-4 rounded-lg flex justify-between items-center {{ in_array($transport->transID, array_keys($busyVehicle)) ? 'bg-red-200' : '' }}">
                                 <span>{{ $transport->vehiclePlateNumber }}</span>
                                 <span>{{ $transport->vehicleType->vehicleType }}</span>
-                                <input type="radio" name="transportation" value="{{ $transport->transID }}" class="mr-2">
+                                <input type="radio" name="transportation" value="{{ $transport->transID }}" class="mr-2" {{ in_array($transport->transID, array_keys($busyVehicle)) ? 'disabled' : '' }}>
                             </div>
                             @endforeach
                         </div>
@@ -108,11 +109,20 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         @if(session('success'))
-            alertify.success("{{ session('success') }}");
+            swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: "{{ session('success') }}",
+                confirmButtonText: 'OK'
+            });
         @endif
 
-        @if(session('error'))
-            alertify.error("{{ session('error') }}");
+        @if($errors->any())
+            swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: '{{ implode(', ', $errors->all()) }}',
+            });
         @endif
     });
 </script>

@@ -21,9 +21,18 @@ class reqTransportController extends Controller
       $pendingRequest = RequestTransport::where('benID', $benID)
           ->whereDate('dateReq', '>=', now()->toDateString())
           ->first();
-      
+      $notes = $price = null; // Initialize variables
+      if (!empty($pendingRequest->notes)) {
+          if (strpos($pendingRequest->notes, ']') !== false) {
+              list($notes, $price) = explode(']', $pendingRequest->notes);
+              $price = trim($price); // Remove any extra whitespace
+          } else {
+              $notes = trim($pendingRequest->notes); // Only assign notes if no delimiter
+              $price = null; // Set price to null if no delimiter
+          }
+      }
       if ($pendingRequest) {
-          return view('beneficiaries.reqTransportStatWait', compact('actor', 'pendingRequest'));
+          return view('beneficiaries.reqTransportStatWait', compact('actor', 'pendingRequest', 'notes', 'price'));
       }
       return view('beneficiaries.reqTransport', compact('actor', 'states', 'vehicletype'));
    }

@@ -232,7 +232,7 @@
                         </div>
                         <div class="mt-4">
                             <label class="block text-black font-medium mb-1">Notes</label>
-                            <textarea rows="3" placeholder="Leave a Message Here" name="notes">{{ old('notes') }}</textarea>
+                            <textarea rows="3" placeholder="Please more detail. Purpose, date and other information" name="notes">{{ old('notes') }}</textarea>
                         </div>
                     </div>
                     

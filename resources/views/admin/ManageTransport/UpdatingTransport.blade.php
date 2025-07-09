@@ -16,7 +16,6 @@
                 
                 <div class="col-span-3">
                     <h1 class="text-2xl font-bold mb-4">Manage Transport</h1>
-                    {{ session('success') }}
                     <div class="flex justify-between mb-4 rounded-lg bg-white">
                         <a href="{{ route('admin.evaluatePage') }}" class="btn btn-ghost">Request Transport</a>
                         <a href="{{ route('Create-Transport') }}" class="btn btn-ghost">Create Transport</a>
@@ -73,7 +72,7 @@
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         @if(session('success'))
-        Swal.fire({
+        swal.fire({
             icon: 'success',
             title: 'Success',
             text: '{{ session('success') }}',

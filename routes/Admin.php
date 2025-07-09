@@ -39,6 +39,12 @@ Route::middleware('auth')->group(function () {
             Route::post('Assign-Transportation', [ManageTransportController::class, 'assignDrivers'])->name('assign.drivers');
             Route::get('View-Transport', [ManageTransportController::class, 'viewTransport'])->name('admin.view-transport');
 
+            Route::get('Manage-Driver', [ManageTransportController::class, 'getDriver'])->name('Manage-Driver');
+            Route::put('Manage-Driver', [ManageTransportController::class, 'createDriver'])->name('transport.driver.put');
+            Route::patch('Manage-Driver', [ManageTransportController::class, 'updateDriver'])->name('transport.driver.patch');
+            Route::delete('Manage-Driver', [ManageTransportController::class, 'deleteDriver'])->name('transport.driver.delete');
+            Route::get('Current-Busy-Driver', [ManageTransportController::class, 'currentDriver'])->name('current-busy-driver');
+
             // Manage Activity Controller
             Route::get('Activity', [ManageActivity::class, 'page'])->name('Activity');
             Route::get('DeleteActivity', [ManageActivity::class, 'deleteActivity'])->name('activity.delete');

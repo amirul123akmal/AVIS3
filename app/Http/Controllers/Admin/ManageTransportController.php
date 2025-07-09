@@ -24,7 +24,31 @@ class ManageTransportController extends Controller
         $addressFrom = str_replace(']', ',', $data->addressFrom);
         $addressTo = str_replace(']', ',', $data->addressTo);
         // dd($addressFrom, $addressTo);
-        return view('admin.ManageTransport.ManageTransport', compact('data', 'transportation', 'driver', 'vehicletype', 'id', 'addressFrom', 'addressTo'));
+        $busyDrivers = [];
+        $busyVehicle = [];
+        $currentDate = now()->toDateString();
+        foreach ($driver as $drv) {
+            $assignedTransport = Driver::join('transportation', 'driver.driverID', '=', 'transportation.driverID')
+            ->join('transportassign', 'transportation.transID', '=', 'transportassign.transID')
+            ->join('requesttransport', 'transportassign.reqID', '=', 'requesttransport.reqID')
+            ->where('requesttransport.dateReq', '>=', $currentDate)
+            ->where('driver.driverID', $drv->driverID)
+            ->first();
+            
+            // if( $drv->driverID === 3)
+            // dd($assignedTransport?? 'a');
+            if($assignedTransport)
+            {
+                $busyVehicle[$assignedTransport->transID] = $assignedTransport["vehiclePlateNumber"];
+            }
+            $busyDrivers[$drv->driverID] = [
+                'status' => $assignedTransport ? 'unavailable' : 'available',
+                'driverName' => $drv->driverName,
+                'driverID' => $drv->driverID,
+            ];
+        }
+        // dd($busyVehicle);
+        return view('admin.ManageTransport.ManageTransport', compact('data', 'transportation', 'busyDrivers', 'busyVehicle', 'vehicletype', 'id', 'addressFrom', 'addressTo'));
     }
 
     public function createTransport(): View
@@ -92,6 +116,7 @@ class ManageTransportController extends Controller
         $transportation = Transportation::all();
         $driver = Driver::all();
         $vehicletype = VehicleType::all();
+        
         return view('admin.ManageTransport.viewTransport', compact('transportation','driver','vehicletype'));
     }
 
@@ -113,6 +138,46 @@ class ManageTransportController extends Controller
         $transportAssign->reqID = $validatedData['reqID'];
         $transportAssign->save();
 
-        return redirect()->route('admin.assignTransport')->with('success', 'Driver assigned successfully');
+        return redirect()->route('current-busy-driver')->with('success', 'Driver assigned successfully');
+    }
+
+    public function getDriver()
+    {
+        $drivers = Driver::all();
+        return view('admin.ManageTransport.ManageDriver', compact('drivers'));
+    }
+
+    public function createDriver(Request $request)
+    {
+        $validatedData = $request->validate([
+            'driverName' => 'required|string|max:255',
+            'driverPhoneNum' => 'required|regex:/^[0-9]+$/|max:15',
+        ]);
+
+        $driver = new Driver();
+        $driver->driverName = $validatedData['driverName'];
+        $driver->driverPhoneNum = $validatedData['driverPhoneNum'];
+        $driver->save();
+
+        return redirect()->route('Manage-Driver')->with('success', 'Driver created successfully');
+    }
+
+    public function updateDriver(){
+
+    }
+
+    public function currentDriver()
+    {
+        $currentDate = now()->toDateString();
+
+        $assignedTransport = Driver::join('transportation', 'driver.driverID', '=', 'transportation.driverID')
+            ->join('transportassign', 'transportation.transID', '=', 'transportassign.transID')
+            ->join('requesttransport', 'transportassign.reqID', '=', 'requesttransport.reqID')
+            ->join('beneficiary', 'beneficiary.benID', '=', 'requesttransport.benID')
+            ->join('actor', 'beneficiary.actorID', '=', 'actor.actorID')
+            ->join('login', 'actor.actorID', '=', 'login.loginID') // Join with login to retrieve email
+            ->where('requesttransport.dateReq', '>=', $currentDate)->get();
+            // dd($assignedTransport);
+        return view('admin.ManageTransport.busyDriver', compact('assignedTransport'));
     }
 }

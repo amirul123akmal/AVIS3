@@ -77,6 +77,11 @@ class EvaluateTransportController extends Controller
             'notes' => $notes_storage
         ]);
 
+        if ($request->status === 'Rejected') {
+            $transportRequest->dateReq = now();
+            $transportRequest->save();
+        }
+
         return redirect()->route('admin.evaluateDetails', ['id' => $id])->with('success', 'Transport request updated successfully!');
     }
 }

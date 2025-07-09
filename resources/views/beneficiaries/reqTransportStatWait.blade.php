@@ -144,8 +144,29 @@
                 <h2>Application Status</h2>
                 @if($pendingRequest->status === 'Approved')
                     <div class="status approved">Approved</div>
+                    <div class="mt-4 p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Notes:</h3>
+                        <p class="text-gray-600">{{ $notes }}</p>
+                    </div>
+                    <div class="mt-4 p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Price:</h3>
+                        <p class="text-gray-600">RM {{ number_format($price, 2) }}</p>
+                        <div class="text-left">
+                            <p class="text-red-500 text-sm">*Make the payment later at the site</p>
+                            <p class="text-red-500 text-sm">**If the payment is 0, you do not need to pay anything</p>
+                        </div>
+                    </div>
                 @elseif($pendingRequest->status === 'Rejected')
                     <div class="status rejected">Rejected</div>
+                    <div class="mt-4 p-4 bg-white rounded-lg shadow-md">
+                        <h3 class="text-lg font-semibold text-gray-800">Notes:</h3>
+                        <p class="text-gray-600">{{ $notes }}</p>
+                    </div>
+                    <div class="mt-4 p-4 bg-white rounded-lg shadow-md">
+                        <div class="text-left">
+                            <p class="text-red-500 text-sm">*You can request again starts tomorrow</p>
+                        </div>
+                    </div>
                 @else
                     <div class="status bg-black">Waiting for approval</div>
                 <form action="{{ route('ben.cancelReqTransport') }}" method="POST" class="mt-4">
