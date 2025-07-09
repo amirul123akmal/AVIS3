@@ -124,7 +124,7 @@
                     <!-- Show price input ONLY when approved -->
                     <div id="priceInput" style="display: none;" class="mb-5">
                         <label class="text-field">Set Transport Price:</label>
-                        <input type="number" name="transport_price" class="w-full p-2 border rounded-md" placeholder="Enter price" min="0">
+                        <input type="text" name="transport_price" class="w-full p-2 border rounded-md" placeholder="Enter price" min="0" oninput="this.value = this.value.replace(/[^0-9.]/g, '').replace(/(\..*?)\..*/g, '$1');">
                     </div>
 
                     <label class="text-field">Notes:</label>
@@ -155,12 +155,20 @@
             }
         });
     </script>
-    @if(session('success'))
     <script>
         document.addEventListener("DOMContentLoaded", function() {
-            alertify.success("{{ session('success') }}");
+            @if(session('success'))
+                alertify.success("{{ session('success') }}");
+            @endif
+
+            @if ($errors->any())
+                swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    text: '{{ implode(', ', $errors->all()) }}',
+                });
+            @endif
         });
     </script>
-    @endif
 </body>
 </html>

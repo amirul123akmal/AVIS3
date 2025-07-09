@@ -51,7 +51,8 @@ class EvaluateTransportController extends Controller
         // dd($request->request);
         $request->validate([
             'status' => 'required|string|in:Pending,Approved,Rejected',
-            'notes' => 'nullable|string',
+            "transport_price" => "nullable|numeric|min:0",
+            'notes' => ['required', 'regex:/^[a-z A-Z0-9\s]*$/'],
         ]);
 
         $transportRequest = RequestTransport::find($id);
@@ -59,10 +60,13 @@ class EvaluateTransportController extends Controller
         if (!$transportRequest) {
             return abort(404, 'Transport request not found.');
         }
+        $notes_storage = $request->transport_price !== null 
+            ? $request->notes . ']' . $request->transport_price 
+            : $request->notes;
 
         $transportRequest->update([
             'status' => $request->status,
-            'notes' => $request->notes
+            'notes' => $notes_storage
         ]);
 
         return redirect()->route('admin.evaluateDetails', ['id' => $id])->with('success', 'Transport request updated successfully!');
