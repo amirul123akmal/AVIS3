@@ -53,7 +53,7 @@ class AuthenticatedSessionController extends Controller
             Auth::logout();
             $request->session()->invalidate();
             $request->session()->regenerateToken();
-            return Redirect::to('/login')->with('error', 'Account is disabled');
+            return Redirect::to('/login')->withErrors(['error' => 'Account is disabled']);
         }
 
         if ($data) {
