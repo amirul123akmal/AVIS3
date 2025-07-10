@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\ActorRequest;
-use App\Http\Requests\Auth\ValidTlds;
+use App\Http\Requests\Auth\validTlds;
 use App\Models\AccountType;
 use App\Models\Actor;
 use App\Models\Beneficiary;
