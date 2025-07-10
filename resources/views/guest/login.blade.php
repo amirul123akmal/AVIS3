@@ -46,7 +46,7 @@
                             <p class="font-bold">Password</p>
                             <label class="input input-bordered flex items-center gap-2">
                                 <input type="password" name="password" class="grow focus:ring-0"
-                                    placeholder="Create Password" />
+                                    placeholder="Your Account Password" />
                             </label>
                             <x-input-error :messages="$errors->get('password')" class="mt-2" />
 

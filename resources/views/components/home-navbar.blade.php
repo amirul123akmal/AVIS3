@@ -8,16 +8,16 @@
     <div class="flex-1 justify-end">
     </div>
     <div class="flex-end [&_a]:me-8">
-        <a href="" class="">
+        <a href="What-Are-We" class="">
             What We Do
         </a>
-        <a href="" class="">
+        <a href="We-Serve" class="">
             Who We Serve
         </a>
-        <a href="" class="">
+        <a href="login" class="">
             Get Involved
         </a>
-        <a href="" class="">
+        <a href="About-Us" class="">
             About Us
         </a>
         <a href="/login" class="text-[#1f6d84]">

@@ -15,5 +15,9 @@ Route::post('register', [RegisteredUserController::class, 'store']);
 Route::get('login', [AuthenticatedSessionController::class, 'create'])->name('login');
 Route::post('login', [AuthenticatedSessionController::class, 'store']);
 
+Route::view('About-Us', 'guest.what-we-us');
+Route::view('We-Serve', 'guest.who-we-serve');
+Route::view('What-Are-We', 'guest.what-are-we');
+
 require __DIR__ . '/auth.php';
 require __DIR__ . '/testing.php';
