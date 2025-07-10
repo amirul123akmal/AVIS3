@@ -79,7 +79,7 @@ class EvaBenController extends Controller
 
         // second validation whether the information of the beneficiay is completed or not
         $beneficiary = Beneficiary::with('requestBeneficiary')->findOrFail($benID);
-        if (is_null($beneficiary->requestBeneficiary?->incomeDocument) || is_null($beneficiary->requestBeneficiary?->asnafCardDocument)) {
+        if (is_null($beneficiary->requestBeneficiary?->incomeDocument)) {
             return redirect()->back()->withErrors(['error' => "The beneficiary has not completed the application."]);
         }
 
