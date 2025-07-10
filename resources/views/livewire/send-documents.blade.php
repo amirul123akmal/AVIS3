@@ -1,14 +1,14 @@
 <div class="w-full max-w-lg p-6 bg-white rounded-lg shadow-lg dark:bg-gray-500">
     <form wire:submit.prevent="save">
 <!-- Validation error message -->
-        @error('file')
+        {{-- @error('file')
             <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
         @enderror
 
         <!-- If multiple files -->
         @error('file.*')
             <span class="text-red-500 text-sm mt-1 block">{{ $message }}</span>
-        @enderror
+        @enderror --}}
         <h2 class="text-lg font-semibold text-gray-700 dark:text-gray-200 mb-4 ">
             {{ $title }}{!! $title == 'Income Document' ? '<span class="text-red-400 text-2xl">*</span>' : '' !!}</h2>
         <div

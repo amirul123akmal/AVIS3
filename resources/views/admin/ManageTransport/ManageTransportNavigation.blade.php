@@ -1,14 +1,6 @@
 <div class="col-span-1">
     <h2 class="font-bold mb-2">Transport</h2>
     <div class="mb-4">
-        <label class="block text-sm font-medium">Filter by:</label>
-        <select class="select select-bordered w-full">
-            <option>New Activity</option>
-            <option>Current Activity</option>
-            <option>Past Activity</option>
-        </select>
-    </div>
-    <div class="mb-4">
         <input type="text" placeholder="Search Transport" class="input input-bordered w-full" />
     </div>
     <h2 class="font-bold mt-4">Manage Transport</h2>

@@ -53,5 +53,30 @@
         </div>
     </x-admin-sidebar>
 </body>
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        const searchInput = document.getElementById('activitySearch');
+        const grid = document.querySelector('.grid');
+        if (!searchInput || !grid) return;
 
+        const activityCards = grid.querySelectorAll('div');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = searchInput.value.trim().toLowerCase();
+
+            activityCards.forEach(card => {
+                const h3 = card.querySelector('h3');
+                if (!h3) return;
+
+                const activityName = h3.textContent.toLowerCase();
+                if (activityName.includes(searchTerm)) {
+                    card.style.display = ''; // reset to default display
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+    });
+
+</script>
 </html>

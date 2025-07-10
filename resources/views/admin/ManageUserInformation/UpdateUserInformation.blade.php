@@ -63,11 +63,6 @@
                             <input type="text" name="phone_number" value="{{ old('phone_number', $user->phoneNumber) }}" class="input input-bordered w-full" {{ old('phone_number') ? '' : 'readonly' }} />
                         </div>
                     </div>
-
-                    <div class="mb-4">
-                        <label class="block text-sm font-medium">Address</label>
-                        <textarea name="address" class="textarea textarea-bordered w-full" {{ old('address') ? '' : 'readonly' }}>{{ old('address', $user->address->road) }}</textarea>
-                    </div>
                     <div class="flex gap-x-5">
                         <div class="mb-4">
                             <label class="block text-sm font-medium">Postcode</label>
@@ -82,6 +77,10 @@
                                 @endforeach
                             </select>
                         </div>
+                    </div>
+                    <div class="mb-4">
+                        <label class="block text-sm font-medium">Address</label>
+                        <textarea name="address" class="textarea textarea-bordered w-full" {{ old('address') ? '' : 'readonly' }}>{{ old('address', $user->address->road) }}</textarea>
                     </div>
                     @if($user->beneficiary)
                     <div class="flex gap-x-5">
@@ -110,8 +109,6 @@
     </x-admin-sidebar>
 </body>
 <script>
-    
-
     window.addEventListener('load', function() {
         @if(session('success'))
         alertify.success('{{ session('success') }}');

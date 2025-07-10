@@ -1,15 +1,7 @@
 <div class="col-span-1">
     <h2 class="font-bold mb-2">Activity</h2>
     <div class="mb-4">
-        <label class="block text-sm font-medium">Filter by:</label>
-        <select class="select select-bordered w-full">
-            <option>New Activity</option>
-            <option>Current Activity</option>
-            <option>Past Activity</option>
-        </select>
-    </div>
-    <div class="mb-4">
-        <input type="text" placeholder="Search Activity" class="input input-bordered w-full" />
+        <input type="text" id="activitySearch" placeholder="Search Activity" class="input input-bordered w-full" />
     </div>
     <h2 class="font-bold mt-4">Manage Activity</h2>
     <div class="flex flex-col gap-y-3 justify-start">

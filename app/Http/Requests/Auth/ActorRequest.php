@@ -23,11 +23,11 @@ class ActorRequest extends FormRequest
     {
         return [
             'fullname' => ['required', 'string', 'max:200', "regex:/^[a-z A-Z`']*$/"],
-            'icnum' => ['required', 'string', 'min:12', 'max:12', 'unique:actor,ic'],
-            'phoneNumber' => ['required', 'string', 'min:11', 'max:12', 'regex:/^[0-9]+$/'],
+            'icnum' => ['required', 'string', 'min:12', 'max:12', 'unique:actor,ic', 'regex:/^[0-9]+$/'],
+            'phoneNumber' => ['required', 'string', 'min:8', 'max:12', 'regex:/^[0-9]+$/'],
             'address' => ['required', 'string'],
             'postcode' => ['required', 'string', 'min:5', 'max:5'],
-            'stateID' => ['required', 'integer', 'min:0', 'max:15']
+            'stateID' => ['required', 'integer', 'min:0', 'max:16']
         ];
     }
 

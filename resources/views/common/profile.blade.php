@@ -79,6 +79,7 @@
 
                 <div class="flex justify-between mt-6">
                     <button class="btn btn-primary">Update</button>
+                    <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
                     <button class="btn btn-secondary">Delete</button>
                 </div>
             </div>
@@ -159,11 +160,11 @@
                     </div>
                     <div class="mb-4">
                         <label class="block text-sm font-medium">Income Group</label>
-                        <p class="input input-bordered w-full">{{ $user->actor->beneficiary->incomeGroup->groupType }}</p>
+                        <p class="input input-bordered w-full">{{ $user->actor->beneficiary->incomeGroup->groupType ?? 'Error' }}</p>
                     </div>
                     <div class="flex justify-between mt-6">
                         <button class="btn btn-primary updating">Click to Start Update</button>
-                        
+                        <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
                         <button class="btn btn-secondary" type="submit" name="action" value="delete">Delete</button>
                     </div>
                 </form>
@@ -245,6 +246,7 @@
                     </div>
                     <div class="flex justify-between mt-6">
                         <button class="btn btn-primary updating">Click to Start Update</button>
+                        <a href="javascript:history.back()" class="btn btn-secondary">Back</a>
                         <div id="deleteConfirmation" class="inline profileform">
                             <button type="button" class="btn btn-secondary" id="deleteButton">Delete</button>
                         </div>

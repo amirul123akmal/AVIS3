@@ -31,7 +31,6 @@
                 </div>
             </div>
         </div>
-    </div>
 </x-admin-sidebar>
 
 </body>

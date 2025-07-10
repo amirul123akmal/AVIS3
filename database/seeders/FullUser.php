@@ -40,16 +40,9 @@ class FullUser extends Seeder
             if ($rand === 0) {
                 $benid = Beneficiary::create([
                     'actorID' => $actor->actorID,
-                    'statusID' => '5', // pending
+                    'statusID' => '4', // Not Approved
                 ]);
 
-                RequestBeneficiary::create([
-                    'benID' => $benid->benID,
-                    'numDependents' => rand(4, 9),
-                    'incomeDocument' => 'default1.pdf',
-                    'supportDocument' => 'default3.pdf',
-                    'asnafCardDocument' => 'default2.pdf',
-                ]);
                 continue ;
                 
             }
